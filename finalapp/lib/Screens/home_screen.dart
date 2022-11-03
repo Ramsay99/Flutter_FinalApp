@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields
 
-import 'package:flutter/material.dart';
+import 'package:finalapp/Screens/screens_barrel.dart'; 
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -12,15 +12,9 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   List<Widget> _content = [
     _Deliveries(),
-    Text(
-      'Index 1: Drivers',
-    ),
-    Text(
-      'Index 2: DashBoard',
-    ),
-    Text(
-      'Index 3: History',
-    ),
+    EmployeesScreen(),
+    DashboardScreen(),
+    HistoryScreen(),
   ];
 
   int _selectedIndex = 0;
