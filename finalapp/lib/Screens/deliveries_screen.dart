@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../Local_Models/local_model_barrel.dart';
+import '../main.dart';
+
 class DeliveriesScreen extends StatefulWidget {
   const DeliveriesScreen({super.key});
 
@@ -17,13 +20,16 @@ class _DeliveriesScreenState extends State<DeliveriesScreen> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CardFb2(
-          text: "New Delivery",
-          imageUrl: "https://static.thenounproject.com/png/621382-200.png",
-          subtitle: const Icon(Icons.add_box_outlined),
-          onPressed: () {
-            debugPrint("Pressed on Create Emp");
-          },
+        Visibility(
+          visible: localCurrentUser.runtimeType == Manager ? true : false,
+          child: CardFb2(
+            text: "New Delivery",
+            imageUrl: "https://static.thenounproject.com/png/621382-200.png",
+            subtitle: const Icon(Icons.add_box_outlined),
+            onPressed: () {
+              debugPrint("Pressed on Create Emp");
+            },
+          ),
         ),
         Expanded(
           child: ListView.builder(

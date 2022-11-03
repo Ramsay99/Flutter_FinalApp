@@ -1,10 +1,8 @@
-
-import 'package:finalapp/Local_Models/driver.dart';
 import 'package:finalapp/Local_Models/local_model_barrel.dart';
 import 'package:finalapp/Screens/screens_barrel.dart';
 
-User localCurrentUser = Manager();
-// User localCurrentUser = Driver();
+// To change this condition [true|false] to change localCurrentUser
+late User localCurrentUser = false ? Manager() : Driver();
 void main() {
   runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
