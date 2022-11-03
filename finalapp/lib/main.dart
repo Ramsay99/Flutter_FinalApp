@@ -1,4 +1,3 @@
-// ignore_for_file: unnecessary_import
 
 import 'package:finalapp/Local_Models/driver.dart';
 import 'package:finalapp/Local_Models/local_model_barrel.dart';
