@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:finalapp/Widgets/widgets_barrel.dart';
 
 class EmployeesScreen extends StatefulWidget {
   const EmployeesScreen({super.key});
@@ -14,8 +15,9 @@ class _EState extends State<EmployeesScreen> {
       length: 3,
       child: Scaffold(
         appBar: AppBar(),
+        drawer: Drawer(child: DefaultDrawer()),
         body: Column(children: [
-          TabBar(
+          const TabBar(
               labelColor: Colors.black,
               labelStyle: TextStyle(color: Colors.black),
               tabs: [
@@ -36,8 +38,8 @@ class _EState extends State<EmployeesScreen> {
                   child: Column(
                 children: [
                   Container(
-                    padding: EdgeInsets.only(top: 20, bottom: 30),
-                    child: ListTile(
+                    padding: const EdgeInsets.only(top: 20, bottom: 30),
+                    child: const ListTile(
                       leading: CircleAvatar(
                           radius: 30, backgroundColor: Colors.blueAccent),
                       title: Text('Add Driver '),
@@ -50,7 +52,7 @@ class _EState extends State<EmployeesScreen> {
                           return Container(
                             height: 70,
                             child: ListTile(
-                              leading: CircleAvatar(
+                              leading: const CircleAvatar(
                                   radius: 30,
                                   backgroundColor: Colors.blueAccent),
                               title: Text('Person ${index + 1} '),
@@ -58,17 +60,17 @@ class _EState extends State<EmployeesScreen> {
                           );
                         },
                         separatorBuilder: (BuildContext context, int index) =>
-                            Divider(
+                            const Divider(
                               thickness: 1,
                             )),
                   ),
                 ],
               )),
               Container(
-                child: Column(children: [Text("data")]),
+                child: Column(children: [const Text("data")]),
               ),
               Container(
-                child: Column(children: [Text("data")]),
+                child: Column(children: [const Text("data")]),
               )
             ]),
           )
