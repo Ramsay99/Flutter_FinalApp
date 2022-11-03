@@ -31,9 +31,39 @@ class _EState extends State<EmployeesScreen> {
               ]),
           Expanded(
             child: TabBarView(children: [
+              // ToDo : Make new folder called tabs and add class for each tab (Cleaner).
               Container(
-                child: Column(children: [Text("data")]),
-              ),
+                  child: Column(
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(top: 20, bottom: 30),
+                    child: ListTile(
+                      leading: CircleAvatar(
+                          radius: 30, backgroundColor: Colors.blueAccent),
+                      title: Text('Add Driver '),
+                    ),
+                  ),
+                  Expanded(
+                    child: ListView.separated(
+                        itemCount: 5,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            height: 70,
+                            child: ListTile(
+                              leading: CircleAvatar(
+                                  radius: 30,
+                                  backgroundColor: Colors.blueAccent),
+                              title: Text('Person ${index + 1} '),
+                            ),
+                          );
+                        },
+                        separatorBuilder: (BuildContext context, int index) =>
+                            Divider(
+                              thickness: 1,
+                            )),
+                  ),
+                ],
+              )),
               Container(
                 child: Column(children: [Text("data")]),
               ),
