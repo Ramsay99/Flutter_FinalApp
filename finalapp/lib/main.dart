@@ -1,11 +1,12 @@
 // ignore_for_file: unnecessary_import
 
+import 'package:finalapp/Local_Models/driver.dart';
+import 'package:finalapp/Local_Models/local_model_barrel.dart';
 import 'package:finalapp/Screens/screens_barrel.dart';
-import 'Local_Models/manager.dart';
-import 'Local_Models/user.dart';
 
+User localCurrentUser = Manager();
+// User localCurrentUser = Driver();
 void main() {
-  User u = Manager();
   runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
     home: MyApp(),
@@ -17,6 +18,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Home();
+    return const Home();
   }
 }

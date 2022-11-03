@@ -1,8 +1,13 @@
-import 'package:flutter/material.dart'; 
+import 'package:flutter/material.dart';
 
 class EmployeesScreen extends StatefulWidget {
   const EmployeesScreen({super.key});
 
+  static BottomNavigationBarItem bottomNavBarItem =
+      const BottomNavigationBarItem(
+    icon: Icon(Icons.account_circle),
+    label: 'Profile',
+  );
   @override
   State<EmployeesScreen> createState() => _EState();
 }

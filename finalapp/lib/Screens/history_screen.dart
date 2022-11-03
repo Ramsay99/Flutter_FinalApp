@@ -5,6 +5,11 @@ import 'package:finalapp/Screens/screens_barrel.dart';
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({super.key});
 
+  static BottomNavigationBarItem bottomNavBarItem =
+      const BottomNavigationBarItem(
+    icon: Icon(Icons.history),
+    label: 'History',
+  );
   @override
   State<HistoryScreen> createState() => _HistoryState();
 }
