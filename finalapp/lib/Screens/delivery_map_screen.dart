@@ -14,7 +14,7 @@ class _DeliveryMapState extends State<DeliveryMap> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      drawer: Drawer(child: DefaultDrawer()),
+      drawer: const Drawer(child: DefaultDrawer()),
       body: Column(children: [
         Expanded(
           flex: 3,
@@ -23,20 +23,60 @@ class _DeliveryMapState extends State<DeliveryMap> {
             width: double.infinity,
             color: Colors.grey[400],
             child: Container(
-                alignment: Alignment.center, child: Text("MAP HERE ")),
+                alignment: Alignment.center, child: const Text("MAP HERE ")),
           ),
         ),
         Expanded(
           flex: 1,
           child: Container(
-            padding: EdgeInsets.all(20),
+            color: Color.fromARGB(255, 190, 212, 255),
+            padding: const EdgeInsets.all(20),
             width: double.infinity,
             child: Column(children: [
               Row(
-                children: [
+                children: const [
                   Icon(Icons.access_time_rounded),
+                  Text("TIME"),
+                  SizedBox(
+                    width: 270,
+                  ),
+                  Icon(Icons.location_on),
+                  Text("Location Name")
                 ],
-              )
+              ),
+              const Divider(
+                thickness: 1,
+              ),
+              Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+                ListTile(
+                  visualDensity: const VisualDensity(vertical: 4),
+                  leading: Container(
+                    height: 170,
+                    width: 100,
+                    color: Colors.black,
+                  ),
+                  title: Text('CUST INFO'),
+                  trailing: IconButton(
+                    icon: const Icon(
+                      Icons.phone,
+                      size: 40,
+                      color: Colors.black,
+                    ),
+                    onPressed: () {},
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: IconButton(
+                    icon: const Icon(
+                      Icons.messenger,
+                      size: 40,
+                      color: Colors.black,
+                    ),
+                    onPressed: () {},
+                  ),
+                ),
+              ]),
             ]),
           ),
         )
