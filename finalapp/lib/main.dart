@@ -1,4 +1,3 @@
-// ignore_for_file: unnecessary_import
 
 import 'package:finalapp/Screens/screens_barrel.dart';
 import 'Local_Models/manager.dart';
@@ -17,6 +16,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Home();
+    return LoginScreen();
   }
 }
