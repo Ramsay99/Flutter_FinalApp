@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:finalapp/Widgets/widgets_barrel.dart';
+import 'package:flutter/material.dart'; 
 
 class EmployeesScreen extends StatefulWidget {
   const EmployeesScreen({super.key});
@@ -14,8 +13,6 @@ class _EState extends State<EmployeesScreen> {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        appBar: AppBar(),
-        drawer: Drawer(child: DefaultDrawer()),
         body: Column(children: [
           const TabBar(
               labelColor: Colors.black,

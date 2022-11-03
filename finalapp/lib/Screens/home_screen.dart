@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields
 
-import 'package:finalapp/Screens/screens_barrel.dart'; 
+import 'package:finalapp/Screens/screens_barrel.dart';
+
+import '../Widgets/widgets_barrel.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -22,7 +24,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true,
+      drawer: Drawer(child: DefaultDrawer()),
       bottomNavigationBar: _showBottomNav(),
       appBar: AppBar(),
       body: SafeArea(
