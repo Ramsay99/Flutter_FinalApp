@@ -1,10 +1,6 @@
-import 'package:finalapp/Local_Models/manager.dart';
-import 'package:finalapp/Screens/delivery_map_screen.dart';
-import 'package:finalapp/Screens/home_screen.dart';
-import 'package:finalapp/Screens/login_screen.dart';
 
-import 'package:flutter/material.dart';
-
+import 'package:finalapp/Screens/screens_barrel.dart';
+import 'Local_Models/manager.dart';
 import 'Local_Models/user.dart';
 
 void main() {
