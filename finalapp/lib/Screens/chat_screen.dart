@@ -65,273 +65,103 @@ class _ChatScreenState extends State<ChatScreen> {
             SizedBox(
               height: 20,
             ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  Container(
-                    width: 60,
-                    child: Column(
-                      children: [
-                        Stack(
-                          alignment: AlignmentDirectional.bottomEnd,
+            Container(
+              height: 120,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemCount: 5,
+                itemBuilder: (BuildContext, index) {
+                  return Row(
+                    children: [
+                      Container(
+                        width: 60,
+                        child: Column(
                           children: [
-                            CircleAvatar(
-                              radius: 30,
-                              child: FlutterLogo(),
+                            Stack(
+                              alignment: AlignmentDirectional.bottomEnd,
+                              children: [
+                                CircleAvatar(
+                                  radius: 30,
+                                  child: FlutterLogo(),
+                                ),
+                                CircleAvatar(
+                                  radius: 9,
+                                  backgroundColor:
+                                      Color.fromARGB(250, 255, 255, 255),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.only(
+                                      bottom: 3, end: 2),
+                                  child: CircleAvatar(
+                                    radius: 7,
+                                    backgroundColor: Colors.green,
+                                  ),
+                                )
+                              ],
                             ),
-                            CircleAvatar(
-                              radius: 9,
-                              backgroundColor: Color.fromARGB(251, 109, 2, 2),
+                            SizedBox(
+                              height: 10,
                             ),
-                            Padding(
-                              padding: const EdgeInsetsDirectional.only(
-                                  bottom: 3, end: 2),
-                              child: CircleAvatar(
-                                radius: 7,
-                                backgroundColor: Colors.green,
-                              ),
+                            Text(
+                              "Name ${index + 1}",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 0, 0, 0)),
                             )
                           ],
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          "Name One",
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-                        )
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  Container(
-                    width: 60,
-                    child: Column(
-                      children: [
-                        Stack(
-                          alignment: AlignmentDirectional.bottomEnd,
-                          children: [
-                            CircleAvatar(
-                              radius: 30,
-                              child: FlutterLogo(),
-                            ),
-                            CircleAvatar(
-                              radius: 9,
-                              backgroundColor: Color.fromARGB(251, 109, 2, 2),
-                            ),
-                            Padding(
-                              padding: const EdgeInsetsDirectional.only(
-                                  bottom: 3, end: 2),
-                              child: CircleAvatar(
-                                radius: 7,
-                                backgroundColor: Colors.green,
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          "Name One",
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
+                      ),
+                    ],
+                  );
+                },
+                separatorBuilder: (BuildContext context, int index) => SizedBox(
+                  width: 16,
+                ),
               ),
             ),
             SizedBox(
               height: 25,
             ),
             Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Stack(
-                          alignment: AlignmentDirectional.bottomEnd,
-                          children: [
-                            CircleAvatar(
-                              radius: 30,
-                              child: FlutterLogo(),
-                            ),
-                            CircleAvatar(
-                              radius: 9,
-                              backgroundColor: Color.fromARGB(251, 109, 2, 2),
-                            ),
-                            Padding(
-                              padding: const EdgeInsetsDirectional.only(
-                                  bottom: 3, end: 2),
-                              child: CircleAvatar(
-                                radius: 7,
-                                backgroundColor: Colors.green,
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+              child: ListView.separated(
+                itemBuilder: (BuildContext, index) {
+                  return Column(
+                    children: [
+                      Row(
+                        children: [
+                          Stack(
+                            alignment: AlignmentDirectional.bottomEnd,
                             children: [
-                              Text(
-                                "Name Two",
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    color: Color.fromARGB(255, 0, 0, 0),
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold),
+                              CircleAvatar(
+                                radius: 30,
+                                child: FlutterLogo(),
                               ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      "THE MESSAGE IS HERE ",
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          color: Color.fromARGB(255, 0, 0, 0)),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    "Time",
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        color: Color.fromARGB(255, 0, 0, 0)),
-                                  ),
-                                ],
+                              CircleAvatar(
+                                radius: 9,
+                                backgroundColor:
+                                    Color.fromARGB(250, 255, 255, 255),
+                              ),
+                              Padding(
+                                padding: const EdgeInsetsDirectional.only(
+                                    bottom: 3, end: 2),
+                                child: CircleAvatar(
+                                  radius: 7,
+                                  backgroundColor: Colors.green,
+                                ),
                               )
                             ],
                           ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      children: [
-                        Stack(
-                          alignment: AlignmentDirectional.bottomEnd,
-                          children: [
-                            CircleAvatar(
-                              radius: 30,
-                              child: FlutterLogo(),
-                            ),
-                            CircleAvatar(
-                              radius: 9,
-                              backgroundColor: Color.fromARGB(251, 109, 2, 2),
-                            ),
-                            Padding(
-                              padding: const EdgeInsetsDirectional.only(
-                                  bottom: 3, end: 2),
-                              child: CircleAvatar(
-                                radius: 7,
-                                backgroundColor: Colors.green,
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Name Two",
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    color: Color.fromARGB(255, 0, 0, 0),
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      "THE MESSAGE IS HERE ",
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          color: Color.fromARGB(255, 0, 0, 0)),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    "Time",
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        color: Color.fromARGB(255, 0, 0, 0)),
-                                  ),
-                                ],
-                              )
-                            ],
+                          SizedBox(
+                            width: 20,
                           ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      children: [
-                        Stack(
-                          alignment: AlignmentDirectional.bottomEnd,
-                          children: [
-                            CircleAvatar(
-                              radius: 30,
-                              child: FlutterLogo(),
-                            ),
-                            CircleAvatar(
-                              radius: 9,
-                              backgroundColor: Color.fromARGB(251, 109, 2, 2),
-                            ),
-                            Padding(
-                              padding: const EdgeInsetsDirectional.only(
-                                  bottom: 3, end: 2),
-                              child: CircleAvatar(
-                                radius: 7,
-                                backgroundColor: Colors.green,
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Text(
-                                  "Name TwoName TwoName TwoName TwoName TwoName TwoName Two",
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Name ${index + 1}",
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
@@ -339,39 +169,46 @@ class _ChatScreenState extends State<ChatScreen> {
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      "THE MESSAGE IS HERE ",
-                                      maxLines: 2,
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        "THE MESSAGE IS HERE ",
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            color:
+                                                Color.fromARGB(255, 0, 0, 0)),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      "Time",
+                                      maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                           color: Color.fromARGB(255, 0, 0, 0)),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    "Time",
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        color: Color.fromARGB(255, 0, 0, 0)),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  );
+                },
+                itemCount: 3,
+                separatorBuilder: (BuildContext context, int index) =>
+                    Divider(thickness: 1),
               ),
-            ),
+            )
           ]),
         ),
       ),
