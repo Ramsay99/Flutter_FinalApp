@@ -1,13 +1,15 @@
 import 'package:finalapp/Local_Models/local_model_barrel.dart';
 import 'package:finalapp/Screens/screens_barrel.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+import 'firebase_options.dart';
 
 // To change this condition [true|false] to change localCurrentUser
 late User localCurrentUser = true ? Manager() : Driver();
-void main() {
-  runApp(const MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: MyApp(),
-  ));
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(const MaterialApp(home: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
