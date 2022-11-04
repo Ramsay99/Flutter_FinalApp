@@ -47,9 +47,9 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
       // backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         // backgroundColor: FlutterFlowTheme.of(context).primaryColor,
-        automaticallyImplyLeading: false,
+        // automaticallyImplyLeading: false,
         title: const Text(
-          'Page Title',
+          'Create Driver',
           // style: FlutterFlowTheme.of(context).title2.override(
           //       fontFamily: 'Poppins',
           //       color: Colors.white,
@@ -61,21 +61,65 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
         elevation: 2,
       ),
       body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                _Name(),
-                _Email(),
-                _PhoneNumber(),
-                _DateOfBirth(),
-                _Password(),
-                _Address(),
-              ],
-            ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Text(
+                  "Create New Driver either by Importing data from Excel file or Enter the new Driver data below"),
+              Column(
+                children: [
+                  Image(
+                      image: NetworkImage(
+                          "https://cdn.windowsreport.com/wp-content/uploads/2021/01/microsoft-excel.png")),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.lightGreenAccent[400],
+                            foregroundColor: Colors.green.shade800),
+                        onPressed: () {},
+                        icon: Icon(Icons.person_add),
+                        label: Text("One Driver"),
+                      ),
+                      ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.lightGreenAccent[400],
+                            foregroundColor: Colors.green.shade800),
+                        onPressed: () {},
+                        icon: Icon(Icons.people),
+                        label: Text(
+                          "Many Drivers",
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Divider(
+                      height: 30,
+                      thickness: 3,
+                    ),
+                  ),
+                  Text("OR"),
+                  Expanded(
+                    child: Divider(
+                      height: 30,
+                      thickness: 3,
+                    ),
+                  ),
+                ],
+              ),
+              _Name(),
+              _Email(),
+              _Password(),
+              _PhoneNumber(),
+              _DateOfBirth(),
+              _Address(),
+            ],
           ),
         ),
       ),
@@ -84,464 +128,457 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
 
   Padding _Address() {
     return Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
-                child: TextFormField(
-                  controller: textController6,
-                  onChanged: (_) => EasyDebounce.debounce(
-                    'textController6',
-                    const Duration(milliseconds: 2000),
-                    () => setState(() {}),
+      padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
+      child: TextFormField(
+        controller: textController6,
+        onChanged: (_) => EasyDebounce.debounce(
+          'textController6',
+          const Duration(milliseconds: 2000),
+          () => setState(() {}),
+        ),
+        obscureText: false,
+        decoration: InputDecoration(
+          labelText: 'Address',
+          hintText: 'Amman, City Center',
+          // hintStyle: FlutterFlowTheme.of(context).bodyText2,
+          enabledBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.black87,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(4.0),
+              topRight: Radius.circular(4.0),
+            ),
+          ),
+          focusedBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.black87,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(4.0),
+              topRight: Radius.circular(4.0),
+            ),
+          ),
+          errorBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.black87,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(4.0),
+              topRight: Radius.circular(4.0),
+            ),
+          ),
+          focusedErrorBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.black87,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(4.0),
+              topRight: Radius.circular(4.0),
+            ),
+          ),
+          contentPadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+          suffixIcon: textController6!.text.isNotEmpty
+              ? InkWell(
+                  onTap: () async {
+                    textController6?.clear();
+                    setState(() {});
+                  },
+                  child: const Icon(
+                    Icons.clear,
+                    color: Color(0xFF757575),
+                    size: 22,
                   ),
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    labelText: 'Address',
-                    hintText: 'Amman, City Center',
-                    // hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                    enabledBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black87,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                    focusedBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black87,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                    errorBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black87,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                    focusedErrorBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black87,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                    contentPadding:
-                        const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                    suffixIcon: textController6!.text.isNotEmpty
-                        ? InkWell(
-                            onTap: () async {
-                              textController6?.clear();
-                              setState(() {});
-                            },
-                            child: const Icon(
-                              Icons.clear,
-                              color: Color(0xFF757575),
-                              size: 22,
-                            ),
-                          )
-                        : null,
-                  ),
-                  // style: FlutterFlowTheme.of(context).bodyText1,
-                  keyboardType: TextInputType.streetAddress,
-                ),
-              );
+                )
+              : null,
+        ),
+        // style: FlutterFlowTheme.of(context).bodyText1,
+        keyboardType: TextInputType.streetAddress,
+      ),
+    );
   }
 
   Padding _Password() {
     return Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
-                child: TextFormField(
-                  controller: textController5,
-                  onChanged: (_) => EasyDebounce.debounce(
-                    'textController5',
-                    const Duration(milliseconds: 2000),
-                    () => setState(() {}),
+      padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
+      child: TextFormField(
+        controller: textController5,
+        onChanged: (_) => EasyDebounce.debounce(
+          'textController5',
+          const Duration(milliseconds: 2000),
+          () => setState(() {}),
+        ),
+        obscureText: false,
+        decoration: InputDecoration(
+          labelText: 'Set Emp Account Password',
+          hintText: '********',
+          // hintStyle: FlutterFlowTheme.of(context).bodyText2,
+          enabledBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.black87,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(4.0),
+              topRight: Radius.circular(4.0),
+            ),
+          ),
+          focusedBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.black87,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(4.0),
+              topRight: Radius.circular(4.0),
+            ),
+          ),
+          errorBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.black87,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(4.0),
+              topRight: Radius.circular(4.0),
+            ),
+          ),
+          focusedErrorBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.black87,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(4.0),
+              topRight: Radius.circular(4.0),
+            ),
+          ),
+          contentPadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+          suffixIcon: textController5!.text.isNotEmpty
+              ? InkWell(
+                  onTap: () async {
+                    textController5?.clear();
+                    setState(() {});
+                  },
+                  child: const Icon(
+                    Icons.clear,
+                    color: Color(0xFF757575),
+                    size: 22,
                   ),
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    labelText: 'Set Emp Account Password',
-                    hintText: '********',
-                    // hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                    enabledBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black87,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                    focusedBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black87,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                    errorBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black87,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                    focusedErrorBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black87,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                    contentPadding:
-                        const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                    suffixIcon: textController5!.text.isNotEmpty
-                        ? InkWell(
-                            onTap: () async {
-                              textController5?.clear();
-                              setState(() {});
-                            },
-                            child: const Icon(
-                              Icons.clear,
-                              color: Color(0xFF757575),
-                              size: 22,
-                            ),
-                          )
-                        : null,
-                  ),
-                  // style: FlutterFlowTheme.of(context).bodyText1,
-                  keyboardType: TextInputType.visiblePassword,
-                ),
-              );
+                )
+              : null,
+        ),
+        // style: FlutterFlowTheme.of(context).bodyText1,
+        keyboardType: TextInputType.visiblePassword,
+      ),
+    );
   }
 
   Padding _DateOfBirth() {
     return Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
-                child: TextFormField(
-                  controller: textController4,
-                  onChanged: (_) => EasyDebounce.debounce(
-                    'textController4',
-                    const Duration(milliseconds: 2000),
-                    () => setState(() {}),
+      padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
+      child: TextFormField(
+        controller: textController4,
+        onChanged: (_) => EasyDebounce.debounce(
+          'textController4',
+          const Duration(milliseconds: 2000),
+          () => setState(() {}),
+        ),
+        obscureText: false,
+        decoration: InputDecoration(
+          labelText: 'Date of Birth',
+          hintText: '1987-6-5',
+          // hintStyle: FlutterFlowTheme.of(context).bodyText2,
+          enabledBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.black87,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(4.0),
+              topRight: Radius.circular(4.0),
+            ),
+          ),
+          focusedBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.black87,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(4.0),
+              topRight: Radius.circular(4.0),
+            ),
+          ),
+          errorBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.black87,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(4.0),
+              topRight: Radius.circular(4.0),
+            ),
+          ),
+          focusedErrorBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.black87,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(4.0),
+              topRight: Radius.circular(4.0),
+            ),
+          ),
+          contentPadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+          suffixIcon: textController4!.text.isNotEmpty
+              ? InkWell(
+                  onTap: () async {
+                    textController4?.clear();
+                    setState(() {});
+                  },
+                  child: const Icon(
+                    Icons.clear,
+                    color: Color(0xFF757575),
+                    size: 22,
                   ),
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    labelText: 'Date of Birth',
-                    hintText: '1987-6-5',
-                    // hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                    enabledBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black87,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                    focusedBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black87,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                    errorBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black87,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                    focusedErrorBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black87,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                    contentPadding:
-                        const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                    suffixIcon: textController4!.text.isNotEmpty
-                        ? InkWell(
-                            onTap: () async {
-                              textController4?.clear();
-                              setState(() {});
-                            },
-                            child: const Icon(
-                              Icons.clear,
-                              color: Color(0xFF757575),
-                              size: 22,
-                            ),
-                          )
-                        : null,
-                  ),
-                  // style: FlutterFlowTheme.of(context).bodyText1,
-                  keyboardType: TextInputType.datetime,
-                ),
-              );
+                )
+              : null,
+        ),
+        // style: FlutterFlowTheme.of(context).bodyText1,
+        keyboardType: TextInputType.datetime,
+      ),
+    );
   }
 
   Padding _PhoneNumber() {
     return Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
-                child: TextFormField(
-                  controller: textController3,
-                  onChanged: (_) => EasyDebounce.debounce(
-                    'textController3',
-                    const Duration(milliseconds: 2000),
-                    () => setState(() {}),
+      padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
+      child: TextFormField(
+        controller: textController3,
+        onChanged: (_) => EasyDebounce.debounce(
+          'textController3',
+          const Duration(milliseconds: 2000),
+          () => setState(() {}),
+        ),
+        obscureText: false,
+        decoration: InputDecoration(
+          labelText: 'Phone Number',
+          hintText: '07 1234 5678',
+          // // hintStyle: FlutterFlowTheme.of(context).bodyText2,
+          enabledBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.black87,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(4.0),
+              topRight: Radius.circular(4.0),
+            ),
+          ),
+          focusedBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.black87,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(4.0),
+              topRight: Radius.circular(4.0),
+            ),
+          ),
+          errorBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.black87,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(4.0),
+              topRight: Radius.circular(4.0),
+            ),
+          ),
+          focusedErrorBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.black87,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(4.0),
+              topRight: Radius.circular(4.0),
+            ),
+          ),
+          contentPadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+          suffixIcon: textController3!.text.isNotEmpty
+              ? InkWell(
+                  onTap: () async {
+                    textController3?.clear();
+                    setState(() {});
+                  },
+                  child: const Icon(
+                    Icons.clear,
+                    color: Color(0xFF757575),
+                    size: 22,
                   ),
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    labelText: 'Phone Number',
-                    hintText: '07 1234 5678',
-                    // // hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                    enabledBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black87,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                    focusedBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black87,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                    errorBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black87,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                    focusedErrorBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black87,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                    contentPadding:
-                        const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                    suffixIcon: textController3!.text.isNotEmpty
-                        ? InkWell(
-                            onTap: () async {
-                              textController3?.clear();
-                              setState(() {});
-                            },
-                            child: const Icon(
-                              Icons.clear,
-                              color: Color(0xFF757575),
-                              size: 22,
-                            ),
-                          )
-                        : null,
-                  ),
-                  // style: FlutterFlowTheme.of(context).bodyText1,
-                  keyboardType: TextInputType.phone,
-                ),
-              );
+                )
+              : null,
+        ),
+        // style: FlutterFlowTheme.of(context).bodyText1,
+        keyboardType: TextInputType.phone,
+      ),
+    );
   }
 
   Padding _Email() {
     return Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
-                child: TextFormField(
-                  controller: textController2,
-                  onChanged: (_) => EasyDebounce.debounce(
-                    'textController2',
-                    const Duration(milliseconds: 2000),
-                    () => setState(() {}),
+      padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
+      child: TextFormField(
+        controller: textController2,
+        onChanged: (_) => EasyDebounce.debounce(
+          'textController2',
+          const Duration(milliseconds: 2000),
+          () => setState(() {}),
+        ),
+        obscureText: false,
+        decoration: InputDecoration(
+          labelText: 'Email',
+          hintText: 'Ahamd@gmail.com',
+          // // hintStyle: FlutterFlowTheme.of(context).bodyText2,
+          enabledBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.black87,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(4.0),
+              topRight: Radius.circular(4.0),
+            ),
+          ),
+          focusedBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.black87,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(4.0),
+              topRight: Radius.circular(4.0),
+            ),
+          ),
+          errorBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.black87,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(4.0),
+              topRight: Radius.circular(4.0),
+            ),
+          ),
+          focusedErrorBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.black87,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(4.0),
+              topRight: Radius.circular(4.0),
+            ),
+          ),
+          contentPadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+          suffixIcon: textController2!.text.isNotEmpty
+              ? InkWell(
+                  onTap: () async {
+                    textController2?.clear();
+                    setState(() {});
+                  },
+                  child: const Icon(
+                    Icons.clear,
+                    color: Color(0xFF757575),
+                    size: 22,
                   ),
-                  readOnly: true,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    labelText: 'Email',
-                    hintText: 'Ahamd@gmail.com',
-                    // // hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                    enabledBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black87,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                    focusedBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black87,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                    errorBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black87,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                    focusedErrorBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black87,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                    contentPadding:
-                        const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                    suffixIcon: textController2!.text.isNotEmpty
-                        ? InkWell(
-                            onTap: () async {
-                              textController2?.clear();
-                              setState(() {});
-                            },
-                            child: const Icon(
-                              Icons.clear,
-                              color: Color(0xFF757575),
-                              size: 22,
-                            ),
-                          )
-                        : null,
-                  ),
-                  // // style: FlutterFlowTheme.of(context).bodyText1,
-                  keyboardType: TextInputType.emailAddress,
-                ),
-              );
+                )
+              : null,
+        ),
+        // // style: FlutterFlowTheme.of(context).bodyText1,
+        keyboardType: TextInputType.emailAddress,
+      ),
+    );
   }
 
   Padding _Name() {
     return Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
-                child: TextFormField(
-                  controller: textController1,
-                  onChanged: (_) => EasyDebounce.debounce(
-                    'textController1',
-                    const Duration(milliseconds: 2000),
-                    () => setState(() {}),
+      padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
+      child: TextFormField(
+        controller: textController1,
+        onChanged: (_) => EasyDebounce.debounce(
+          'textController1',
+          const Duration(milliseconds: 2000),
+          () => setState(() {}),
+        ),
+        obscureText: false,
+        decoration: InputDecoration(
+          labelText: 'Name',
+          hintText: 'Ahmad',
+          // // hintStyle: FlutterFlowTheme.of(context).bodyText2,
+          enabledBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.black87,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(4.0),
+              topRight: Radius.circular(4.0),
+            ),
+          ),
+          focusedBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.black87,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(4.0),
+              topRight: Radius.circular(4.0),
+            ),
+          ),
+          errorBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.black87,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(4.0),
+              topRight: Radius.circular(4.0),
+            ),
+          ),
+          focusedErrorBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.black87,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(4.0),
+              topRight: Radius.circular(4.0),
+            ),
+          ),
+          contentPadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+          suffixIcon: textController1!.text.isNotEmpty
+              ? InkWell(
+                  onTap: () async {
+                    textController1?.clear();
+                    setState(() {});
+                  },
+                  child: const Icon(
+                    Icons.clear,
+                    color: Color(0xFF757575),
+                    size: 22,
                   ),
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    labelText: 'Name',
-                    hintText: 'Ahmad',
-                    // // hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                    enabledBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black87,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                    focusedBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black87,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                    errorBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black87,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                    focusedErrorBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black87,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                    contentPadding:
-                        const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                    suffixIcon: textController1!.text.isNotEmpty
-                        ? InkWell(
-                            onTap: () async {
-                              textController1?.clear();
-                              setState(() {});
-                            },
-                            child: const Icon(
-                              Icons.clear,
-                              color: Color(0xFF757575),
-                              size: 22,
-                            ),
-                          )
-                        : null,
-                  ),
-                  // // style: FlutterFlowTheme.of(context).bodyText1,
-                  keyboardType: TextInputType.name,
-                ),
-              );
+                )
+              : null,
+        ),
+        // // style: FlutterFlowTheme.of(context).bodyText1,
+        keyboardType: TextInputType.name,
+      ),
+    );
   }
 }
