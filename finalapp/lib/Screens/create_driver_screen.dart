@@ -2,7 +2,7 @@
 
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:date_time_picker/date_time_picker.dart';
 
 class CreateDriverScreen extends StatefulWidget {
   const CreateDriverScreen({Key? key}) : super(key: key);
@@ -70,66 +70,68 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
         elevation: 2,
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Text(
-                  "Create New Driver either by Importing data from Excel file or Enter the new Driver data below"),
-              Column(
-                children: [
-                  Image(
-                      image: NetworkImage(
-                          "https://cdn.windowsreport.com/wp-content/uploads/2021/01/microsoft-excel.png")),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.lightGreenAccent[400],
-                            foregroundColor: Colors.green.shade800),
-                        onPressed: () {},
-                        icon: Icon(Icons.person_add),
-                        label: Text("One Driver"),
-                      ),
-                      ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.lightGreenAccent[400],
-                            foregroundColor: Colors.green.shade800),
-                        onPressed: () {},
-                        icon: Icon(Icons.people),
-                        label: Text(
-                          "Many Drivers",
+        child: Form(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Text(
+                    "Create New Driver either by Importing data from Excel file or Enter the new Driver data below"),
+                Column(
+                  children: [
+                    Image(
+                        image: NetworkImage(
+                            "https://cdn.windowsreport.com/wp-content/uploads/2021/01/microsoft-excel.png")),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.lightGreenAccent[400],
+                              foregroundColor: Colors.green.shade800),
+                          onPressed: () {},
+                          icon: Icon(Icons.person_add),
+                          label: Text("One Driver"),
                         ),
+                        ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.lightGreenAccent[400],
+                              foregroundColor: Colors.green.shade800),
+                          onPressed: () {},
+                          icon: Icon(Icons.people),
+                          label: Text(
+                            "Many Drivers",
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Divider(
+                        height: 30,
+                        thickness: 3,
                       ),
-                    ],
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Divider(
-                      height: 30,
-                      thickness: 3,
                     ),
-                  ),
-                  Text("OR"),
-                  Expanded(
-                    child: Divider(
-                      height: 30,
-                      thickness: 3,
+                    Text("OR"),
+                    Expanded(
+                      child: Divider(
+                        height: 30,
+                        thickness: 3,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              _Name(),
-              _Email(),
-              _Password(),
-              _PhoneNumber(),
-              _DateOfBirth(),
-              _Address(),
-              _Cities(),
-            ],
+                  ],
+                ),
+                _Name(),
+                _Email(),
+                _Password(),
+                _PhoneNumber(),
+                _DateOfBirth(),
+                _Address(),
+                _Cities(),
+              ],
+            ),
           ),
         ),
       ),
@@ -141,7 +143,6 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
         padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
         child: SizedBox(
           height: 130,
-          wi
           child: ListView.builder(
             shrinkWrap: true,
             itemCount: cities.length,
@@ -315,75 +316,17 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
   Padding _DateOfBirth() {
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
-      child: TextFormField(
-        controller: textController4,
-        onChanged: (_) => EasyDebounce.debounce(
-          'textController4',
-          const Duration(milliseconds: 2000),
-          () => setState(() {}),
-        ),
-        obscureText: false,
-        decoration: InputDecoration(
-          labelText: 'Date of Birth',
-          hintText: '1987-6-5',
-          // hintStyle: FlutterFlowTheme.of(context).bodyText2,
-          enabledBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.black87,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(4.0),
-              topRight: Radius.circular(4.0),
-            ),
-          ),
-          focusedBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.black87,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(4.0),
-              topRight: Radius.circular(4.0),
-            ),
-          ),
-          errorBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.black87,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(4.0),
-              topRight: Radius.circular(4.0),
-            ),
-          ),
-          focusedErrorBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.black87,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(4.0),
-              topRight: Radius.circular(4.0),
-            ),
-          ),
-          contentPadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-          suffixIcon: textController4!.text.isNotEmpty
-              ? InkWell(
-                  onTap: () async {
-                    textController4?.clear();
-                    setState(() {});
-                  },
-                  child: const Icon(
-                    Icons.clear,
-                    color: Color(0xFF757575),
-                    size: 22,
-                  ),
-                )
-              : null,
-        ),
-        // style: FlutterFlowTheme.of(context).bodyText1,
-        keyboardType: TextInputType.datetime,
+      child: DateTimePicker(
+        initialValue: '',
+        firstDate: DateTime(2000),
+        lastDate: DateTime(2100),
+        dateLabelText: 'Date Of Birth',
+        onChanged: (val) => print(val),
+        validator: (val) {
+          print(val);
+          return null;
+        },
+        onSaved: (val) => print(val),
       ),
     );
   }

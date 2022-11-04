@@ -6,9 +6,12 @@ import 'firebase_options.dart';
 
 // To change this condition [true|false] to change localCurrentUser
 late User localCurrentUser = true ? Manager() : Driver();
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+// Future<void> main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+//   runApp(const MaterialApp(debugShowCheckedModeBanner: false, home: MyApp()));
+// }
+void main(List<String> args) {
   runApp(const MaterialApp(debugShowCheckedModeBanner: false, home: MyApp()));
 }
 
@@ -17,6 +20,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Home();
+    return const CreateDriverScreen();
   }
 }
