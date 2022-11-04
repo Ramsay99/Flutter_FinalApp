@@ -1,6 +1,8 @@
+import 'package:finalapp/Utility/utils.dart';
+import 'package:finalapp/Widgets/default_button.dart';
+import 'package:finalapp/Widgets/default_chip_buttons.dart';
+import 'package:finalapp/Widgets/default_text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:finalapp/Widgets/widgets_barrel.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -31,7 +33,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Container(
                     decoration: const BoxDecoration(
                       color: Color.fromARGB(255, 255, 255, 255),
-                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                      borderRadius: BorderRadius.all(Radius.circular(
+                              20.0) //                 <--- border radius here
+                          ),
                     ),
                     padding: const EdgeInsets.all(12),
                     child: Column(children: [
@@ -45,12 +49,25 @@ class _LoginScreenState extends State<LoginScreen> {
                         textHint: "Password",
                         controller: passwordController,
                       ),
+                      Container(
+                        alignment: Alignment.topRight,
+                        child: GestureDetector(
+                          child: const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                              "forgot your password?",
+                              style: TextStyle(
+                                fontSize: 14,
+                                decoration: TextDecoration.underline,
+                                color: Color.fromARGB(255, 4, 3, 3),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                       DefaultButton(
                         label: "Login",
-                        onTap: () {},
-                      ),
-                      SizedBox(
-                        height: 20,
+                        onTap: signInAuth,
                       ),
                       Wrap(
                         spacing: 8,
@@ -83,24 +100,24 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+
+  Future signInAuth() async {
+    try {
+      showDialog(
+        context: context,
+        builder: (context) => const Center(
+          child: CircularProgressIndicator(),
+        ),
+        barrierDismissible: false,
+      );
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+    } on FirebaseAuthException catch (e) {
+      Utils.errorSnackBar(e.message);
+    } finally {
+      Navigator.pop(context);
+    }
+  }
 }
-//   Future signInAuth() async {
-//     try {
-//       showDialog(
-//         context: context,
-//         builder: (context) => const Center(
-//           child: CircularProgressIndicator(),
-//         ),
-//         barrierDismissible: false,
-//       );
-//       await FirebaseAuth.instance.signInWithEmailAndPassword(
-//         email: emailController.text,
-//         password: passwordController.text,
-//       );
-//     } on FirebaseAuthException catch (e) {
-//       Utils.errorSnackBar(e.message);
-//     } finally {
-//       Navigator.pop(context);
-//     }
-//   }
-// }

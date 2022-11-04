@@ -9,7 +9,7 @@ late User localCurrentUser = true ? Manager() : Driver();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(const MaterialApp(home: MyApp()));
+  runApp(const MaterialApp(debugShowCheckedModeBanner: false, home: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
