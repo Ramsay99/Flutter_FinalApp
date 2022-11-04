@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "20102372704",
+    "project_id": "delivery-tracker-finalapp",
+    "storage_bucket": "delivery-tracker-finalapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:20102372704:android:6e7fdd465f7c731dcf5205",
+        "android_client_info": {
+          "package_name": "com.example.finalapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "20102372704-6gsn9j9j2uhrh7deh6967r9gra8nidk0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAcLl7KnkHWFWJhsGHTxTiDlBa0gFyFgg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "20102372704-6gsn9j9j2uhrh7deh6967r9gra8nidk0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
