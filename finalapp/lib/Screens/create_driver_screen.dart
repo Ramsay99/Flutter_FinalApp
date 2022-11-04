@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,6 +19,8 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
   TextEditingController? textController5;
   TextEditingController? textController6;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  late List cities;
+  late List<bool> citiesValues;
 
   @override
   void initState() {
@@ -27,6 +31,11 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
     textController4 = TextEditingController();
     textController5 = TextEditingController();
     textController6 = TextEditingController();
+    cities = ["Amman", "Salt", "Aqaba"];
+    citiesValues = [];
+    for (var i = 0; i < cities.length; i++) {
+      citiesValues.add(false);
+    }
   }
 
   @override
@@ -119,11 +128,36 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
               _PhoneNumber(),
               _DateOfBirth(),
               _Address(),
+              _Cities(),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Padding _Cities() {
+    return Padding(
+        padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
+        child: SizedBox(
+          height: 130,
+          wi
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: cities.length,
+            itemBuilder: (context, index) {
+              return CheckboxListTile(
+                title: Text(cities[index]),
+                value: citiesValues[index],
+                onChanged: (value) {
+                  setState(() {
+                    citiesValues[index] = value!;
+                  });
+                },
+              );
+            },
+          ),
+        ));
   }
 
   Padding _Address() {
