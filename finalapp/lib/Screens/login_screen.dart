@@ -66,9 +66,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       DefaultButton(
-                        label: "Login",
-                        onTap: signInAuth,
-                      ),
+                          label: "Login",
+                          onTap:
+                              () {} //signInAuth() to be uncommented when we start importing fireBase,
+                          ),
                       Wrap(
                         spacing: 8,
                         alignment: WrapAlignment.spaceEvenly,
