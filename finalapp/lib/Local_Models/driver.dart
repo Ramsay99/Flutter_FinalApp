@@ -1,5 +1,5 @@
 import 'package:finalapp/Local_Models/user.dart';
-import 'package:finalapp/Screens/screens_barrel.dart';
+import 'package:finalapp/screens/screens_barrel.dart';
 
 class Driver extends User {
   Driver() {

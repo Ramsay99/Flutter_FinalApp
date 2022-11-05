@@ -1,8 +1,6 @@
 import 'package:finalapp/Local_Models/local_model_barrel.dart';
-import 'package:finalapp/Screens/screens_barrel.dart';
-import 'package:firebase_core/firebase_core.dart';
-
-import 'firebase_options.dart';
+import 'package:finalapp/screens/screens_barrel.dart';
+import 'package:flutter/foundation.dart';
 
 // To change this condition [true|false] to change localCurrentUser
 late User localCurrentUser = true ? Manager() : Driver();
@@ -12,14 +10,28 @@ late User localCurrentUser = true ? Manager() : Driver();
 //   runApp(const MaterialApp(debugShowCheckedModeBanner: false, home: MyApp()));
 // }
 void main(List<String> args) {
-  runApp(const MaterialApp(debugShowCheckedModeBanner: false, home: MyApp()));
+  String? id = Uri.base.queryParameters["id"];
+
+  runApp(
+    MyApp(
+      id: id,
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final String? id;
+  const MyApp({this.id, super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Home();
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: defaultTargetPlatform == TargetPlatform.android
+          ? const LoginScreen()
+          : SplashScreen(
+              id: id,
+            ),
+    );
   }
 }
