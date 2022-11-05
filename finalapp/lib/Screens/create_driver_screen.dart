@@ -1,8 +1,12 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:easy_debounce/easy_debounce.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:date_time_picker/date_time_picker.dart';
+import 'dart:io';
+import 'dart:convert';
+import 'package:csv/csv.dart';
 
 class CreateDriverScreen extends StatefulWidget {
   const CreateDriverScreen({Key? key}) : super(key: key);
@@ -12,12 +16,12 @@ class CreateDriverScreen extends StatefulWidget {
 }
 
 class _CreateDriverScreenState extends State<CreateDriverScreen> {
-  TextEditingController? textController1;
-  TextEditingController? textController2;
-  TextEditingController? textController3;
-  TextEditingController? textController4;
-  TextEditingController? textController5;
-  TextEditingController? textController6;
+  TextEditingController? nameController;
+  TextEditingController? emailController;
+  TextEditingController? passController;
+  TextEditingController? phoneNumController;
+  TextEditingController? dOBController;
+  TextEditingController? addressController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   late List cities;
   late List<bool> citiesValues;
@@ -25,12 +29,12 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
   @override
   void initState() {
     super.initState();
-    textController1 = TextEditingController();
-    textController2 = TextEditingController();
-    textController3 = TextEditingController();
-    textController4 = TextEditingController();
-    textController5 = TextEditingController();
-    textController6 = TextEditingController();
+    nameController = TextEditingController();
+    emailController = TextEditingController();
+    passController = TextEditingController();
+    phoneNumController = TextEditingController();
+    dOBController = TextEditingController();
+    addressController = TextEditingController();
     cities = ["Amman", "Salt", "Aqaba"];
     citiesValues = [];
     for (var i = 0; i < cities.length; i++) {
@@ -40,12 +44,12 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
 
   @override
   void dispose() {
-    textController1?.dispose();
-    textController2?.dispose();
-    textController3?.dispose();
-    textController4?.dispose();
-    textController5?.dispose();
-    textController6?.dispose();
+    nameController?.dispose();
+    emailController?.dispose();
+    passController?.dispose();
+    phoneNumController?.dispose();
+    dOBController?.dispose();
+    addressController?.dispose();
     super.dispose();
   }
 
@@ -88,19 +92,35 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.lightGreenAccent[400],
                               foregroundColor: Colors.green.shade800),
-                          onPressed: () {},
+                          onPressed: () {
+                            print("One Person Started");
+                            a();
+                            print("One Person Ended");
+                          },
                           icon: Icon(Icons.person_add),
                           label: Text("One Driver"),
                         ),
-                        ElevatedButton.icon(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.lightGreenAccent[400],
-                              foregroundColor: Colors.green.shade800),
-                          onPressed: () {},
-                          icon: Icon(Icons.people),
-                          label: Text(
-                            "Many Drivers",
-                          ),
+                        Stack(
+                          children: [
+                            ElevatedButton.icon(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.lightGreenAccent[400],
+                                  foregroundColor: Colors.green.shade800),
+                              icon: Icon(Icons.people),
+                              label: Text(
+                                "Many Drivers",
+                              ),
+                              // Disabled Button, can be used as an example to
+                              // buy the premium product to unlock this feature.
+                              onPressed: null,
+                            ),
+                            Icon(
+                              Icons.lock,
+                              color: Colors.amber,
+                              shadows: [Shadow(color: Colors.black)],
+                              size: 25,
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -165,7 +185,7 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
       child: TextFormField(
-        controller: textController6,
+        controller: addressController,
         onChanged: (_) => EasyDebounce.debounce(
           'textController6',
           const Duration(milliseconds: 2000),
@@ -217,10 +237,10 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
             ),
           ),
           contentPadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-          suffixIcon: textController6!.text.isNotEmpty
+          suffixIcon: addressController!.text.isNotEmpty
               ? InkWell(
                   onTap: () async {
-                    textController6?.clear();
+                    addressController?.clear();
                     setState(() {});
                   },
                   child: const Icon(
@@ -241,7 +261,7 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
       child: TextFormField(
-        controller: textController5,
+        controller: passController,
         onChanged: (_) => EasyDebounce.debounce(
           'textController5',
           const Duration(milliseconds: 2000),
@@ -293,10 +313,10 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
             ),
           ),
           contentPadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-          suffixIcon: textController5!.text.isNotEmpty
+          suffixIcon: dOBController!.text.isNotEmpty
               ? InkWell(
                   onTap: () async {
-                    textController5?.clear();
+                    dOBController?.clear();
                     setState(() {});
                   },
                   child: const Icon(
@@ -313,20 +333,31 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
     );
   }
 
+  // Bug: While importing an Excel file, it displays todays data.
+  //      However, the expected date value should be as it set in the Excel file.
+  // Why this Bug exist: [Ramzi]: because CSV file only uses one DateTime foramt,
+  // meanwhile this '_dateOfBrith' TextField format is different
+  // How it can be solved: [Ramzi]: using a formater here to convert the format taken
+  // from CSV file to this TextField
+  // When to work on: [Ramzi]: after Designing; to chose the best DateTime format.
   Padding _DateOfBirth() {
+    TextEditingController _initVal = TextEditingController();
     return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
+      padding: EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
       child: DateTimePicker(
-        initialValue: '',
+        controller: dOBController,
+        // initialValue: _initVal.text,
         firstDate: DateTime(2000),
         lastDate: DateTime(2100),
         dateLabelText: 'Date Of Birth',
         onChanged: (val) => print(val),
         validator: (val) {
           print(val);
-          return null;
         },
-        onSaved: (val) => print(val),
+        onSaved: (val) {
+          dOBController!.text = val!;
+          print(val);
+        },
       ),
     );
   }
@@ -335,7 +366,7 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
       child: TextFormField(
-        controller: textController3,
+        controller: phoneNumController,
         onChanged: (_) => EasyDebounce.debounce(
           'textController3',
           const Duration(milliseconds: 2000),
@@ -387,10 +418,10 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
             ),
           ),
           contentPadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-          suffixIcon: textController3!.text.isNotEmpty
+          suffixIcon: passController!.text.isNotEmpty
               ? InkWell(
                   onTap: () async {
-                    textController3?.clear();
+                    passController?.clear();
                     setState(() {});
                   },
                   child: const Icon(
@@ -411,7 +442,7 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
       child: TextFormField(
-        controller: textController2,
+        controller: emailController,
         onChanged: (_) => EasyDebounce.debounce(
           'textController2',
           const Duration(milliseconds: 2000),
@@ -463,10 +494,10 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
             ),
           ),
           contentPadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-          suffixIcon: textController2!.text.isNotEmpty
+          suffixIcon: emailController!.text.isNotEmpty
               ? InkWell(
                   onTap: () async {
-                    textController2?.clear();
+                    emailController?.clear();
                     setState(() {});
                   },
                   child: const Icon(
@@ -487,7 +518,7 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
       child: TextFormField(
-        controller: textController1,
+        controller: nameController,
         onChanged: (_) => EasyDebounce.debounce(
           'textController1',
           const Duration(milliseconds: 2000),
@@ -539,10 +570,10 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
             ),
           ),
           contentPadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-          suffixIcon: textController1!.text.isNotEmpty
+          suffixIcon: nameController!.text.isNotEmpty
               ? InkWell(
                   onTap: () async {
-                    textController1?.clear();
+                    nameController?.clear();
                     setState(() {});
                   },
                   child: const Icon(
@@ -557,5 +588,28 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
         keyboardType: TextInputType.name,
       ),
     );
+  }
+
+  a() async {
+    final result = await FilePicker.platform.pickFiles(allowMultiple: false);
+
+    if (result == null) return;
+    String filePath = result.files.first.path!;
+    print(filePath);
+    final input = File(filePath).openRead();
+    final fields = await input
+        .transform(utf8.decoder)
+        .transform(const CsvToListConverter())
+        .toList();
+    print(fields);
+    setState(() {
+      nameController!.text = fields[1][0];
+      emailController!.text = fields[1][1];
+      passController!.text = "PassWord Rand/Def";
+      phoneNumController!.text = fields[1][2].toString();
+      dOBController!.text = fields[1][3].toString();
+      addressController!.text = fields[1][4];
+      // checkboxesControler = check where fields[1][].contains checkboxList // sm like that
+    });
   }
 }
