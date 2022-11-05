@@ -1,6 +1,7 @@
 import 'package:finalapp/Widgets/default_drawer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class DeliveryMap extends StatefulWidget {
   const DeliveryMap({super.key});
@@ -23,11 +24,14 @@ class _DeliveryMapState extends State<DeliveryMap> {
             width: double.infinity,
             color: Colors.grey[400],
             child: Container(
-                alignment: Alignment.center, child: const Text("MAP HERE ")),
+                alignment: Alignment.center,
+                child: GoogleMap(
+                    initialCameraPosition:
+                        CameraPosition(target: LatLng(0, 0)))),
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Container(
             color: Color.fromARGB(255, 190, 212, 255),
             padding: const EdgeInsets.all(20),
@@ -38,7 +42,7 @@ class _DeliveryMapState extends State<DeliveryMap> {
                   Icon(Icons.access_time_rounded),
                   Text("TIME"),
                   SizedBox(
-                    width: 270,
+                    width: 170,
                   ),
                   Icon(Icons.location_on),
                   Text("Location Name")
