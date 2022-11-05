@@ -1,3 +1,4 @@
+import 'package:finalapp/Screens/create_driver_screen.dart';
 import 'package:flutter/material.dart';
 
 class EmployeesScreen extends StatefulWidget {
@@ -27,24 +28,28 @@ class _EState extends State<EmployeesScreen> {
                   text: "Employees",
                 ),
                 Tab(
-                  text: "Label",
+                  text: "Label 2",
                 ),
                 Tab(
-                  text: "Label",
+                  text: "Label 3",
                 ),
               ]),
           Expanded(
             child: TabBarView(children: [
               // ToDo : Make new folder called tabs and add class for each tab (Cleaner).
-              Container(
-                  child: Column(
+              Column(
                 children: [
                   Container(
                     padding: const EdgeInsets.only(top: 20, bottom: 30),
-                    child: const ListTile(
-                      leading: CircleAvatar(
+                    child: ListTile(
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const CreateDriverScreen()),
+                      ),
+                      leading: const CircleAvatar(
                           radius: 30, backgroundColor: Colors.blueAccent),
-                      title: Text('Add Driver '),
+                      title: const Text('Add Driver '),
                     ),
                   ),
                   Expanded(
@@ -67,7 +72,7 @@ class _EState extends State<EmployeesScreen> {
                             )),
                   ),
                 ],
-              )),
+              ),
               Container(
                 child: Column(children: [const Text("data")]),
               ),
