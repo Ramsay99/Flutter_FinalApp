@@ -1,5 +1,5 @@
 import 'package:finalapp/Local_Models/user.dart';
-import '../Screens/screens_barrel.dart';
+import '../screens/screens_barrel.dart';
 
 class Customer extends User {
   Customer() {

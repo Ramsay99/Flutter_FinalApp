@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:finalapp/Screens/screens_barrel.dart';
+import 'package:finalapp/screens/screens_barrel.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});

@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:finalapp/Local_Models/user.dart';
-import '../Screens/screens_barrel.dart';
+import '../screens/screens_barrel.dart';
 
 class Manager extends User {
   Manager() {

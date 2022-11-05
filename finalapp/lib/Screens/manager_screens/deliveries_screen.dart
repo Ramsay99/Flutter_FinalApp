@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../Local_Models/local_model_barrel.dart';
-import '../main.dart';
+import '../../local_models/local_model_barrel.dart';
+import '../../main.dart';
 
 class DeliveriesScreen extends StatefulWidget {
   const DeliveriesScreen({super.key});

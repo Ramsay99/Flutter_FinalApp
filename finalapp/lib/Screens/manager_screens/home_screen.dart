@@ -1,9 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields
 
-import 'package:finalapp/Screens/screens_barrel.dart';
-import '../Local_Models/local_model_barrel.dart';
-import '../Widgets/widgets_barrel.dart';
-import '../main.dart';
+import 'package:finalapp/screens/screens_barrel.dart';
+import '../../local_models/local_model_barrel.dart';
+import '../../widgets/widgets_barrel.dart';
+import '../../main.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
