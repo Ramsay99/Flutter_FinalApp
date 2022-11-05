@@ -44,6 +44,8 @@ dependencies:
   file_picker: ^4.6.1
   csv: ^5.0.1
   google_maps_flutter: ^2.2.1
+  http: ^0.13.4
+  convert: ^3.1.1
 
 dev_dependencies:
   flutter_test:
