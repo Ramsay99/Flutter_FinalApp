@@ -48,6 +48,7 @@ dependencies:
   convert: ^3.1.1
   flutter_polyline_points: ^1.0.0
   cloud_firestore: ^4.0.4
+  graphx: ^1.0.4
 
 dev_dependencies:
   flutter_test:
