@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: defaultTargetPlatform == TargetPlatform.android
-          ? const DeliveryMap()
+          ? const LoginScreen()
           : SplashScreen(
               id: id,
             ),
