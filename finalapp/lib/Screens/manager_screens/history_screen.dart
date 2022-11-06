@@ -1,6 +1,4 @@
-// ignore_for_file: prefer_const_constructors
-
-import 'package:finalapp/screens/screens_barrel.dart';
+import 'package:flutter/material.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({super.key});

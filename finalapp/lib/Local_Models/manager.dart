@@ -1,6 +1,5 @@
-// ignore_for_file: prefer_const_constructors
-
-import 'package:finalapp/Local_Models/user.dart';
+import 'package:flutter/material.dart';
+import 'package:finalapp/local_models/user.dart';
 import '../screens/screens_barrel.dart';
 
 class Manager extends User {

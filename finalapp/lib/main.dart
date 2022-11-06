@@ -1,4 +1,5 @@
-import 'package:finalapp/Local_Models/local_model_barrel.dart';
+import 'package:flutter/material.dart';
+import 'package:finalapp/local_models/local_model_barrel.dart';
 import 'package:finalapp/screens/screens_barrel.dart';
 import 'package:flutter/foundation.dart';
 
@@ -22,16 +23,16 @@ void main(List<String> args) {
 class MyApp extends StatelessWidget {
   final String? id;
   const MyApp({this.id, super.key});
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: defaultTargetPlatform == TargetPlatform.android
-          ? const LoginScreen()
-          : SplashScreen(
-              id: id,
-            ),
+      home: CreateDriverScreen(),
+      // home: defaultTargetPlatform == TargetPlatform.android
+      //     ? const CreateDriverScreen()
+      //     : SplashScreen(
+      //         id: id,
+      //       ),
     );
   }
 }

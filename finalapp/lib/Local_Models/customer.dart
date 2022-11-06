@@ -1,5 +1,5 @@
-import 'package:finalapp/Local_Models/user.dart';
-import '../screens/screens_barrel.dart';
+import 'package:flutter/material.dart';
+import 'package:finalapp/local_models/user.dart';
 
 class Customer extends User {
   late final String _name;
@@ -13,7 +13,7 @@ class Customer extends User {
     _phoneNum = phoneNum;
     print("New Customer!");
   }
-  
+
   @override
   Iterable<Widget> getAvailableScreens() {
     return [];

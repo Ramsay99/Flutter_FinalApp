@@ -12,10 +12,10 @@ class CreateDriverScreen extends StatefulWidget {
   const CreateDriverScreen({Key? key}) : super(key: key);
 
   @override
-  _CreateDriverScreenState createState() => _CreateDriverScreenState();
+  Format createState() => Format();
 }
 
-class _CreateDriverScreenState extends State<CreateDriverScreen> {
+class Format extends State<CreateDriverScreen> {
   TextEditingController? nameController;
   TextEditingController? emailController;
   TextEditingController? passController;
@@ -57,17 +57,9 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      // backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
-        // backgroundColor: FlutterFlowTheme.of(context).primaryColor,
-        // automaticallyImplyLeading: false,
         title: const Text(
           'Create Driver',
-          // style: FlutterFlowTheme.of(context).title2.override(
-          //       fontFamily: 'Poppins',
-          //       color: Colors.white,
-          //       fontSize: 22,
-          //     ),
         ),
         actions: [],
         centerTitle: false,
@@ -79,15 +71,14 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
             child: Column(
               children: [
                 Text(
-                    "Create New Driver either by Importing data from Excel file or Enter the new Driver data below"),
+                  "Create New Driver either by Importing data from Excel file or Enter the new Driver data below",
+                ),
                 Column(
                   children: [
-                    Image(
-                        image: NetworkImage(
-                            "https://cdn.windowsreport.com/wp-content/uploads/2021/01/microsoft-excel.png")),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
+                        //- #region Import file buttons.
                         ElevatedButton.icon(
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.lightGreenAccent[400],
@@ -122,6 +113,7 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
                             ),
                           ],
                         ),
+                        // #endregion
                       ],
                     ),
                   ],
@@ -180,7 +172,6 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
           ),
         ));
   }
-
   Padding _Address() {
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
@@ -256,7 +247,6 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
       ),
     );
   }
-
   Padding _Password() {
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
@@ -332,14 +322,6 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
       ),
     );
   }
-
-  // Bug: While importing an Excel file, it displays todays data.
-  //      However, the expected date value should be as it set in the Excel file.
-  // Why this Bug exist: [Ramzi]: because CSV file only uses one DateTime foramt,
-  // meanwhile this '_dateOfBrith' TextField format is different
-  // How it can be solved: [Ramzi]: using a formater here to convert the format taken
-  // from CSV file to this TextField
-  // When to work on: [Ramzi]: after Designing; to chose the best DateTime format.
   Padding _DateOfBirth() {
     TextEditingController _initVal = TextEditingController();
     return Padding(
@@ -361,7 +343,6 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
       ),
     );
   }
-
   Padding _PhoneNumber() {
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
@@ -437,7 +418,6 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
       ),
     );
   }
-
   Padding _Email() {
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
@@ -513,7 +493,6 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
       ),
     );
   }
-
   Padding _Name() {
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
@@ -590,6 +569,13 @@ class _CreateDriverScreenState extends State<CreateDriverScreen> {
     );
   }
 
+  // Bug: While importing an Excel file, it displays todays data.
+  //      However, the expected date value should be as it set in the Excel file.
+  // Why this Bug exist: [Ramzi]: because CSV file only uses one DateTime format,
+  // meanwhile this '_dateOfBirth' TextField format is different
+  // How it can be solved: [Ramzi]: using a formatter here to convert the format taken
+  // from CSV file to this TextField
+  // When to work on: [Ramzi]: after Designing; to chose the best DateTime format.
   a() async {
     final result = await FilePicker.platform.pickFiles(allowMultiple: false);
 

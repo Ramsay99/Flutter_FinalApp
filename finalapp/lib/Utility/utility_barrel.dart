@@ -1,6 +1,11 @@
-// export 'package:ltuc_portal/utility/firebase_options.dart';
-// export 'package:ltuc_portal/utility/firebase_references.dart';
-// export 'package:ltuc_portal/utility/style.dart';
-// export 'package:ltuc_portal/utility/auth_service.dart';
-// export 'package:ltuc_portal/utility/students_mark.dart';
-// export "package:ltuc_portal/utility/utils.dart";
+/// Exporting the files in the authentication folder.
+export 'authentication/valid_track_id.dart';
+export 'authentication/auth_service.dart';
+
+/// Exporting the files in the firestore folder.
+export 'firestore/firebase_options.dart';
+export 'firestore/user_service.dart';
+
+/// Exporting the files in the utility folder.
+export 'location_service.dart';
+export 'utils.dart';

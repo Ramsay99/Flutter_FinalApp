@@ -1,4 +1,5 @@
-import 'package:finalapp/Local_Models/user.dart';
+import 'package:flutter/material.dart';
+import 'package:finalapp/local_models/user.dart';
 import 'package:finalapp/screens/screens_barrel.dart';
 
 class Driver extends User {
