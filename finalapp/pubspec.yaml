@@ -47,6 +47,7 @@ dependencies:
   http: ^0.13.4
   convert: ^3.1.1
   flutter_polyline_points: ^1.0.0
+  graphx: ^1.0.4
 
 dev_dependencies:
   flutter_test:
