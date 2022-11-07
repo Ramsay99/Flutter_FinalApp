@@ -47,3 +47,7 @@ class LocationService {
     return result;
   }
 }
+
+void setLatLng(double lat, double lng) {
+  print("lat = $lat \n lng = $lng ");
+}
