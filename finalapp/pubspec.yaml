@@ -48,6 +48,9 @@ dependencies:
   convert: ^3.1.1
   flutter_polyline_points: ^1.0.0
   graphx: ^1.0.4
+  map_picker: ^0.0.3
+  map_pin_picker: ^0.0.1
+  geocoding: ^2.0.5
 
 dev_dependencies:
   flutter_test:
