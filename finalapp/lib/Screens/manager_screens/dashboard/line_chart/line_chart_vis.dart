@@ -10,7 +10,8 @@ import 'scene/chart_scene.dart';
 import 'widgets/orange_box.dart';
 
 class LineChartVis extends StatelessWidget {
-  const LineChartVis({super.key});
+  final List<double>? chartData;
+  const LineChartVis({super.key, required this.chartData});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class LineChartVis extends StatelessWidget {
                     OrangeBox(),
                     const SizedBox(width: 7),
                     Text(
-                      'Case fatality rate(%) of reported cases by month',
+                      'Case failure rate(%) of reported cases by month',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 10.2,
@@ -43,7 +44,8 @@ class LineChartVis extends StatelessWidget {
                       children: [
                         Positioned.fill(
                           child: SceneBuilderWidget(
-                            builder: () => SceneController(back: ChartScene()),
+                            builder: () =>
+                                SceneController(back: ChartScene(chartData!)),
                           ),
                         ),
                         MPSBuilder<DotDataModel>(

@@ -6,6 +6,8 @@ import 'chart_cell.dart';
 import 'chart_sprite.dart';
 
 class ChartScene extends GSprite {
+  late List<double> myDataList = [];
+  ChartScene(this.myDataList);
   late GSprite boxCFR1;
   late GSprite boxCFR2;
   late ChartTableCell boxCell;
@@ -26,17 +28,17 @@ class ChartScene extends GSprite {
 
   @override
   Future<void> addedToStage() async {
-    await loadJson();
+    await loadJson(myDataList);
 
     //// on the left side.
     boxCFR1 = GSprite();
     cfr1 = GText(
       text: 'CFR(%)',
-      textStyle: smallText,
+      textStyle: smallTextStyle,
     );
     monthYear = GText(
       text: 'Month and Year',
-      textStyle: smallText,
+      textStyle: smallTextStyle,
     );
     monthYear.validate();
     monthYear.alignPivot();
@@ -65,7 +67,7 @@ class ChartScene extends GSprite {
     boxCFR2.x = sw - boxCFR2.width;
     var lbl = GText(
       text: 'CFR(%)',
-      textStyle: smallText,
+      textStyle: smallTextStyle,
     );
     lbl.alignPivot(Alignment.centerLeft);
     lbl.x = 16;

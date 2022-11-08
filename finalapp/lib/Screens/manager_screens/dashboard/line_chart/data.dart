@@ -1,31 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:graphx/graphx.dart';
 
-final smallText = TextStyle(
-  color: const Color(0xff333333),
+const smallTextStyle = TextStyle(
+  color: Color(0xff333333),
   fontSize: 9,
   fontWeight: FontWeight.w600,
 );
 
-final valueTextStyle = TextStyle(
-  color: const Color(0xff333333),
+const valueTextStyle = TextStyle(
+  color: Color(0xff333333),
   fontSize: 6,
   fontWeight: FontWeight.w600,
 );
 
 late List<double> cfrData;
 
-Future<void> loadJson() async {
+Future<void> loadJson(List<double> charData) async {
   // var id = 'assets/isma_chart/chart_data.json';
   /// mmm, not usable it seems.
   // var str = await rootBundle.loadString(id);
-  buildData();
+  // buildData();
+  cfrData = charData;
 }
 
 void buildData() {
-  cfrData = List.generate(5, (index) {
-    return Math.randomRange(4, 100);
-  });
+  // cfrData = List.generate(
+  //   5,
+  //   (index) {
+  //     return Math.randomRange(4, 100);
+  //   },
+  // );
 }
 
 class DotDataModel {
