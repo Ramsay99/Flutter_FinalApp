@@ -51,6 +51,8 @@ dependencies:
   map_picker: ^0.0.3
   map_pin_picker: ^0.0.1
   geocoding: ^2.0.5
+  grouped_list: ^4.2.0
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
