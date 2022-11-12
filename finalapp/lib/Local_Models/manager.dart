@@ -10,7 +10,7 @@ class Manager extends User {
   @override
   Iterable<Widget> getAvailableScreens() {
     return [
-      const DeliveriesScreen(),
+      //const DeliveriesScreen(),
       const EmployeesScreen(),
       const DashboardScreen(),
       const HistoryScreen(),
@@ -20,7 +20,7 @@ class Manager extends User {
   @override
   List<BottomNavigationBarItem> getBotNavBarItems() {
     return [
-      DeliveriesScreen.bottomNavBarItem,
+      //DeliveriesScreen.bottomNavBarItem,
       EmployeesScreen.bottomNavBarItem,
       DashboardScreen.bottomNavBarItem,
       HistoryScreen.bottomNavBarItem,

@@ -104,14 +104,14 @@ class AuthService {
 
   handelUserRole() {
     return FutureBuilder(
-      future: UserService().userDataFuture(auth.currentUser!.uid),
+      future: UserService().getUserData(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
           return const Center(child: CircularProgressIndicator());
         }
         return snapshot.data!['role'] == 1
             ? const EmployHomeScreen()
-            : const ManagerHomeScreen();
+            : const CreateTaskScreen();
       },
     );
   }
@@ -130,7 +130,6 @@ class AuthService {
         final user = snapshot.data;
         //auth.signOut();
         if (user != null) {
-          print("THIS RAN");
           return handelUserRole();
         } else {
           return const LoginScreen();

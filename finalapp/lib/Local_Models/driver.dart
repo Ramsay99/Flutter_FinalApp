@@ -9,7 +9,7 @@ class Driver extends User {
   @override
   Iterable<Widget> getAvailableScreens() {
     return [
-      const DeliveriesScreen(),
+      //const DeliveriesScreen(),
       const HistoryScreen(),
     ];
   }
@@ -17,7 +17,7 @@ class Driver extends User {
   @override
   List<BottomNavigationBarItem> getBotNavBarItems() {
     return [
-      DeliveriesScreen.bottomNavBarItem,
+      //DeliveriesScreen.bottomNavBarItem,
       HistoryScreen.bottomNavBarItem,
     ];
   }

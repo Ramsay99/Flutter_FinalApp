@@ -13,10 +13,10 @@ class CreateDriverScreen extends StatefulWidget {
   const CreateDriverScreen({Key? key}) : super(key: key);
 
   @override
-  Format createState() => Format();
+  DriverForm createState() => DriverForm();
 }
 
-class Format extends State<CreateDriverScreen> {
+class DriverForm extends State<CreateDriverScreen> {
   TextEditingController? nameController;
   TextEditingController? emailController;
   TextEditingController? passController;
@@ -170,25 +170,28 @@ class Format extends State<CreateDriverScreen> {
 
   Padding _cities() {
     return Padding(
-        padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
-        child: SizedBox(
-          height: 130,
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: cities.length,
-            itemBuilder: (context, index) {
-              return CheckboxListTile(
-                title: Text(cities[index]),
-                value: citiesValues[index],
-                onChanged: (value) {
-                  setState(() {
+      padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
+      child: SizedBox(
+        height: 130,
+        child: ListView.builder(
+          shrinkWrap: true,
+          itemCount: cities.length,
+          itemBuilder: (context, index) {
+            return CheckboxListTile(
+              title: Text(cities[index]),
+              value: citiesValues[index],
+              onChanged: (value) {
+                setState(
+                  () {
                     citiesValues[index] = value!;
-                  });
-                },
-              );
-            },
-          ),
-        ));
+                  },
+                );
+              },
+            );
+          },
+        ),
+      ),
+    );
   }
 
   Padding _dateOfBirth() {
@@ -209,31 +212,30 @@ class Format extends State<CreateDriverScreen> {
 
   // Bug: While importing an Excel file, it displays todays data.
   //      However, the expected date value should be as it set in the Excel file.
-  // Why this Bug exist: [Ramzi]: because CSV file only uses one DateTime format,
-  // meanwhile this '_dateOfBirth' TextField format is different
-  // How it can be solved: [Ramzi]: using a formatter here to convert the format taken
+  // Why this Bug exist: [Ramzi]: because CSV file only uses one DateTime DriverForm,
+  // meanwhile this '_dateOfBirth' TextField DriverForm is different
+  // How it can be solved: [Ramzi]: using a DriverFormter here to convert the DriverForm taken
   // from CSV file to this TextField
-  // When to work on: [Ramzi]: after Designing; to chose the best DateTime format.
+  // When to work on: [Ramzi]: after Designing; to chose the best DateTime DriverForm.
   importCSV() async {
     final result = await FilePicker.platform.pickFiles(allowMultiple: false);
-
     if (result == null) return;
     String filePath = result.files.first.path!;
-    print(filePath);
     final input = File(filePath).openRead();
     final fields = await input
         .transform(utf8.decoder)
         .transform(const CsvToListConverter())
         .toList();
-    print(fields);
-    setState(() {
-      nameController!.text = fields[1][0];
-      emailController!.text = fields[1][1];
-      passController!.text = "PassWord Rand/Def";
-      phoneNumController!.text = fields[1][2].toString();
-      dOBController!.text = fields[1][3].toString();
-      addressController!.text = fields[1][4];
-      // checkboxesControler = check where fields[1][].contains checkboxList // sm like that
-    });
+    setState(
+      () {
+        nameController!.text = fields[1][0];
+        emailController!.text = fields[1][1];
+        passController!.text = "PassWord Rand/Def";
+        phoneNumController!.text = fields[1][2].toString();
+        dOBController!.text = fields[1][3].toString();
+        addressController!.text = fields[1][4];
+        // checkboxesControler = check where fields[1][].contains checkboxList // sm like that
+      },
+    );
   }
 }
