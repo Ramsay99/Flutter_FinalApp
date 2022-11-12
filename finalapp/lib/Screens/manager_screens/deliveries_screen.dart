@@ -21,7 +21,7 @@ class _DeliveriesScreenState extends State<DeliveriesScreen> {
     return Column(
       children: [
         Visibility(
-          visible: localCurrentUser.runtimeType == Manager ? true : false,
+          //visible: localCurrentUser.runtimeType == Manager ? true : false,
           child: CardFb2(
             text: "New Delivery",
             imageUrl: "https://static.thenounproject.com/png/621382-200.png",

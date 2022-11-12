@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:finalapp/local_models/local_model_barrel.dart';
-import 'package:finalapp/screens/screens_barrel.dart';
 import 'package:flutter/foundation.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:finalapp/screens/screens_barrel.dart';
+import 'package:finalapp/utility/utility_barrel.dart';
 
 // To change this condition [true|false] to change localCurrentUser
-late User localCurrentUser = true ? Manager() : Driver();
-// Future<void> main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-//   runApp(const MaterialApp(debugShowCheckedModeBanner: false, home: MyApp()));
-// }
-void main(List<String> args) {
+//late User localCurrentUser = true ? Manager() : Driver();
+Future<void> main() async {
   String? id = Uri.base.queryParameters["id"];
-
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
     MyApp(
       id: id,
@@ -25,14 +22,13 @@ class MyApp extends StatelessWidget {
   const MyApp({this.id, super.key});
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: CreateDriverScreen(),
-      // home: defaultTargetPlatform == TargetPlatform.android
-      //     ? const CreateDriverScreen()
-      //     : SplashScreen(
-      //         id: id,
-      //       ),
+      home: defaultTargetPlatform == TargetPlatform.android || id == null
+          ? AuthService().handleAuthState()
+          : WebInfoScreen(
+              id: id,
+            ),
     );
   }
 }

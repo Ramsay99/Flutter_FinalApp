@@ -2,6 +2,7 @@ import 'package:finalapp/Utility/utils.dart';
 import 'package:finalapp/Widgets/default_button.dart';
 import 'package:finalapp/Widgets/default_chip_buttons.dart';
 import 'package:finalapp/Widgets/default_text_field.dart';
+import 'package:finalapp/utility/authentication/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -27,73 +28,45 @@ class _LoginScreenState extends State<LoginScreen> {
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 40, vertical: 30),
-                child: Material(
-                  elevation: 10,
-                  borderRadius: const BorderRadius.all(Radius.circular(50)),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: Color.fromARGB(255, 255, 255, 255),
-                      borderRadius: BorderRadius.all(Radius.circular(
-                              20.0) //                 <--- border radius here
-                          ),
-                    ),
-                    padding: const EdgeInsets.all(12),
-                    child: Column(children: [
-                      DefaultFormField(
-                        key: const Key("email_textfield"),
-                        textHint: "E-mail",
-                        controller: emailController,
-                      ),
-                      DefaultFormField(
-                        key: const Key("pass_textfield"),
-                        textHint: "Password",
-                        controller: passwordController,
-                      ),
-                      Container(
-                        alignment: Alignment.topRight,
-                        child: GestureDetector(
-                          child: const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              "forgot your password?",
-                              style: TextStyle(
-                                fontSize: 14,
-                                decoration: TextDecoration.underline,
-                                color: Color.fromARGB(255, 4, 3, 3),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      DefaultButton(
-                          label: "Login",
-                          onTap:
-                              () {} //signInAuth() to be uncommented when we start importing fireBase,
-                          ),
-                      Wrap(
-                        spacing: 8,
-                        alignment: WrapAlignment.spaceEvenly,
-                        children: [
-                          DefaultChipLogIn(
-                            key: const Key("clear_chip"),
-                            email: "",
-                            pass: "",
-                            emailController: emailController,
-                            passwordController: passwordController,
-                            chipLabel: "Clear",
-                          ),
-                          DefaultChipLogIn(
-                            key: const Key("test_chip"),
-                            email: "test@test.com",
-                            pass: "test1234",
-                            emailController: emailController,
-                            passwordController: passwordController,
-                          ),
-                        ],
-                      ),
-                    ]),
+                child: Column(children: [
+                  DefaultFormField(
+                    key: const Key("email_textfield"),
+                    textHint: "E-mail",
+                    controller: emailController,
                   ),
-                ),
+                  DefaultFormField(
+                    key: const Key("pass_textfield"),
+                    textHint: "Password",
+                    controller: passwordController,
+                  ),
+                  DefaultButton(
+                    label: "Login",
+                    onTap: () {
+                      signIn();
+                    },
+                  ),
+                  Wrap(
+                    spacing: 8,
+                    alignment: WrapAlignment.spaceEvenly,
+                    children: [
+                      DefaultChipLogIn(
+                        key: const Key("clear_chip"),
+                        email: "",
+                        pass: "",
+                        emailController: emailController,
+                        passwordController: passwordController,
+                        chipLabel: "Clear",
+                      ),
+                      DefaultChipLogIn(
+                        key: const Key("test_chip"),
+                        email: "test@test.com",
+                        pass: "test1234",
+                        emailController: emailController,
+                        passwordController: passwordController,
+                      ),
+                    ],
+                  ),
+                ]),
               ),
             ],
           ),
@@ -102,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Future signInAuth() async {
+  Future signIn() async {
     try {
       showDialog(
         context: context,
@@ -111,12 +84,10 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         barrierDismissible: false,
       );
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
+      AuthService().signInUser(
+        emailController.text,
+        passwordController.text,
       );
-    } on FirebaseAuthException catch (e) {
-      Utils.errorSnackBar(e.message);
     } finally {
       Navigator.pop(context);
     }

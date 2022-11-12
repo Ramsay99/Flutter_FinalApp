@@ -1,12 +1,13 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
-import 'package:easy_debounce/easy_debounce.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:finalapp/utility/authentication/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'dart:io';
 import 'dart:convert';
 import 'package:csv/csv.dart';
+import 'package:finalapp/widgets/widgets_barrel.dart';
 
 class CreateDriverScreen extends StatefulWidget {
   const CreateDriverScreen({Key? key}) : super(key: key);
@@ -57,91 +58,108 @@ class Format extends State<CreateDriverScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      appBar: AppBar(
-        title: const Text(
-          'Create Driver',
-        ),
-        actions: [],
-        centerTitle: false,
-        elevation: 2,
-      ),
       body: SafeArea(
-        child: Form(
-          child: SingleChildScrollView(
+        child: SingleChildScrollView(
+          child: Form(
             child: Column(
               children: [
-                Text(
-                  "Create New Driver either by Importing data from Excel file or Enter the new Driver data below",
-                ),
-                Column(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    //- #region Import file buttons.
+                    ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.lightGreenAccent[400],
+                          foregroundColor: Colors.green.shade800),
+                      onPressed: () {
+                        print("One Person Started");
+                        importCSV();
+                        print("One Person Ended");
+                      },
+                      icon: Icon(Icons.person_add),
+                      label: Text("One Driver"),
+                    ),
+                    Stack(
                       children: [
-                        //- #region Import file buttons.
                         ElevatedButton.icon(
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.lightGreenAccent[400],
                               foregroundColor: Colors.green.shade800),
-                          onPressed: () {
-                            print("One Person Started");
-                            a();
-                            print("One Person Ended");
-                          },
-                          icon: Icon(Icons.person_add),
-                          label: Text("One Driver"),
+                          icon: Icon(Icons.people),
+                          label: Text(
+                            "Many Drivers",
+                          ),
+                          // Disabled Button, can be used as an example to
+                          // buy the premium product to unlock this feature.
+                          onPressed: null,
                         ),
-                        Stack(
-                          children: [
-                            ElevatedButton.icon(
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.lightGreenAccent[400],
-                                  foregroundColor: Colors.green.shade800),
-                              icon: Icon(Icons.people),
-                              label: Text(
-                                "Many Drivers",
-                              ),
-                              // Disabled Button, can be used as an example to
-                              // buy the premium product to unlock this feature.
-                              onPressed: null,
-                            ),
-                            Icon(
-                              Icons.lock,
-                              color: Colors.amber,
-                              shadows: [Shadow(color: Colors.black)],
-                              size: 25,
-                            ),
-                          ],
+                        Icon(
+                          Icons.lock,
+                          color: Colors.amber,
+                          shadows: [Shadow(color: Colors.black)],
+                          size: 25,
                         ),
-                        // #endregion
                       ],
                     ),
+                    // #endregion
                   ],
                 ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Divider(
-                        height: 30,
-                        thickness: 3,
-                      ),
-                    ),
-                    Text("OR"),
-                    Expanded(
-                      child: Divider(
-                        height: 30,
-                        thickness: 3,
-                      ),
-                    ),
-                  ],
+                DefaultFormField(
+                  textHint: "Name",
+                  controller: nameController!,
                 ),
-                _Name(),
-                _Email(),
-                _Password(),
-                _PhoneNumber(),
-                _DateOfBirth(),
-                _Address(),
-                _Cities(),
+                DefaultFormField(
+                  textHint: "E-mail",
+                  controller: emailController!,
+                ),
+                DefaultFormField(
+                  textHint: "Password",
+                  controller: passController!,
+                ),
+                DefaultFormField(
+                  textHint: "Phone",
+                  controller: phoneNumController!,
+                ),
+                DefaultFormField(
+                  textHint: "Address",
+                  controller: addressController!,
+                ),
+                _dateOfBirth(),
+                _cities(),
+                DefaultButton(
+                  label: "Sign-up",
+                  onTap: () {
+                    AuthService()
+                        .signUpUser(
+                      emailController!.text,
+                      passController!.text,
+                    )
+                        .then(
+                      (userCredential) {
+                        AuthService().saveUserData(
+                          userCredential.user!,
+                          nameController!.text,
+                          phoneNumController!.text,
+                          true,
+                          true,
+                          [
+                            Timestamp.now(),
+                            Timestamp.now(),
+                          ],
+                          [
+                            "amman",
+                            "irbid",
+                          ],
+                          [
+                            "test",
+                            "test2",
+                          ],
+                          "org1",
+                        );
+                      },
+                    );
+                  },
+                )
               ],
             ),
           ),
@@ -150,7 +168,7 @@ class Format extends State<CreateDriverScreen> {
     );
   }
 
-  Padding _Cities() {
+  Padding _cities() {
     return Padding(
         padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
         child: SizedBox(
@@ -172,399 +190,19 @@ class Format extends State<CreateDriverScreen> {
           ),
         ));
   }
-  Padding _Address() {
-    return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
-      child: TextFormField(
-        controller: addressController,
-        onChanged: (_) => EasyDebounce.debounce(
-          'textController6',
-          const Duration(milliseconds: 2000),
-          () => setState(() {}),
-        ),
-        obscureText: false,
-        decoration: InputDecoration(
-          labelText: 'Address',
-          hintText: 'Amman, City Center',
-          // hintStyle: FlutterFlowTheme.of(context).bodyText2,
-          enabledBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.black87,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(4.0),
-              topRight: Radius.circular(4.0),
-            ),
-          ),
-          focusedBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.black87,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(4.0),
-              topRight: Radius.circular(4.0),
-            ),
-          ),
-          errorBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.black87,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(4.0),
-              topRight: Radius.circular(4.0),
-            ),
-          ),
-          focusedErrorBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.black87,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(4.0),
-              topRight: Radius.circular(4.0),
-            ),
-          ),
-          contentPadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-          suffixIcon: addressController!.text.isNotEmpty
-              ? InkWell(
-                  onTap: () async {
-                    addressController?.clear();
-                    setState(() {});
-                  },
-                  child: const Icon(
-                    Icons.clear,
-                    color: Color(0xFF757575),
-                    size: 22,
-                  ),
-                )
-              : null,
-        ),
-        // style: FlutterFlowTheme.of(context).bodyText1,
-        keyboardType: TextInputType.streetAddress,
-      ),
-    );
-  }
-  Padding _Password() {
-    return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
-      child: TextFormField(
-        controller: passController,
-        onChanged: (_) => EasyDebounce.debounce(
-          'textController5',
-          const Duration(milliseconds: 2000),
-          () => setState(() {}),
-        ),
-        obscureText: false,
-        decoration: InputDecoration(
-          labelText: 'Set Emp Account Password',
-          hintText: '********',
-          // hintStyle: FlutterFlowTheme.of(context).bodyText2,
-          enabledBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.black87,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(4.0),
-              topRight: Radius.circular(4.0),
-            ),
-          ),
-          focusedBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.black87,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(4.0),
-              topRight: Radius.circular(4.0),
-            ),
-          ),
-          errorBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.black87,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(4.0),
-              topRight: Radius.circular(4.0),
-            ),
-          ),
-          focusedErrorBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.black87,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(4.0),
-              topRight: Radius.circular(4.0),
-            ),
-          ),
-          contentPadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-          suffixIcon: dOBController!.text.isNotEmpty
-              ? InkWell(
-                  onTap: () async {
-                    dOBController?.clear();
-                    setState(() {});
-                  },
-                  child: const Icon(
-                    Icons.clear,
-                    color: Color(0xFF757575),
-                    size: 22,
-                  ),
-                )
-              : null,
-        ),
-        // style: FlutterFlowTheme.of(context).bodyText1,
-        keyboardType: TextInputType.visiblePassword,
-      ),
-    );
-  }
-  Padding _DateOfBirth() {
-    TextEditingController _initVal = TextEditingController();
+
+  Padding _dateOfBirth() {
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
       child: DateTimePicker(
         controller: dOBController,
         // initialValue: _initVal.text,
-        firstDate: DateTime(2000),
+        firstDate: DateTime.now(),
         lastDate: DateTime(2100),
-        dateLabelText: 'Date Of Birth',
-        onChanged: (val) => print(val),
-        validator: (val) {
-          print(val);
-        },
+        dateLabelText: 'Date',
         onSaved: (val) {
           dOBController!.text = val!;
-          print(val);
         },
-      ),
-    );
-  }
-  Padding _PhoneNumber() {
-    return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
-      child: TextFormField(
-        controller: phoneNumController,
-        onChanged: (_) => EasyDebounce.debounce(
-          'textController3',
-          const Duration(milliseconds: 2000),
-          () => setState(() {}),
-        ),
-        obscureText: false,
-        decoration: InputDecoration(
-          labelText: 'Phone Number',
-          hintText: '07 1234 5678',
-          // // hintStyle: FlutterFlowTheme.of(context).bodyText2,
-          enabledBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.black87,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(4.0),
-              topRight: Radius.circular(4.0),
-            ),
-          ),
-          focusedBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.black87,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(4.0),
-              topRight: Radius.circular(4.0),
-            ),
-          ),
-          errorBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.black87,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(4.0),
-              topRight: Radius.circular(4.0),
-            ),
-          ),
-          focusedErrorBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.black87,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(4.0),
-              topRight: Radius.circular(4.0),
-            ),
-          ),
-          contentPadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-          suffixIcon: passController!.text.isNotEmpty
-              ? InkWell(
-                  onTap: () async {
-                    passController?.clear();
-                    setState(() {});
-                  },
-                  child: const Icon(
-                    Icons.clear,
-                    color: Color(0xFF757575),
-                    size: 22,
-                  ),
-                )
-              : null,
-        ),
-        // style: FlutterFlowTheme.of(context).bodyText1,
-        keyboardType: TextInputType.phone,
-      ),
-    );
-  }
-  Padding _Email() {
-    return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
-      child: TextFormField(
-        controller: emailController,
-        onChanged: (_) => EasyDebounce.debounce(
-          'textController2',
-          const Duration(milliseconds: 2000),
-          () => setState(() {}),
-        ),
-        obscureText: false,
-        decoration: InputDecoration(
-          labelText: 'Email',
-          hintText: 'Ahamd@gmail.com',
-          // // hintStyle: FlutterFlowTheme.of(context).bodyText2,
-          enabledBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.black87,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(4.0),
-              topRight: Radius.circular(4.0),
-            ),
-          ),
-          focusedBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.black87,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(4.0),
-              topRight: Radius.circular(4.0),
-            ),
-          ),
-          errorBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.black87,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(4.0),
-              topRight: Radius.circular(4.0),
-            ),
-          ),
-          focusedErrorBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.black87,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(4.0),
-              topRight: Radius.circular(4.0),
-            ),
-          ),
-          contentPadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-          suffixIcon: emailController!.text.isNotEmpty
-              ? InkWell(
-                  onTap: () async {
-                    emailController?.clear();
-                    setState(() {});
-                  },
-                  child: const Icon(
-                    Icons.clear,
-                    color: Color(0xFF757575),
-                    size: 22,
-                  ),
-                )
-              : null,
-        ),
-        // // style: FlutterFlowTheme.of(context).bodyText1,
-        keyboardType: TextInputType.emailAddress,
-      ),
-    );
-  }
-  Padding _Name() {
-    return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
-      child: TextFormField(
-        controller: nameController,
-        onChanged: (_) => EasyDebounce.debounce(
-          'textController1',
-          const Duration(milliseconds: 2000),
-          () => setState(() {}),
-        ),
-        obscureText: false,
-        decoration: InputDecoration(
-          labelText: 'Name',
-          hintText: 'Ahmad',
-          // // hintStyle: FlutterFlowTheme.of(context).bodyText2,
-          enabledBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.black87,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(4.0),
-              topRight: Radius.circular(4.0),
-            ),
-          ),
-          focusedBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.black87,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(4.0),
-              topRight: Radius.circular(4.0),
-            ),
-          ),
-          errorBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.black87,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(4.0),
-              topRight: Radius.circular(4.0),
-            ),
-          ),
-          focusedErrorBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.black87,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(4.0),
-              topRight: Radius.circular(4.0),
-            ),
-          ),
-          contentPadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-          suffixIcon: nameController!.text.isNotEmpty
-              ? InkWell(
-                  onTap: () async {
-                    nameController?.clear();
-                    setState(() {});
-                  },
-                  child: const Icon(
-                    Icons.clear,
-                    color: Color(0xFF757575),
-                    size: 22,
-                  ),
-                )
-              : null,
-        ),
-        // // style: FlutterFlowTheme.of(context).bodyText1,
-        keyboardType: TextInputType.name,
       ),
     );
   }
@@ -576,7 +214,7 @@ class Format extends State<CreateDriverScreen> {
   // How it can be solved: [Ramzi]: using a formatter here to convert the format taken
   // from CSV file to this TextField
   // When to work on: [Ramzi]: after Designing; to chose the best DateTime format.
-  a() async {
+  importCSV() async {
     final result = await FilePicker.platform.pickFiles(allowMultiple: false);
 
     if (result == null) return;
