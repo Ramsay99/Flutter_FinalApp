@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finalapp/Screens/global_screens/auth/login_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../../Utility/utility_barrel.dart';
@@ -12,8 +14,14 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  FirebaseFirestore db = FirebaseFirestore.instance;
+
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
+  var fullNameController = TextEditingController();
+  var phoneNumberController = TextEditingController();
+  var OrgNameController = TextEditingController();
+  var OrgLocationController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +36,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 child: Column(children: [
                   DefaultFormField(
                     textHint: "Full Name ",
-                    controller: emailController,
+                    controller: fullNameController,
                   ),
                   DefaultFormField(
                     key: const Key("email_textfield"),
@@ -37,15 +45,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   DefaultFormField(
                     textHint: "Phone Number",
-                    controller: emailController,
+                    controller: phoneNumberController,
                   ),
                   DefaultFormField(
                     textHint: "Name of the Organization",
-                    controller: emailController,
+                    controller: OrgNameController,
                   ),
                   DefaultFormField(
                     textHint: "Location of the Organization",
-                    controller: emailController,
+                    controller: OrgLocationController,
                   ),
                   DefaultFormField(
                     key: const Key("pass_textfield"),
@@ -55,7 +63,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   DefaultButton(
                     label: "Sign Up",
                     onTap: () {
-                      signUp();
+                      //signUp();
                     },
                   ),
                   Row(
@@ -82,21 +90,49 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  Future signUp() async {
+  Future<void> signUp({
+    required BuildContext context,
+    //bool withAutoSignIn = false,
+  }) async {
+    bool isSignedUpSuccessfully = false;
     try {
-      showDialog(
-        context: context,
-        builder: (context) => const Center(
-          child: CircularProgressIndicator(),
-        ),
-        barrierDismissible: false,
+      final credential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
       );
-      AuthService().signInUser(
-        emailController.text,
-        passwordController.text,
-      );
-    } finally {
-      Navigator.pop(context);
+      isSignedUpSuccessfully = true;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
+    } catch (e) {
+      print(e);
     }
+
+    ///HERE TO ADD THE USER DATA TO THE FIRESTORE
+    ///
+    ///
+    //   if (isSignedUpSuccessfully) {
+    //     Map<String, dynamic> user = {
+    //       "email": emailController.text,
+    //       "role": "user",
+    //       "name": fullNameController.text,
+    //       "phone":phoneNumberController.text,
+    //       "organization_name":OrgNameController.text,
+    //       "organization_location": OrgLocationController.text,
+    //     };
+    //     addUser(user);
+    //   }
+
+    // }
+    // void addUser(Map<String, dynamic> user) {
+    //   db
+    //       .collection("users")
+    //       .doc(FirebaseAuth.instance.currentUser!.uid)
+    //       .set(user)
+    //       .onError((e, _) => print("Error writing document: $e"));
   }
 }
