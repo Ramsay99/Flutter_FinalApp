@@ -1,10 +1,17 @@
-// ignore_for_file: prefer_const_constructors
-
-import 'package:finalapp/Local_Models/user.dart';
-import '../screens/screens_barrel.dart';
+import 'package:finalapp/local_models/users/user.dart';
+import '../../Screens/screens_barrel.dart';
 
 class Manager extends User {
-  Manager() {
+  @override
+  String email;
+
+  @override
+  String name;
+
+  @override
+  int phoneNum;
+
+  Manager(this.name, this.email, this.phoneNum) {
     print("New Manager!");
   }
 

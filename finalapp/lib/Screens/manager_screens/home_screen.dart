@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields
 
+import 'package:finalapp/local_models/local_model_barrel.dart';
 import 'package:finalapp/screens/screens_barrel.dart';
-import '../../local_models/local_model_barrel.dart';
 import '../../widgets/widgets_barrel.dart';
 import '../../main.dart';
 

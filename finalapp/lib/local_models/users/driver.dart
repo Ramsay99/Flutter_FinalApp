@@ -1,8 +1,17 @@
-import 'package:finalapp/Local_Models/user.dart';
-import 'package:finalapp/screens/screens_barrel.dart';
+import 'package:finalapp/local_models/users/user.dart';
+import '../../Screens/screens_barrel.dart';
 
 class Driver extends User {
-  Driver() {
+  @override
+  String email;
+
+  @override
+  String name;
+
+  @override
+  int phoneNum;
+
+  Driver(this.name, this.email, this.phoneNum) {
     print("New Driver!");
   }
   @override

@@ -1,6 +1,6 @@
+import 'package:finalapp/local_models/local_model_barrel.dart';
 import 'package:flutter/material.dart';
 
-import '../../local_models/local_model_barrel.dart';
 import '../../main.dart';
 
 class DeliveriesScreen extends StatefulWidget {

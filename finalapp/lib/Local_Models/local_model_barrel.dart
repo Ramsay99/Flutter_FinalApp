@@ -1,4 +1,4 @@
-export 'package:finalapp/Local_Models/customer.dart';
-export 'package:finalapp/Local_Models/driver.dart';
-export 'package:finalapp/Local_Models/manager.dart';
-export 'package:finalapp/Local_Models/user.dart';
+export 'package:finalapp/local_models/users/customer.dart';
+export 'package:finalapp/local_models/users/driver.dart';
+export 'package:finalapp/local_models/users/manager.dart';
+export 'package:finalapp/local_models/users/user.dart';
