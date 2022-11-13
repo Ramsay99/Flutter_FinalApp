@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-class SplashScreen extends StatefulWidget {
+class WebInfoScreen extends StatefulWidget {
   final String? id;
-  const SplashScreen({this.id, super.key});
+  const WebInfoScreen({this.id, super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  State<WebInfoScreen> createState() => _WebInfoScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _WebInfoScreenState extends State<WebInfoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

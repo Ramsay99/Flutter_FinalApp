@@ -1,24 +1,27 @@
-import 'package:finalapp/utility/utility_barrel.dart';
+import 'package:finalapp/utility/authentication/auth_service.dart';
 import 'package:flutter/material.dart';
+import '../../local_models/local_model_barrel.dart';
+import '../../widgets/widgets_barrel.dart';
+import '../../main.dart';
 
-class ManagerHomeScreen extends StatefulWidget {
-  const ManagerHomeScreen({super.key});
+class EmployHomeScreen extends StatefulWidget {
+  const EmployHomeScreen({super.key});
 
   @override
-  State<ManagerHomeScreen> createState() => _ManagerHomeScreenState();
+  State<EmployHomeScreen> createState() => _EmployHomeScreenState();
 }
 
 List<Widget> _content = [];
 int _selectedIndex = 0;
 List<BottomNavigationBarItem> _items = [];
 
-class _ManagerHomeScreenState extends State<ManagerHomeScreen> {
+class _EmployHomeScreenState extends State<EmployHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Manager",
+          "Employ",
           style: TextStyle(
             color: Colors.white,
           ),

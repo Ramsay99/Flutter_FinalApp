@@ -1,5 +1,5 @@
+import 'package:flutter/material.dart';
 import 'package:finalapp/local_models/users/user.dart';
-import '../../Screens/screens_barrel.dart';
 
 class Customer extends User {
   @override

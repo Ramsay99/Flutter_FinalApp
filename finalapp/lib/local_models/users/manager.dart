@@ -1,5 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:finalapp/local_models/users/user.dart';
-import '../../Screens/screens_barrel.dart';
+import 'package:finalapp/screens/screens_barrel.dart';
 
 class Manager extends User {
   @override
@@ -18,7 +19,7 @@ class Manager extends User {
   @override
   Iterable<Widget> getAvailableScreens() {
     return [
-      const DeliveriesScreen(),
+      //const DeliveriesScreen(),
       const EmployeesScreen(),
       const DashboardScreen(),
       const HistoryScreen(),
@@ -28,7 +29,7 @@ class Manager extends User {
   @override
   List<BottomNavigationBarItem> getBotNavBarItems() {
     return [
-      DeliveriesScreen.bottomNavBarItem,
+      //DeliveriesScreen.bottomNavBarItem,
       EmployeesScreen.bottomNavBarItem,
       DashboardScreen.bottomNavBarItem,
       HistoryScreen.bottomNavBarItem,
