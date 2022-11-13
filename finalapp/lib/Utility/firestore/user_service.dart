@@ -6,7 +6,7 @@ final CollectionReference users =
     FirebaseFirestore.instance.collection('users');
 
 class UserService {
-  getUserData() async {
+  Future getUserData() async {
     DocumentSnapshot<Object?> userDocument =
         await users.doc(auth.currentUser!.uid).get();
     return userDocument.data() as Map;

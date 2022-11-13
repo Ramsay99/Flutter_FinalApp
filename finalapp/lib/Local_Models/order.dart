@@ -1,7 +1,5 @@
-import 'package:finalapp/Local_Models/local_model_barrel.dart';
 import 'package:finalapp/Screens/customer_screens/customer_feedback_screen.dart';
-import 'package:finalapp/local_models/location.dart';
-import 'package:finalapp/local_models/product.dart';
+import 'package:finalapp/local_models/local_model_barrel.dart';
 
 class Order {
   Map<String, Product> cart = {};
