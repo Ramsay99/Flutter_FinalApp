@@ -1,23 +1,19 @@
-import 'package:finalapp/Screens/global_screens/auth/sign_up_screen.dart';
-import 'package:finalapp/Utility/utils.dart';
-import 'package:finalapp/Widgets/default_button.dart';
-import 'package:finalapp/Widgets/default_chip_buttons.dart';
-import 'package:finalapp/Widgets/default_text_field.dart';
-import 'package:finalapp/utility/authentication/auth_service.dart';
+import 'package:finalapp/Screens/global_screens/auth/login_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+import '../../../Utility/utility_barrel.dart';
+import '../../../Widgets/widgets_barrel.dart';
+
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-var emailController = TextEditingController();
-var passwordController = TextEditingController();
-
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,8 +27,24 @@ class _LoginScreenState extends State<LoginScreen> {
                     const EdgeInsets.symmetric(horizontal: 40, vertical: 30),
                 child: Column(children: [
                   DefaultFormField(
+                    textHint: "Full Name ",
+                    controller: emailController,
+                  ),
+                  DefaultFormField(
                     key: const Key("email_textfield"),
                     textHint: "E-mail",
+                    controller: emailController,
+                  ),
+                  DefaultFormField(
+                    textHint: "Phone Number",
+                    controller: emailController,
+                  ),
+                  DefaultFormField(
+                    textHint: "Name of the Organization",
+                    controller: emailController,
+                  ),
+                  DefaultFormField(
+                    textHint: "Location of the Organization",
                     controller: emailController,
                   ),
                   DefaultFormField(
@@ -41,9 +53,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     controller: passwordController,
                   ),
                   DefaultButton(
-                    label: "Login",
+                    label: "Sign Up",
                     onTap: () {
-                      signIn();
+                      signUp();
                     },
                   ),
                   Row(
@@ -55,31 +67,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const SignUpScreen()),
+                                  builder: (context) => const LoginScreen()),
                             );
                           },
-                          child: const Text("Sign Up"))
-                    ],
-                  ),
-                  Wrap(
-                    spacing: 8,
-                    alignment: WrapAlignment.spaceEvenly,
-                    children: [
-                      DefaultChipLogIn(
-                        key: const Key("clear_chip"),
-                        email: "",
-                        pass: "",
-                        emailController: emailController,
-                        passwordController: passwordController,
-                        chipLabel: "Clear",
-                      ),
-                      DefaultChipLogIn(
-                        key: const Key("test_chip"),
-                        email: "test@test.com",
-                        pass: "test1234",
-                        emailController: emailController,
-                        passwordController: passwordController,
-                      ),
+                          child: const Text("Sign In"))
                     ],
                   ),
                 ]),
@@ -91,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Future signIn() async {
+  Future signUp() async {
     try {
       showDialog(
         context: context,
