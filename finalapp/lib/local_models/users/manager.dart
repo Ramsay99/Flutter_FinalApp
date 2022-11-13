@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:finalapp/local_models/user.dart';
-import '../screens/screens_barrel.dart';
+import 'package:finalapp/local_models/users/user.dart';
+import 'package:finalapp/screens/screens_barrel.dart';
 
 class Manager extends User {
-  Manager() {
+  @override
+  String email;
+
+  @override
+  String name;
+
+  @override
+  int phoneNum;
+
+  Manager(this.name, this.email, this.phoneNum) {
     print("New Manager!");
   }
 

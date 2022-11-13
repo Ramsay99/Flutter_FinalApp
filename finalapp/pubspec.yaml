@@ -49,6 +49,13 @@ dependencies:
   flutter_polyline_points: ^1.0.0
   cloud_firestore: ^4.0.4
   graphx: ^1.0.4
+  map_picker: ^0.0.3
+  map_pin_picker: ^0.0.1
+  geocoding: ^2.0.5
+  grouped_list: ^4.2.0
+  intl: ^0.17.0
+  qr_code_scanner: ^1.0.1
+  url_launcher: ^6.1.6
 
 dev_dependencies:
   flutter_test:

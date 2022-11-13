@@ -3,9 +3,13 @@ import 'package:flutter/foundation.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:finalapp/screens/screens_barrel.dart';
 import 'package:finalapp/utility/utility_barrel.dart';
+//import 'package:finalapp/local_models/local_model_barrel.dart';
 
-// To change this condition [true|false] to change localCurrentUser
-//late User localCurrentUser = true ? Manager() : Driver();
+// Change this condition between [true|false] to change localCurrentUser type.
+// User localCurrentUser = true
+//     ? Manager("SteveJobless", "@Boss.com", 079)
+//     : Driver("Tom", "Tom.com", 078);
+
 Future<void> main() async {
   String? id = Uri.base.queryParameters["id"];
   WidgetsFlutterBinding.ensureInitialized();

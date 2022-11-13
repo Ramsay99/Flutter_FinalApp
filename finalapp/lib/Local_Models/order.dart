@@ -1,24 +1,33 @@
-class Order {
-  late double _cost;
-  late String _address;
-  late String _streetName;
-  late String _product;
-  late String _note;
-  double _userReviewStars = 0;
-  Order(
-    this._cost, {
-    String address = "orderAdress",
-    String streetName = "orderStreet",
-    String product = "orderProduct",
-    String note = "",
-  }) {
-    _address = address;
-    _streetName = streetName;
-    _product = product;
-    _note = note;
-  }
+import 'package:finalapp/Local_Models/local_model_barrel.dart';
+import 'package:finalapp/Screens/customer_screens/customer_feedback_screen.dart';
+import 'package:finalapp/local_models/location.dart';
+import 'package:finalapp/local_models/product.dart';
 
-  void setOrderReviewStars(double ratingStars) {
-    _userReviewStars = ratingStars;
+class Order {
+  Map<String, Product> cart = {};
+  late final Driver driver;
+  late final Customer customer;
+  String deliveryToAdress = "deliveryToAdress";
+  Location deliveryFrom = Location.notDefined();
+  Location deliveryTo = Location.notDefined();
+  late DateTime purchaseDate;
+  late DateTime warrantyDate;
+  String? note;
+  CustomerFeedback? customerFeedback;
+
+  Order({
+    required this.cart,
+    required this.driver,
+    required this.customer,
+    required this.deliveryToAdress,
+    required this.deliveryFrom,
+    required this.deliveryTo,
+    required this.purchaseDate,
+    required this.warrantyDate,
+    String note = "Have a nice day!",
+  });
+
+  void setCustomerFeedBack(CustomerFeedback customerFeedback) {
+    this.customerFeedback = customerFeedback;
   }
 }

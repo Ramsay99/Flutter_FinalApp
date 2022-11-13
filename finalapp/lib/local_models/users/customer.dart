@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:finalapp/local_models/user.dart';
+import 'package:finalapp/local_models/users/user.dart';
 
 class Customer extends User {
-  late final String _name;
-  late int _phoneNum;
+  @override
+  String email;
 
-  Customer({
-    required String name,
-    required int phoneNum,
-  }) {
-    _name = name;
-    _phoneNum = phoneNum;
+  @override
+  String name;
+
+  @override
+  int phoneNum;
+
+  Customer(this.name, this.email, this.phoneNum) {
     print("New Customer!");
   }
 
