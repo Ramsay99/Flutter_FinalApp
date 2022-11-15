@@ -1,3 +1,4 @@
+import 'package:finalapp/Screens/global_screens/auth/sign_up_screen.dart';
 import 'package:finalapp/Utility/utils.dart';
 import 'package:finalapp/Widgets/default_button.dart';
 import 'package:finalapp/Widgets/default_chip_buttons.dart';
@@ -44,6 +45,21 @@ class _LoginScreenState extends State<LoginScreen> {
                     onTap: () {
                       signIn();
                     },
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Dont Have an Account,"),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SignUpScreen()),
+                            );
+                          },
+                          child: const Text("Sign Up"))
+                    ],
                   ),
                   Wrap(
                     spacing: 8,

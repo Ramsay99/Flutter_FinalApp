@@ -1,3 +1,4 @@
+import 'package:finalapp/local_models/local_model_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -14,6 +15,10 @@ Future<void> main() async {
   String? id = Uri.base.queryParameters["id"];
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  User localUser = getLocalUser(
+      1); // Here it should look something like this: snapshot.data['role']
+
   runApp(
     MyApp(
       id: id,
@@ -34,6 +39,30 @@ class MyApp extends StatelessWidget {
           : WebInfoScreen(
               id: id,
             ),
+    );
+  }
+}
+
+User getLocalUser(int role) {
+  if (role == 1) {
+    return Manager(
+      "name", // Here it should look something like this: snapshot.data['name']
+      "email",
+      1234,
+      Organization(
+        "_name",
+        Location(1, 2),
+      ),
+    );
+  } else {
+    return Employee(
+      "name",
+      "email",
+      1234,
+      Organization(
+        "_name",
+        Location(1, 2),
+      ),
     );
   }
 }
