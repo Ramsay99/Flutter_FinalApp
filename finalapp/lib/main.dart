@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      onGenerateRoute: RouteGenerator.generateRoute,
       home: defaultTargetPlatform == TargetPlatform.android || id == null
           ? AuthService().handleAuthState()
           : WebInfoScreen(

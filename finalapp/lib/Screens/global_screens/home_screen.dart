@@ -1,18 +1,18 @@
 import 'package:finalapp/utility/utility_barrel.dart';
 import 'package:flutter/material.dart';
 
-class ManagerHomeScreen extends StatefulWidget {
-  const ManagerHomeScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<ManagerHomeScreen> createState() => _ManagerHomeScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
 List<Widget> _content = [];
 int _selectedIndex = 0;
 List<BottomNavigationBarItem> _items = [];
 
-class _ManagerHomeScreenState extends State<ManagerHomeScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

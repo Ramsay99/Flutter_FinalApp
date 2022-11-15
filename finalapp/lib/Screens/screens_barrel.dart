@@ -11,7 +11,7 @@ export 'manager_screens/dashboard_screen.dart';
 export 'global_screens/task_screen.dart';
 export 'manager_screens/employees_screen.dart';
 export 'manager_screens/history_screen.dart';
-export 'manager_screens/home_screen.dart';
+export 'global_screens/home_screen.dart';
 export 'manager_screens/settings_screen.dart';
 export 'manager_screens/create_task_screen.dart';
 

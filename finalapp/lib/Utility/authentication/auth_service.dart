@@ -1,4 +1,3 @@
-import 'package:finalapp/screens/employ_screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -102,19 +101,19 @@ class AuthService {
     }
   }
 
-  handelUserRole() {
-    return FutureBuilder(
-      future: UserService().getUserData(),
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (snapshot.connectionState != ConnectionState.done) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        return snapshot.data!['role'] == 1
-            ? const EmployHomeScreen()
-            : const CreateTaskScreen();
-      },
-    );
-  }
+  // handelUserRole() {
+  //   return FutureBuilder(
+  //     future: UserService().getUserData(),
+  //     builder: (BuildContext context, AsyncSnapshot snapshot) {
+  //       if (snapshot.connectionState != ConnectionState.done) {
+  //         return const Center(child: CircularProgressIndicator());
+  //       }
+  //       return snapshot.data!['role'] == 1
+  //           ? const EmployHomeScreen()
+  //           : const ManagerHomeScreen();
+  //     },
+  //   );
+  // }
 
   /// If the user is logged in, show the Home screen, otherwise show the Login screen
   ///
@@ -130,7 +129,7 @@ class AuthService {
         final user = snapshot.data;
         //auth.signOut();
         if (user != null) {
-          return handelUserRole();
+          return const HomeScreen();
         } else {
           return const LoginScreen();
         }
