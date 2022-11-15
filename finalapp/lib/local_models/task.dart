@@ -1,9 +1,9 @@
 import 'package:finalapp/Screens/customer_screens/customer_feedback_screen.dart';
 import 'package:finalapp/local_models/local_model_barrel.dart';
 
-class Order {
+class Task {
   Map<String, Product> cart = {};
-  late final Driver driver;
+  late final Employee driver;
   late final Customer customer;
   String deliveryToAdress = "deliveryToAdress";
   Location deliveryFrom = Location.notDefined();
@@ -13,7 +13,7 @@ class Order {
   String? note;
   CustomerFeedback? customerFeedback;
 
-  Order({
+  Task({
     required this.cart,
     required this.driver,
     required this.customer,

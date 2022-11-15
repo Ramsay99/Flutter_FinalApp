@@ -1,5 +1,6 @@
+import 'package:finalapp/local_models/local_model_barrel.dart';
 import 'package:flutter/material.dart';
-import 'package:finalapp/local_models/users/user.dart';
+import 'user.dart';
 
 class Customer extends User {
   @override
@@ -10,6 +11,8 @@ class Customer extends User {
 
   @override
   int phoneNum;
+
+  List<Task> historyPurchases = [];
 
   Customer(this.name, this.email, this.phoneNum) {
     print("New Customer!");

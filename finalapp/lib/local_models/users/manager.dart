@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:finalapp/local_models/users/user.dart';
 import 'package:finalapp/screens/screens_barrel.dart';
+import '../organization.dart';
 
 class Manager extends User {
   @override
@@ -12,7 +13,9 @@ class Manager extends User {
   @override
   int phoneNum;
 
-  Manager(this.name, this.email, this.phoneNum) {
+  late Organization organization;
+
+  Manager(this.name, this.email, this.phoneNum, this.organization) {
     print("New Manager!");
   }
 

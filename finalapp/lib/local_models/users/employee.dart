@@ -1,8 +1,9 @@
+import 'package:finalapp/local_models/local_model_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:finalapp/local_models/users/user.dart';
 import 'package:finalapp/screens/screens_barrel.dart';
 
-class Driver extends User {
+class Employee extends User {
   @override
   String email;
 
@@ -12,8 +13,19 @@ class Driver extends User {
   @override
   int phoneNum;
 
-  Driver(this.name, this.email, this.phoneNum) {
-    print("New Driver!");
+  Organization organization;
+  bool fullShift = false;
+  static List<Employee> allEmployees = [];
+
+  Employee(
+    this.name,
+    this.email,
+    this.phoneNum,
+    this.organization, {
+    bool fullshift = false,
+  }) {
+    print("New Employee!");
+    allEmployees.add(this);
   }
   @override
   Iterable<Widget> getAvailableScreens() {
