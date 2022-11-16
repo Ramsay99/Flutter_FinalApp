@@ -20,9 +20,7 @@ Future<void> main() async {
       1); // Here it should look something like this: snapshot.data['role']
 
   runApp(
-    MyApp(
-      id: id,
-    ),
+    MyApp(id: id),
   );
 }
 
@@ -35,9 +33,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: defaultTargetPlatform == TargetPlatform.android || id == null
           ? AuthService().handleAuthState()
-          : WebInfoScreen(
-              id: id,
-            ),
+          : WebInfoScreen(id: id),
     );
   }
 }
