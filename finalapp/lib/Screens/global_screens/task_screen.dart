@@ -5,8 +5,8 @@ class TaskScreen extends StatefulWidget {
   const TaskScreen({super.key});
   static BottomNavigationBarItem bottomNavBarItem =
       const BottomNavigationBarItem(
-    icon: Icon(Icons.home),
-    label: 'Home',
+    icon: Icon(Icons.checklist),
+    label: 'Tasks',
   );
   @override
   State<TaskScreen> createState() => _TaskScreenState();

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-abstract class User {
+abstract class LocalUser {
   abstract String name;
   abstract String email;
-  abstract int phoneNum;
+  abstract String phoneNum;
   List<BottomNavigationBarItem> getBotNavBarItems();
   Iterable<Widget> getAvailableScreens();
 }

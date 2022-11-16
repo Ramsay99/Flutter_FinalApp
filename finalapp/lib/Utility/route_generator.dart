@@ -7,8 +7,8 @@ class RouteGenerator {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(builder: (_) => const LoginScreen());
-      case '/home':
-        return MaterialPageRoute(builder: (_) => const HomeScreen());
+      // case '/home':
+      //   return MaterialPageRoute(builder: (_) => const HomeScreen());
       default:
         return _errorRoute();
     }

@@ -3,9 +3,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:finalapp/utility/utility_barrel.dart';
 import 'package:finalapp/screens/screens_barrel.dart';
+import 'package:finalapp/local_models/local_model_barrel.dart';
 
 /// Creating a reference to the FirebaseAuth instance.
 final auth = FirebaseAuth.instance;
+late LocalUser localUser;
 
 class AuthService {
   /// It takes in an email and password, and returns a future that will resolve to a FirebaseUser object
@@ -101,19 +103,21 @@ class AuthService {
     }
   }
 
-  // handelUserRole() {
-  //   return FutureBuilder(
-  //     future: UserService().getUserData(),
-  //     builder: (BuildContext context, AsyncSnapshot snapshot) {
-  //       if (snapshot.connectionState != ConnectionState.done) {
-  //         return const Center(child: CircularProgressIndicator());
-  //       }
-  //       return snapshot.data!['role'] == 1
-  //           ? const EmployHomeScreen()
-  //           : const ManagerHomeScreen();
-  //     },
-  //   );
-  // }
+  handelUserRole() {
+    return FutureBuilder(
+      future: UserService().getUserData(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        localUser = getLocalUser(snapshot.data);
+        return HomeScreen();
+        // return snapshot.data!['role'] == 1
+        //     ? const EmployHomeScreen()
+        //     : const ManagerHomeScreen();
+      },
+    );
+  }
 
   /// If the user is logged in, show the Home screen, otherwise show the Login screen
   ///
@@ -129,11 +133,35 @@ class AuthService {
         final user = snapshot.data;
         //auth.signOut();
         if (user != null) {
-          return const HomeScreen();
+          return handelUserRole();
         } else {
           return const LoginScreen();
         }
       },
     );
+  }
+
+  LocalUser getLocalUser(Map data) {
+    if (data['role'] == 1) {
+      return Manager(
+        data['name'],
+        data['email'],
+        data['phone'],
+        Organization(
+          data['org'],
+          Location(1, 0),
+        ),
+      );
+    } else {
+      return Employee(
+        data['name'],
+        data['email'],
+        data['phone'],
+        Organization(
+          data['org'],
+          Location(1, 0),
+        ),
+      );
+    }
   }
 }

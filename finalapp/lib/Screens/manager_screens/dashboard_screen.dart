@@ -4,7 +4,7 @@ class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
 
   static BottomNavigationBarItem bottomNavBarItem = BottomNavigationBarItem(
-    icon: Icon(Icons.dashboard),
+    icon: Icon(Icons.insights),
     label: 'Dashboard',
   );
 
