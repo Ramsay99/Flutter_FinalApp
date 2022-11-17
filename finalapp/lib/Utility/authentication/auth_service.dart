@@ -111,7 +111,7 @@ class AuthService {
           return const Center(child: CircularProgressIndicator());
         }
         localUser = getLocalUser(snapshot.data);
-        return HomeScreen();
+        return const HomeScreen();
         // return snapshot.data!['role'] == 1
         //     ? const EmployHomeScreen()
         //     : const ManagerHomeScreen();

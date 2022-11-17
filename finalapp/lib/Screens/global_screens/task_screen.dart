@@ -1,5 +1,5 @@
-import 'package:finalapp/widgets/default_button.dart';
 import 'package:flutter/material.dart';
+import 'package:finalapp/widgets/widgets_barrel.dart';
 
 class TaskScreen extends StatefulWidget {
   const TaskScreen({super.key});
@@ -14,17 +14,17 @@ class TaskScreen extends StatefulWidget {
 
 class _TaskScreenState extends State<TaskScreen> {
   @override
-  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         DefaultButton(
           label: "New Task",
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(context, "/taskForm");
+          },
         ),
         Expanded(
           child: ListView.builder(
-            shrinkWrap: true,
             itemCount: 8,
             itemBuilder: (context, index) {
               return TaskCard(
@@ -33,6 +33,7 @@ class _TaskScreenState extends State<TaskScreen> {
             },
           ),
         ),
+        const BottomToggleButtons()
       ],
     );
   }
@@ -40,22 +41,53 @@ class _TaskScreenState extends State<TaskScreen> {
 
 class TaskCard extends StatelessWidget {
   final String title;
-  const TaskCard({required this.title, Key? key}) : super(key: key);
+  const TaskCard({
+    required this.title,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(15),
-      margin: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(20),
+      margin: const EdgeInsets.symmetric(
+        vertical: 5,
+        horizontal: 25,
+      ),
       decoration: const BoxDecoration(
         color: Colors.grey,
       ),
-      child: Text(
-        title,
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 20,
-        ),
+      child: Column(
+        children: const [
+          Text(
+            "Address: title",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+            ),
+          ),
+          Text(
+            "Area: Wadi Saqra, Amman",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+            ),
+          ),
+          Text(
+            "Product: Samsung S95B OLED",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+            ),
+          ),
+          Text(
+            "11/4/2022",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+            ),
+          ),
+        ],
       ),
     );
   }

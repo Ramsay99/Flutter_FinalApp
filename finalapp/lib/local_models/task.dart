@@ -5,7 +5,7 @@ class Task {
   Map<String, Product> cart = {};
   late final Employee driver;
   late final Customer customer;
-  String deliveryToAdress = "deliveryToAdress";
+  String deliveryToAddress = "deliveryToAddress";
   Location deliveryFrom = Location.notDefined();
   Location deliveryTo = Location.notDefined();
   late DateTime purchaseDate;
@@ -17,7 +17,7 @@ class Task {
     required this.cart,
     required this.driver,
     required this.customer,
-    required this.deliveryToAdress,
+    required this.deliveryToAddress,
     required this.deliveryFrom,
     required this.deliveryTo,
     required this.purchaseDate,

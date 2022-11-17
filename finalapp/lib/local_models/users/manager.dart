@@ -9,12 +9,13 @@ class Manager extends LocalUser {
   @override
   String name;
   @override
-  String phoneNum;
+  String phoneNumber;
+  @override
   late Organization organization;
   Manager(
     this.name,
     this.email,
-    this.phoneNum,
+    this.phoneNumber,
     this.organization,
   );
 

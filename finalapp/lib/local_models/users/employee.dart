@@ -9,17 +9,18 @@ class Employee extends LocalUser {
   @override
   String name;
   @override
-  String phoneNum;
-  Organization organization;
+  String phoneNumber;
+  @override
+  late Organization organization;
   bool fullShift = false;
   static List<Employee> allEmployees = [];
 
   Employee(
     this.name,
     this.email,
-    this.phoneNum,
+    this.phoneNumber,
     this.organization, {
-    bool fullshift = false,
+    bool fullShift = false,
   }) {
     allEmployees.add(this);
   }

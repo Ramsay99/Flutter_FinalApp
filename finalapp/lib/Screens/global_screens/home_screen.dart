@@ -19,8 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     _content.addAll(localUser.getAvailableScreens());
     _items.addAll(localUser.getBotNavBarItems());
-    print("Current user role: ${localUser.runtimeType}");
-    print(localUser.getBotNavBarItems());
+    print(localUser.organization.name);
     super.initState();
   }
 
