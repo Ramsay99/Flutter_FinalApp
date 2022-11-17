@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'package:flutter_tts/flutter_tts.dart';
+
 class ObjDetectionWithImg extends StatefulWidget {
   ObjDetectionWithImg({Key? key}) : super(key: key);
   @override
@@ -167,6 +169,13 @@ class _ObjDetectionWithImgState extends State<ObjDetectionWithImg> {
   }
 }
 
+FlutterTts flutterTts = FlutterTts();
+void startSpeaking(String textToSpeech) async {
+  print("Text To Speech activated ");
+  await flutterTts.speak("the picture contains a  $textToSpeech");
+  await flutterTts.setVolume(6);
+}
+
 class ObjectPainter extends CustomPainter {
   List<DetectedObject> objectList;
   dynamic imageFile;
@@ -186,6 +195,7 @@ class ObjectPainter extends CustomPainter {
       canvas.drawRect(rectangle.boundingBox, p);
       var list = rectangle.labels;
       for (Label label in list) {
+        startSpeaking(label.text);
         print("${label.text}   ${label.confidence.toStringAsFixed(2)}");
         TextSpan span = TextSpan(
             text: label.text,
