@@ -190,12 +190,13 @@ class ObjectPainter extends CustomPainter {
     p.color = Colors.red;
     p.style = PaintingStyle.stroke;
     p.strokeWidth = 4;
-
+    String allObjectsInTheImg = "";
     for (DetectedObject rectangle in objectList) {
       canvas.drawRect(rectangle.boundingBox, p);
       var list = rectangle.labels;
+
       for (Label label in list) {
-        startSpeaking(label.text);
+        allObjectsInTheImg += label.text + ' and ';
         print("${label.text}   ${label.confidence.toStringAsFixed(2)}");
         TextSpan span = TextSpan(
             text: label.text,
@@ -210,6 +211,10 @@ class ObjectPainter extends CustomPainter {
         break;
       }
     }
+    allObjectsInTheImg =
+        allObjectsInTheImg.substring(0, allObjectsInTheImg.length - 5);
+    startSpeaking('$allObjectsInTheImg, Thank you for using our App.');
+    print("startSpeaking: '$allObjectsInTheImg'");
   }
 
   @override
