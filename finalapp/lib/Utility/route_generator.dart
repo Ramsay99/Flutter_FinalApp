@@ -9,6 +9,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const LoginScreen());
       case '/taskForm':
         return MaterialPageRoute(builder: (_) => const TaskFormScreen());
+      case '/qr':
+        return MaterialPageRoute(builder: (_) => const QrScannerScreen());
       default:
         return _errorRoute();
     }

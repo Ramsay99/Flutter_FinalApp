@@ -46,6 +46,12 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
+          IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, "/qr");
+            },
+            icon: const Icon(Icons.qr_code),
+          ),
         ],
       ),
       body: SafeArea(
