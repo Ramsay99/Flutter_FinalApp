@@ -14,9 +14,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
-    MyApp(
-      id: id,
-    ),
+    MyApp(id: id),
   );
 }
 
@@ -30,9 +28,7 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: RouteGenerator.generateRoute,
       home: defaultTargetPlatform == TargetPlatform.android || id == null
           ? AuthService().handleAuthState()
-          : WebInfoScreen(
-              id: id,
-            ),
+          : WebInfoScreen(id: id),
     );
   }
 }
