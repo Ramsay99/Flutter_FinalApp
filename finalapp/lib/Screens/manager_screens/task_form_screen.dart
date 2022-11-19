@@ -4,18 +4,18 @@ import 'package:date_time_picker/date_time_picker.dart';
 import 'package:finalapp/widgets/widgets_barrel.dart';
 import 'package:finalapp/utility/utility_barrel.dart';
 
-class CreateTaskScreen extends StatefulWidget {
-  const CreateTaskScreen({Key? key}) : super(key: key);
+class TaskFormScreen extends StatefulWidget {
+  const TaskFormScreen({Key? key}) : super(key: key);
 
   @override
   TaskForm createState() => TaskForm();
 }
 
-class TaskForm extends State<CreateTaskScreen> {
+class TaskForm extends State<TaskFormScreen> {
   TextEditingController? nameController;
   TextEditingController? emailController;
   TextEditingController? passController;
-  TextEditingController? phoneNumController;
+  TextEditingController? phoneNumberController;
   TextEditingController? dOBController;
   TextEditingController? addressController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -28,7 +28,7 @@ class TaskForm extends State<CreateTaskScreen> {
     nameController = TextEditingController();
     emailController = TextEditingController();
     passController = TextEditingController();
-    phoneNumController = TextEditingController();
+    phoneNumberController = TextEditingController();
     dOBController = TextEditingController();
     addressController = TextEditingController();
     cities = ["Amman", "Salt", "Aqaba"];
@@ -43,7 +43,7 @@ class TaskForm extends State<CreateTaskScreen> {
     nameController?.dispose();
     emailController?.dispose();
     passController?.dispose();
-    phoneNumController?.dispose();
+    phoneNumberController?.dispose();
     dOBController?.dispose();
     addressController?.dispose();
     super.dispose();
@@ -52,6 +52,7 @@ class TaskForm extends State<CreateTaskScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       key: scaffoldKey,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -63,16 +64,8 @@ class TaskForm extends State<CreateTaskScreen> {
                   controller: nameController!,
                 ),
                 DefaultFormField(
-                  textHint: "E-mail",
-                  controller: emailController!,
-                ),
-                DefaultFormField(
-                  textHint: "Password",
-                  controller: passController!,
-                ),
-                DefaultFormField(
                   textHint: "Phone",
-                  controller: phoneNumController!,
+                  controller: phoneNumberController!,
                 ),
                 DefaultFormField(
                   textHint: "Address",
@@ -85,14 +78,19 @@ class TaskForm extends State<CreateTaskScreen> {
                   onTap: () {
                     TaskService().savaTaskData(
                       nameController!.text,
-                      phoneNumController!.text,
+                      addressController!.text,
+                      "test note",
+                      phoneNumberController!.text,
+                      "123 E ID",
+                      "123 P ID",
                       [
                         Timestamp.now(),
                         Timestamp.now(),
                       ],
-                      "amman",
-                      "test",
+                      "test city",
+                      "test area",
                     );
+                    Navigator.pop(context);
                   },
                 )
               ],

@@ -1,12 +1,13 @@
-import 'package:finalapp/screens/employ_screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:finalapp/utility/utility_barrel.dart';
 import 'package:finalapp/screens/screens_barrel.dart';
+import 'package:finalapp/local_models/local_model_barrel.dart';
 
 /// Creating a reference to the FirebaseAuth instance.
 final auth = FirebaseAuth.instance;
+late LocalUser localUser;
 
 class AuthService {
   /// It takes in an email and password, and returns a future that will resolve to a FirebaseUser object
@@ -109,9 +110,11 @@ class AuthService {
         if (snapshot.connectionState != ConnectionState.done) {
           return const Center(child: CircularProgressIndicator());
         }
-        return snapshot.data!['role'] == 1
-            ? const EmployHomeScreen()
-            : const CreateTaskScreen();
+        localUser = getLocalUser(snapshot.data);
+        return const HomeScreen();
+        // return snapshot.data!['role'] == 1
+        //     ? const EmployHomeScreen()
+        //     : const ManagerHomeScreen();
       },
     );
   }
@@ -136,5 +139,29 @@ class AuthService {
         }
       },
     );
+  }
+
+  LocalUser getLocalUser(Map data) {
+    if (data['role'] == 1) {
+      return Manager(
+        data['name'],
+        data['email'],
+        data['phone'],
+        Organization(
+          data['org'],
+          Location(1, 0),
+        ),
+      );
+    } else {
+      return Employee(
+        data['name'],
+        data['email'],
+        data['phone'],
+        Organization(
+          data['org'],
+          Location(1, 0),
+        ),
+      );
+    }
   }
 }

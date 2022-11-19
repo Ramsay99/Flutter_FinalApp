@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class MapVis extends StatefulWidget {
-  const MapVis({super.key});
+class MapChartWidget extends StatefulWidget {
+  const MapChartWidget({super.key});
 
   @override
-  State<MapVis> createState() => _MapVisState();
+  State<MapChartWidget> createState() => _MapChartWidgetState();
 }
 
-class _MapVisState extends State<MapVis> {
+class _MapChartWidgetState extends State<MapChartWidget> {
   Image? _jordanMapImage;
   late String _irbidMapImage;
   late String _ajlunMapImage;
@@ -50,13 +50,10 @@ class _MapVisState extends State<MapVis> {
       return testColIncrementaly;
     }
 
-    return Scaffold(
-      appBar: AppBar(title: const Text("Map Geo Graph")),
-      body: Center(
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height / 1.25,
-          child: _Map(mapCol),
-        ),
+    return Center(
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height / 1.25,
+        child: _Map(mapCol),
       ),
     );
   }

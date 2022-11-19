@@ -9,4 +9,5 @@ export 'firestore/task_service.dart';
 
 /// Exporting the files in the utility folder.
 export 'location_service.dart';
+export 'route_generator.dart';
 export 'utils.dart';

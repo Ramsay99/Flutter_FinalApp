@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:graphx/graphx.dart';
 
-class PieChartMain extends StatelessWidget {
-  const PieChartMain({super.key});
+class PieChartWidget extends StatelessWidget {
+  const PieChartWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,25 +14,27 @@ class PieChartMain extends StatelessWidget {
     };
     String dataMapText_Test = "";
     for (var i = 0; i < dataMap_Test.length; i++) {
-      dataMapText_Test += "${dataMap_Test.keys.elementAt(i)}:${dataMap_Test.values.elementAt(i)}\n";
+      dataMapText_Test +=
+          "${dataMap_Test.keys.elementAt(i)}:${dataMap_Test.values.elementAt(i)}\n";
     }
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text("Products are: \n $dataMapText_Test"),
-            Container(
-              color: Colors.grey.withOpacity(.06),
-              width: 300,
-              height: 300,
-              child: SceneBuilderWidget(
-                builder: () => SceneController(
-                    front: PieChartScene(dataMap_Test.values.toList())),
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Text("Products are: \n $dataMapText_Test"),
+          Container(
+            color: Colors.grey.withOpacity(.06),
+            width: 300,
+            height: 300,
+            child: SceneBuilderWidget(
+              builder: () => SceneController(
+                front: PieChartScene(
+                  dataMap_Test.values.toList(),
+                ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

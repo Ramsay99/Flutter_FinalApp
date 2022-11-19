@@ -1,30 +1,27 @@
 import 'package:finalapp/local_models/local_model_barrel.dart';
 import 'package:flutter/material.dart';
-import 'package:finalapp/local_models/users/user.dart';
+import 'package:finalapp/local_models/users/local_user.dart';
 import 'package:finalapp/screens/screens_barrel.dart';
 
-class Employee extends User {
+class Employee extends LocalUser {
   @override
   String email;
-
   @override
   String name;
-
   @override
-  int phoneNum;
-
-  Organization organization;
+  String phoneNumber;
+  @override
+  late Organization organization;
   bool fullShift = false;
   static List<Employee> allEmployees = [];
 
   Employee(
     this.name,
     this.email,
-    this.phoneNum,
+    this.phoneNumber,
     this.organization, {
-    bool fullshift = false,
+    bool fullShift = false,
   }) {
-    print("New Employee!");
     allEmployees.add(this);
   }
   @override

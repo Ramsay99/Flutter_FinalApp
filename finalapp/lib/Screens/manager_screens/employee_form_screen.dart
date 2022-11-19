@@ -9,14 +9,14 @@ import 'dart:convert';
 import 'package:csv/csv.dart';
 import 'package:finalapp/widgets/widgets_barrel.dart';
 
-class CreateDriverScreen extends StatefulWidget {
-  const CreateDriverScreen({Key? key}) : super(key: key);
+class EmployeeFormScreen extends StatefulWidget {
+  const EmployeeFormScreen({Key? key}) : super(key: key);
 
   @override
-  DriverForm createState() => DriverForm();
+  EmploeeForm createState() => EmploeeForm();
 }
 
-class DriverForm extends State<CreateDriverScreen> {
+class EmploeeForm extends State<EmployeeFormScreen> {
   TextEditingController? nameController;
   TextEditingController? emailController;
   TextEditingController? passController;
@@ -57,6 +57,7 @@ class DriverForm extends State<CreateDriverScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       key: scaffoldKey,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -212,11 +213,11 @@ class DriverForm extends State<CreateDriverScreen> {
 
   // Bug: While importing an Excel file, it displays todays data.
   //      However, the expected date value should be as it set in the Excel file.
-  // Why this Bug exist: [Ramzi]: because CSV file only uses one DateTime DriverForm,
-  // meanwhile this '_dateOfBirth' TextField DriverForm is different
-  // How it can be solved: [Ramzi]: using a DriverFormter here to convert the DriverForm taken
+  // Why this Bug exist: [Ramzi]: because CSV file only uses one DateTime EmploeeForm,
+  // meanwhile this '_dateOfBirth' TextField EmploeeForm is different
+  // How it can be solved: [Ramzi]: using a EmploeeFormter here to convert the EmploeeForm taken
   // from CSV file to this TextField
-  // When to work on: [Ramzi]: after Designing; to chose the best DateTime DriverForm.
+  // When to work on: [Ramzi]: after Designing; to chose the best DateTime EmploeeForm.
   importCSV() async {
     final result = await FilePicker.platform.pickFiles(allowMultiple: false);
     if (result == null) return;

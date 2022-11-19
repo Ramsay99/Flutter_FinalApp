@@ -1,41 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:finalapp/local_models/users/user.dart';
+import 'package:finalapp/local_models/users/local_user.dart';
 import 'package:finalapp/screens/screens_barrel.dart';
 import '../organization.dart';
 
-class Manager extends User {
+class Manager extends LocalUser {
   @override
   String email;
-
   @override
   String name;
-
   @override
-  int phoneNum;
-
+  String phoneNumber;
+  @override
   late Organization organization;
-
-  Manager(this.name, this.email, this.phoneNum, this.organization) {
-    print("New Manager!");
-  }
+  Manager(
+    this.name,
+    this.email,
+    this.phoneNumber,
+    this.organization,
+  );
 
   @override
   Iterable<Widget> getAvailableScreens() {
     return [
-      //const DeliveriesScreen(),
-      const EmployeesScreen(),
       const DashboardScreen(),
-      const HistoryScreen(),
+      const EmployeesScreen(),
+      const TaskScreen(),
     ];
   }
 
   @override
   List<BottomNavigationBarItem> getBotNavBarItems() {
     return [
-      //DeliveriesScreen.bottomNavBarItem,
-      EmployeesScreen.bottomNavBarItem,
       DashboardScreen.bottomNavBarItem,
-      HistoryScreen.bottomNavBarItem,
+      EmployeesScreen.bottomNavBarItem,
+      TaskScreen.bottomNavBarItem,
     ];
   }
 }
