@@ -65,7 +65,6 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
                   cameraPosition.target.latitude,
                   cameraPosition.target.longitude,
                 );
-
                 // update the ui with the address
                 textController.text =
                     '${placemarks.first.name}, ${placemarks.first.administrativeArea}, ${placemarks.first.country}';

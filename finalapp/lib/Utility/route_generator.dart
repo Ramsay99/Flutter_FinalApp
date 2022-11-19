@@ -11,6 +11,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const TaskFormScreen());
       case '/qr':
         return MaterialPageRoute(builder: (_) => const QrScannerScreen());
+      case '/employeeForm':
+        return MaterialPageRoute(builder: (_) => const EmployeeFormScreen());
       default:
         return _errorRoute();
     }
