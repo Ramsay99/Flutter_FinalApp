@@ -11,10 +11,24 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-final emailController = TextEditingController();
-final passwordController = TextEditingController();
-
 class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController? emailController;
+  TextEditingController? passwordController;
+
+  @override
+  void initState() {
+    super.initState();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    emailController?.dispose();
+    passwordController?.dispose();
+    super.dispose();
+  }
+
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -44,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 DefaultFormField(
                   title: 'E-mail',
                   hint: "@email.com",
-                  controller: emailController,
+                  controller: emailController!,
                   validator: (value) {
                     if (value!.isNotEmpty) {
                       return null;
@@ -56,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 DefaultFormField(
                   title: 'Password',
                   hint: "Password",
-                  controller: passwordController,
+                  controller: passwordController!,
                   validator: (value) {
                     if (value!.isNotEmpty) {
                       return null;
@@ -145,8 +159,8 @@ class _LoginScreenState extends State<LoginScreen> {
         barrierDismissible: false,
       );
       AuthService().signInUser(
-        emailController.text,
-        passwordController.text,
+        emailController!.text,
+        passwordController!.text,
       );
     } finally {
       Navigator.pop(context);

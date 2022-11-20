@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:finalapp/utility/utility_barrel.dart';
+import 'package:finalapp/widgets/widgets_barrel.dart';
 import 'package:finalapp/screens/screens_barrel.dart';
 import 'package:finalapp/local_models/local_model_barrel.dart';
 
@@ -108,7 +109,7 @@ class AuthService {
       future: UserService().getUserData(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(child: LoadingSplashWidget());
         }
         localUser = getLocalUser(snapshot.data);
         return const HomeScreen();
@@ -128,7 +129,7 @@ class AuthService {
       stream: auth.authStateChanges(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState != ConnectionState.active) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(child: LoadingSplashWidget());
         }
         final user = snapshot.data;
         //auth.signOut();
