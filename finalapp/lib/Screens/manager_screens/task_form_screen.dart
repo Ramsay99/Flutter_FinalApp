@@ -79,7 +79,7 @@ class TaskForm extends State<TaskFormScreen> {
                 DefaultButton(
                   label: "Add Task",
                   onTap: () {
-                    TaskService().savaTaskData(
+                    OrganizationService().savaTaskData(
                       nameController!.text,
                       addressController!.text,
                       "test note",

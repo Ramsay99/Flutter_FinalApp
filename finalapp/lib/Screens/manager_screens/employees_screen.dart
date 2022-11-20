@@ -1,13 +1,13 @@
 import 'package:finalapp/screens/screens_barrel.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
 class EmployeesScreen extends StatefulWidget {
   const EmployeesScreen({super.key});
 
-  static BottomNavigationBarItem bottomNavBarItem =
-      const BottomNavigationBarItem(
-    icon: Icon(Icons.account_circle_outlined),
-    label: 'List',
+  static GButton bottomNavBarItem = const GButton(
+    icon:  FontAwesomeIcons.circleUser,
   );
   @override
   State<EmployeesScreen> createState() => _EState();

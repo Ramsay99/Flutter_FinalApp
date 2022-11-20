@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:finalapp/widgets/widgets_barrel.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
 class TaskScreen extends StatefulWidget {
   const TaskScreen({super.key});
-  static BottomNavigationBarItem bottomNavBarItem =
-      const BottomNavigationBarItem(
-    icon: Icon(Icons.checklist),
-    label: 'Tasks',
+  static GButton bottomNavBarItem = const GButton(
+    icon:  FontAwesomeIcons.listCheck,
   );
   @override
   State<TaskScreen> createState() => _TaskScreenState();
@@ -33,7 +33,6 @@ class _TaskScreenState extends State<TaskScreen> {
             },
           ),
         ),
-        const BottomToggleButtons()
       ],
     );
   }

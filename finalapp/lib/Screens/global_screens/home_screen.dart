@@ -1,5 +1,8 @@
+import 'package:finalapp/style/style_barrel.dart';
+import 'package:finalapp/widgets/widgets_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:finalapp/utility/utility_barrel.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -12,48 +15,28 @@ class HomeScreen extends StatefulWidget {
 
 int _selectedIndex = 0;
 List<Widget> _content = [];
-List<BottomNavigationBarItem> _items = [];
+List<GButton> _items = [];
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     _content.addAll(localUser.getAvailableScreens());
     _items.addAll(localUser.getBotNavBarItems());
-    print(localUser.organization.name);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _items = [];
+    _content = [];
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: _showBottomNav(),
-      appBar: AppBar(
-        title: const Text(
-          "Home",
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              AuthService().signOutUser();
-            },
-            child: const Text(
-              "Sign-out",
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-          ),
-          IconButton(
-            onPressed: () {
-              Navigator.pushNamed(context, "/qr");
-            },
-            icon: const Icon(Icons.qr_code),
-          ),
-        ],
-      ),
+      appBar: const AppBarWidget(),
       body: SafeArea(
         child: Center(
           child: IndexedStack(
@@ -66,12 +49,24 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _showBottomNav() {
-    return BottomNavigationBar(
-      items: _items,
-      currentIndex: _selectedIndex,
-      selectedItemColor: Colors.blue,
-      unselectedItemColor: Colors.grey,
-      onTap: _onTap,
+    return Container(
+      height: 135,
+      color: oxford_blue_tint_2,
+      child: Column(
+        children: [
+          const BottomToggleButtons(),
+          GNav(
+            tabs: [..._items],
+            onTabChange: _onTap,
+            selectedIndex: _selectedIndex,
+            backgroundColor: oxford_blue_tint_2,
+            color: light_blue_tint_1,
+            activeColor: Colors.white,
+            iconSize: 24,
+            padding: const EdgeInsets.fromLTRB(38, 25, 38, 10),
+          ),
+        ],
+      ),
     );
   }
 

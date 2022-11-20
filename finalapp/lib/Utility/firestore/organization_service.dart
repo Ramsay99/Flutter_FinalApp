@@ -1,7 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finalapp/utility/authentication/auth_service.dart';
 
-class TaskService {
+class OrganizationService {
+  Future getOrgData() async {
+    DocumentSnapshot<Object?> orgDocument = await FirebaseFirestore.instance
+        .collection(localUser.organization.name)
+        .doc('data')
+        .get();
+    return orgDocument.data() as Map;
+  }
+
   savaTaskData(
     String name,
     String address,
