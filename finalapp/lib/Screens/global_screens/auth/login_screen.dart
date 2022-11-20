@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     }
                   },
                 ),
-                DefaultFormField(
+                PasswordFormField(
                   title: 'Password',
                   hint: "Password",
                   controller: passwordController!,
