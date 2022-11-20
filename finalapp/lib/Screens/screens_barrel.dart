@@ -1,6 +1,7 @@
 /// Exporting all the screens in the global_screens folder.
 export 'global_screens/delivery_map_screen.dart';
 export 'global_screens/auth/login_screen.dart';
+export 'global_screens/auth/sign_up_screen.dart';
 export 'global_screens/qr_scanner_screen.dart';
 export 'global_screens/chat/chat_screen.dart';
 export 'global_screens/home_screen.dart';

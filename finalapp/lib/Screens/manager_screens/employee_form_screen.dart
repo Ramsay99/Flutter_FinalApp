@@ -106,23 +106,28 @@ class EmploeeForm extends State<EmployeeFormScreen> {
                   ],
                 ),
                 DefaultFormField(
-                  textHint: "Name",
+                  title: "Name",
+                  hint: "Name",
                   controller: nameController!,
                 ),
                 DefaultFormField(
-                  textHint: "E-mail",
+                  title: "E-mail",
+                  hint: "E-mail",
                   controller: emailController!,
                 ),
                 DefaultFormField(
-                  textHint: "Password",
+                  title: "Password",
+                  hint: "Password",
                   controller: passController!,
                 ),
                 DefaultFormField(
-                  textHint: "Phone",
+                  title: "Phone",
+                  hint: "Phone",
                   controller: phoneNumController!,
                 ),
                 DefaultFormField(
-                  textHint: "Address",
+                  title: "Address",
+                  hint: "Address",
                   controller: addressController!,
                 ),
                 _dateOfBirth(),

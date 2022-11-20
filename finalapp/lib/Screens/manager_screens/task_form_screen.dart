@@ -60,15 +60,18 @@ class TaskForm extends State<TaskFormScreen> {
             child: Column(
               children: [
                 DefaultFormField(
-                  textHint: "Name",
+                  title: "Name",
+                  hint: "Name",
                   controller: nameController!,
                 ),
                 DefaultFormField(
-                  textHint: "Phone",
+                  title: "Phone",
+                  hint: "Phone",
                   controller: phoneNumberController!,
                 ),
                 DefaultFormField(
-                  textHint: "Address",
+                  title: "Address",
+                  hint: "Address",
                   controller: addressController!,
                 ),
                 _dateOfBirth(),
