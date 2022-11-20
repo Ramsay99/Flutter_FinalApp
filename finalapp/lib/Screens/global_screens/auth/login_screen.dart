@@ -52,6 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           const Spacer(),
           Form(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             key: formKey,
             child: Column(
               children: [
@@ -104,7 +105,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   onTap: () {
                     final isValidForm = formKey.currentState!.validate();
                     if (isValidForm) {
-                      signIn();
+                      AuthService().signInUser(
+                        emailController!.text,
+                        passwordController!.text,
+                        context,
+                      );
                     }
                   },
                 ),
@@ -147,23 +152,5 @@ class _LoginScreenState extends State<LoginScreen> {
         ],
       ),
     );
-  }
-
-  Future signIn() async {
-    try {
-      showDialog(
-        context: context,
-        builder: (context) => const Center(
-          child: CircularProgressIndicator(),
-        ),
-        barrierDismissible: false,
-      );
-      AuthService().signInUser(
-        emailController!.text,
-        passwordController!.text,
-      );
-    } finally {
-      Navigator.pop(context);
-    }
   }
 }

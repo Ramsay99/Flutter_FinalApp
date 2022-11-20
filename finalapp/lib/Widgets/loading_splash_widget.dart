@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:finalapp/widgets/loading_indicator_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:finalapp/style/style_barrel.dart';
 
 class LoadingSplashWidget extends StatefulWidget {
   const LoadingSplashWidget({super.key});
@@ -24,10 +23,7 @@ class _LoadingSplashWidgetState extends State<LoadingSplashWidget> {
           width: 120,
         ),
         const SizedBox(height: 20),
-        const SpinKitRipple(
-          color: oxford_blue_tint_1,
-          size: 70,
-        ),
+        const LoadingIndicatorWidget()
       ],
     );
   }

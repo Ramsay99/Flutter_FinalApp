@@ -45,6 +45,13 @@ class _DefaultFormFieldState extends State<DefaultFormField> {
                 // Setting the background color of the TextFormField.
                 filled: true,
                 fillColor: light_blue_tint_2,
+                focusedErrorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(4),
+                  borderSide: const BorderSide(
+                    color: red_tint_1,
+                    width: 1,
+                  ),
+                ),
                 // Setting the border of the TextFormField when it is focused.
                 // focusedBorder: OutlineInputBorder(
                 //   borderRadius: BorderRadius.circular(4),
