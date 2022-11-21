@@ -40,6 +40,7 @@ class _TaskScreenState extends State<TaskScreen> {
                       address: documentSnapshot['address'],
                       area: documentSnapshot['area'],
                       product: documentSnapshot['productID'],
+                      date: documentSnapshot['date'],
                     );
                   },
                 );
@@ -58,10 +59,12 @@ class TaskCard extends StatelessWidget {
   final String address;
   final String area;
   final String product;
+  final String date;
   const TaskCard({
     required this.address,
     required this.area,
     required this.product,
+    required this.date,
     Key? key,
   }) : super(key: key);
 
@@ -140,9 +143,9 @@ class TaskCard extends StatelessWidget {
               ),
             ],
           ),
-          const Text(
-            "11/4/2022",
-            style: TextStyle(
+          Text(
+            date,
+            style: const TextStyle(
               color: oxford_blue_tint_4,
               fontSize: 16,
             ),
