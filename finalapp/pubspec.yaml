@@ -64,6 +64,10 @@ dependencies:
   flutter_spinkit: ^5.1.0
   font_awesome_flutter: ^10.2.1
   google_nav_bar: ^5.0.6
+  dropdown_search: ^5.0.3
+  flutter_localizations:
+    sdk: flutter
+  flutter_translate: ^4.0.3
 
 dev_dependencies:
   flutter_test:
@@ -92,6 +96,7 @@ flutter:
     - assets/ml/
     - assets/google_fonts/
     - assets/svg/
+    - assets/i18n/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

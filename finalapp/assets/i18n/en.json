@@ -1,0 +1,34 @@
+{
+    "textfield": {
+        "email": "E-mail",
+        "password": "Password"
+    },
+    "button": {
+        "cancel": "Cancel",
+        "change_language": "Change Language",
+        "signup": "Sign Up",
+        "sign-in": "Login"
+    },
+    "forgotpassword": "Forgot Your Password ?",
+    "login": "Login",
+    "doyouhaveaccount": "Do you have account ?",
+    "signup": "Sign Up",
+    "language": {
+        "name": {
+            "en": "English",
+            "ar": "Arabic"
+        },
+        "selected_message": "Currently selected language is {language}",
+        "selection": {
+            "message": "Please select a language from the list",
+            "title": "Language Selection"
+        }
+    },
+    "app_bar": {
+        "home": "Home",
+        "signout": "Sign-Out"
+    },
+    "tabbar": {
+        "emp": "Employees"
+    }
+}

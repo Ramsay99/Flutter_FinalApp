@@ -1,0 +1,35 @@
+{
+    "textfield": {
+        "email": "البريد الإلكتروني",
+        "password": "كلمة المرور"
+    },
+    "button": {
+        "cancel": "إلغاء",
+        "change_language": "تغيير اللغة",
+        "signup": "اشتراك",
+        "sign-in": "تسجيل الدخول"
+    },
+    "forgotpassword": "نسيت رقمك السري ؟",
+    "login": "تسجيل الدخول",
+    "doyouhaveaccount": "هل لديك حساب؟",
+    "signup": "اشتراك",
+    "language.selected_message": "تغيير اللغة",
+    "language": {
+        "name": {
+            "en": "إنجليزي",
+            "ar": "عربي"
+        },
+        "selected_message": "اللغة المحددة حاليًا هي {language}",
+        "selection": {
+            "message": "الرجاء تحديد لغة من القائمة",
+            "title": "اختيار اللغة"
+        }
+    },
+    "app_bar": {
+        "home": "الصفحة الرئيسية",
+        "signout": "خروج"
+    },
+    "tabbar": {
+        "emp": "الموظفين"
+    }
+}
