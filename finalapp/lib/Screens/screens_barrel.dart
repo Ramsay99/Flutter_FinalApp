@@ -21,3 +21,4 @@ export 'manager_screens/dashboard/map_vis.dart';
 /// Exporting all the screens in the customer_screens folder.
 export 'customer_screens/customer_feedback_screen.dart';
 export 'customer_screens/web_info_screen.dart';
+export 'package:finalapp/Screens/global_screens/auth/forgot_password_screen.dart';

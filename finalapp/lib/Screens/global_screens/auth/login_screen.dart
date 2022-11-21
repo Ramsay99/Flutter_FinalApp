@@ -1,3 +1,4 @@
+import 'package:finalapp/Screens/global_screens/auth/forgot_password_screen.dart';
 import 'package:finalapp/Screens/global_screens/auth/sign_up_screen.dart';
 import 'package:finalapp/Utility/utils.dart';
 import 'package:finalapp/Widgets/default_button.dart';
@@ -39,6 +40,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     key: const Key("pass_textfield"),
                     textHint: "Password",
                     controller: passwordController,
+                  ),
+                  GestureDetector(
+                    child: Text("Forgot Password ?"),
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ForgotPasswordScreeen()),
+                    ),
                   ),
                   DefaultButton(
                     label: "Login",
