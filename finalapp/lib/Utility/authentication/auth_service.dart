@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:finalapp/utility/utility_barrel.dart';
+import 'package:finalapp/widgets/widgets_barrel.dart';
 import 'package:finalapp/screens/screens_barrel.dart';
 import 'package:finalapp/local_models/local_model_barrel.dart';
 
@@ -25,19 +26,30 @@ class AuthService {
     );
   }
 
-  /// It takes in an email and password, and returns a future that will resolve to a FirebaseUser object
+  /// It takes an email and password, shows a loading dialog, and then signs the user in
   ///
   /// Args:
-  ///   email (String): emailController.text,
+  ///   email (String): The email address of the user.
   ///   password (String): The user's password.
-  ///
-  /// Returns:
-  ///   The return value is a Future&lt;FirebaseUser&gt;.
-  Future signInUser(String email, String password) async {
-    return await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+  ///   context (BuildContext): The context of the widget that calls the function.
+  Future signInUser(String email, String password, BuildContext context) async {
+    try {
+      showDialog(
+        context: context,
+        builder: (context) => const Center(
+          child: LoadingIndicatorWidget(),
+        ),
+        barrierDismissible: false,
+      );
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on FirebaseAuthException catch (error) {
+      errorSnackBar(context, error.message);
+    } finally {
+      Navigator.pop(context);
+    }
   }
 
   /// If the user's uid is not found in the database, then the user is new.
@@ -108,7 +120,7 @@ class AuthService {
       future: UserService().getUserData(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(child: LoadingSplashWidget());
         }
         localUser = getLocalUser(snapshot.data);
         return const HomeScreen();
@@ -128,7 +140,7 @@ class AuthService {
       stream: auth.authStateChanges(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState != ConnectionState.active) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(child: LoadingSplashWidget());
         }
         final user = snapshot.data;
         //auth.signOut();

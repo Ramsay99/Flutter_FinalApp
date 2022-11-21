@@ -1,12 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:finalapp/style/style_barrel.dart';
+import 'package:finalapp/utility/utility_barrel.dart';
 import 'package:finalapp/widgets/widgets_barrel.dart';
 
 class TaskScreen extends StatefulWidget {
   const TaskScreen({super.key});
-  static BottomNavigationBarItem bottomNavBarItem =
-      const BottomNavigationBarItem(
-    icon: Icon(Icons.checklist),
-    label: 'Tasks',
+  static GButton bottomNavBarItem = const GButton(
+    icon: FontAwesomeIcons.listCheck,
   );
   @override
   State<TaskScreen> createState() => _TaskScreenState();
@@ -18,76 +21,150 @@ class _TaskScreenState extends State<TaskScreen> {
     return Column(
       children: [
         DefaultButton(
-          label: "New Task",
+          label: "Schedule",
           onTap: () {
             Navigator.pushNamed(context, "/taskForm");
           },
         ),
         Expanded(
-          child: ListView.builder(
-            itemCount: 8,
-            itemBuilder: (context, index) {
-              return TaskCard(
-                title: "Delivery_Num: $index",
-              );
+          child: StreamBuilder(
+            stream: OrganizationService().taskStream(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.hasData) {
+                return ListView.builder(
+                  itemCount: snapshot.data!.docs.length,
+                  itemBuilder: (context, index) {
+                    final DocumentSnapshot documentSnapshot =
+                        snapshot.data!.docs[index];
+                    return TaskCard(
+                      address: documentSnapshot['address'],
+                      area: documentSnapshot['area'],
+                      product: documentSnapshot['productID'],
+                      date: documentSnapshot['date'],
+                    );
+                  },
+                );
+              } else {
+                return const LoadingIndicatorWidget();
+              }
             },
           ),
         ),
-        const BottomToggleButtons()
       ],
     );
   }
 }
 
 class TaskCard extends StatelessWidget {
-  final String title;
+  final String address;
+  final String area;
+  final String product;
+  final String date;
   const TaskCard({
-    required this.title,
+    required this.address,
+    required this.area,
+    required this.product,
+    required this.date,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      margin: const EdgeInsets.symmetric(
-        vertical: 5,
-        horizontal: 25,
-      ),
-      decoration: const BoxDecoration(
-        color: Colors.grey,
-      ),
-      child: Column(
-        children: const [
-          Text(
-            "Address: title",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
+    return GestureDetector(
+      onTap: (() {
+        Navigator.pushNamed(
+          context,
+          "/taskInfo",
+          arguments: [
+            address,
+            area,
+            product,
+            date,
+          ],
+        );
+      }),
+      child: Container(
+        height: 150,
+        padding: const EdgeInsets.all(15),
+        margin: const EdgeInsets.symmetric(vertical: 7, horizontal: 25),
+        decoration: BoxDecoration(
+          color: light_blue_tint_2,
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                RichText(
+                  text: TextSpan(
+                    text: "Address: ",
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: address,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 8),
+                RichText(
+                  text: TextSpan(
+                    text: "Area: ",
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: area,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 8),
+                RichText(
+                  text: TextSpan(
+                    text: "Product: ",
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: product,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ),
-          Text(
-            "Area: Wadi Saqra, Amman",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
+            Text(
+              date,
+              style: const TextStyle(
+                color: oxford_blue_tint_4,
+                fontSize: 16,
+              ),
             ),
-          ),
-          Text(
-            "Product: Samsung S95B OLED",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-            ),
-          ),
-          Text(
-            "11/4/2022",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

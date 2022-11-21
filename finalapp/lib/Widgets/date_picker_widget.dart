@@ -1,26 +1,23 @@
-import 'package:flutter/material.dart';
 import 'package:finalapp/style/style_barrel.dart';
+import 'package:flutter/material.dart';
+import 'package:date_time_picker/date_time_picker.dart';
 
-class DefaultFormField extends StatefulWidget {
+class DatePickerWidget extends StatefulWidget {
   final String hint;
   final String title;
-  final lines;
   final TextEditingController controller;
-  final String? Function(String?)? validator;
-  const DefaultFormField({
+  const DatePickerWidget({
     required this.hint,
     required this.title,
     required this.controller,
-    this.lines,
-    this.validator,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
-  State<DefaultFormField> createState() => _DefaultFormFieldState();
+  State<DatePickerWidget> createState() => _DatePickerWidgetState();
 }
 
-class _DefaultFormFieldState extends State<DefaultFormField> {
+class _DatePickerWidgetState extends State<DatePickerWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -41,8 +38,14 @@ class _DefaultFormFieldState extends State<DefaultFormField> {
           ),
           SizedBox(
             width: 300,
-            child: TextFormField(
+            child: DateTimePicker(
               controller: widget.controller,
+              firstDate: DateTime.now(),
+              lastDate: DateTime(2100),
+              dateLabelText: 'Date',
+              onSaved: (val) {
+                widget.controller.text = val!;
+              },
               decoration: InputDecoration(
                 // Setting the background color of the TextFormField.
                 filled: true,
@@ -90,8 +93,6 @@ class _DefaultFormFieldState extends State<DefaultFormField> {
                 isCollapsed: true,
                 contentPadding: const EdgeInsets.all(18),
               ),
-              maxLines: widget.lines ?? 1,
-              validator: widget.validator,
             ),
           ),
         ],

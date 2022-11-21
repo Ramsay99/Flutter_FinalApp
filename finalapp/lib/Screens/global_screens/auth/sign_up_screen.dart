@@ -1,10 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:finalapp/Screens/global_screens/auth/login_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import '../../../Utility/utility_barrel.dart';
-import '../../../Widgets/widgets_barrel.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:finalapp/screens/screens_barrel.dart';
+import 'package:finalapp/widgets/widgets_barrel.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -35,29 +33,35 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     const EdgeInsets.symmetric(horizontal: 40, vertical: 30),
                 child: Column(children: [
                   DefaultFormField(
-                    textHint: "Full Name ",
+                    title: "Full Name",
+                    hint: "Full Name ",
                     controller: fullNameController,
                   ),
                   DefaultFormField(
+                    title: "E-mail",
                     key: const Key("email_textfield"),
-                    textHint: "E-mail",
+                    hint: "E-mail",
                     controller: emailController,
                   ),
                   DefaultFormField(
-                    textHint: "Phone Number",
+                    title: "Phone",
+                    hint: "Phone Number",
                     controller: phoneNumberController,
                   ),
                   DefaultFormField(
-                    textHint: "Name of the Organization",
+                    title: "Org",
+                    hint: "Name of the Organization",
                     controller: OrgNameController,
                   ),
                   DefaultFormField(
-                    textHint: "Location of the Organization",
+                    title: "Location",
+                    hint: "Location of the Organization",
                     controller: OrgLocationController,
                   ),
                   DefaultFormField(
+                    title: "Password",
                     key: const Key("pass_textfield"),
-                    textHint: "Password",
+                    hint: "Password",
                     controller: passwordController,
                   ),
                   DefaultButton(

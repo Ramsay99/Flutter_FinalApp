@@ -1,26 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:finalapp/style/style_barrel.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class DefaultFormField extends StatefulWidget {
+class PasswordFormField extends StatefulWidget {
   final String hint;
   final String title;
-  final lines;
   final TextEditingController controller;
   final String? Function(String?)? validator;
-  const DefaultFormField({
+  const PasswordFormField({
     required this.hint,
     required this.title,
     required this.controller,
-    this.lines,
     this.validator,
     Key? key,
   }) : super(key: key);
 
   @override
-  State<DefaultFormField> createState() => _DefaultFormFieldState();
+  State<PasswordFormField> createState() => _PasswordFormFieldState();
 }
 
-class _DefaultFormFieldState extends State<DefaultFormField> {
+class _PasswordFormFieldState extends State<PasswordFormField> {
+  late bool _passwordVisible;
+  @override
+  void initState() {
+    super.initState();
+    _passwordVisible = false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -43,6 +49,7 @@ class _DefaultFormFieldState extends State<DefaultFormField> {
             width: 300,
             child: TextFormField(
               controller: widget.controller,
+              obscureText: !_passwordVisible,
               decoration: InputDecoration(
                 // Setting the background color of the TextFormField.
                 filled: true,
@@ -89,8 +96,22 @@ class _DefaultFormFieldState extends State<DefaultFormField> {
                 // Setting the padding of the hint text.
                 isCollapsed: true,
                 contentPadding: const EdgeInsets.all(18),
+                // Adding an icon to the right of the text field.
+                suffixIcon: IconButton(
+                  icon: FaIcon(
+                    _passwordVisible
+                        ? FontAwesomeIcons.solidEye
+                        : FontAwesomeIcons.solidEyeSlash,
+                    color: oxford_blue_tint_4,
+                    size: 15,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _passwordVisible = !_passwordVisible;
+                    });
+                  },
+                ),
               ),
-              maxLines: widget.lines ?? 1,
               validator: widget.validator,
             ),
           ),

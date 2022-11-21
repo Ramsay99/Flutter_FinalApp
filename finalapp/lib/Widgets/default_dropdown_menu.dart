@@ -23,7 +23,7 @@ class _DState extends State<DefaultDropDownMenu> {
         disabledItemFn: (String s) => s.startsWith('I'),
       ),
       items: widget.items,
-      dropdownDecoratorProps: DropDownDecoratorProps(
+      dropdownDecoratorProps: const DropDownDecoratorProps(
         dropdownSearchDecoration: InputDecoration(
           labelText: "Menu mode",
           hintText: "Select Item",

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:finalapp/style/style_barrel.dart';
 
 class DefaultButton extends StatefulWidget {
   final String label;
@@ -21,20 +22,28 @@ class DefaultButton extends StatefulWidget {
 class _DefaultButtonState extends State<DefaultButton> {
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: widget.color ?? Colors.blue,
-        fixedSize: Size(
-          widget.width ?? 200,
-          widget.height ?? 40,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: widget.color ?? blue_tint_1,
+          fixedSize: Size(
+            widget.width ?? 300,
+            widget.height ?? 45,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(4),
+          ),
         ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+        onPressed: widget.onTap,
+        child: Text(
+          widget.label,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          ),
         ),
-      ),
-      onPressed: widget.onTap,
-      child: Text(
-        widget.label,
       ),
     );
   }

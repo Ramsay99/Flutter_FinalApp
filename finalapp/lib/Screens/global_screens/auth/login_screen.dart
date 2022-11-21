@@ -1,13 +1,9 @@
-import 'package:finalapp/Screens/global_screens/auth/forgot_password_screen.dart';
-import 'package:finalapp/Screens/global_screens/auth/sign_up_screen.dart';
-import 'package:finalapp/Utility/utils.dart';
-import 'package:finalapp/Widgets/default_button.dart';
-import 'package:finalapp/Widgets/default_chip_buttons.dart';
-import 'package:finalapp/Widgets/default_text_field.dart';
-import 'package:finalapp/utility/authentication/auth_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:finalapp/style/style_barrel.dart';
+import 'package:finalapp/widgets/widgets_barrel.dart';
+import 'package:finalapp/utility/utility_barrel.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -17,126 +13,171 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-var emailController = TextEditingController();
-var passwordController = TextEditingController();
-
 class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController? emailController;
+  TextEditingController? passwordController;
+
+  @override
+  void initState() {
+    super.initState();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    emailController?.dispose();
+    passwordController?.dispose();
+    super.dispose();
+  }
+
+  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     var localizationDelegate = LocalizedApp.of(context).delegate;
-
     return Scaffold(
-      body: Container(
-        alignment: Alignment.center,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 40, vertical: 30),
-                child: Column(children: [
-                  DefaultFormField(
-                    key: const Key("email_textfield"),
-                    textHint: translate("textfield.email"),
-                    controller: emailController,
-                  ),
-                  DefaultFormField(
-                    key: const Key("pass_textfield"),
-                    textHint: translate("textfield.password"),
-                    controller: passwordController,
-                  ),
-                  GestureDetector(
-                    child: Text(translate('forgotpassword')),
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const ForgotPasswordScreeen()),
-                    ),
-                  ),
-                  DefaultButton(
-                    label: translate('login'),
-                    onTap: () {
-                      signIn();
-                    },
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SvgPicture.asset(
+                  'assets/svg/Logo.svg',
+                  semanticsLabel: 'Logo',
+                  height: 50,
+                  width: 50,
+                ),
+              ],
+            ),
+          ),
+          const Spacer(),
+          Form(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            key: formKey,
+            child: Column(
+              children: [
+                DefaultFormField(
+                  title: translate("textfield.email"),
+                  hint: "@email.com",
+                  controller: emailController!,
+                  validator: (value) {
+                    if (value!.isNotEmpty) {
+                      return null;
+                    } else {
+                      return "Please enter E-mail.";
+                    }
+                  },
+                ),
+                PasswordFormField(
+                  title: translate("textfield.password"),
+                  hint: "Password",
+                  controller: passwordController!,
+                  validator: (value) {
+                    if (value!.isNotEmpty) {
+                      return null;
+                    } else {
+                      return "Please enter password.";
+                    }
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 40, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text(translate('doyouhaveaccount')),
                       TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const SignUpScreen()),
-                            );
-                          },
-                          child: Text(translate('signup')))
-                    ],
-                  ),
-                  Wrap(
-                    spacing: 8,
-                    alignment: WrapAlignment.spaceEvenly,
-                    children: [
-                      DefaultChipLogIn(
-                        key: const Key("clear_chip"),
-                        email: "",
-                        pass: "",
-                        emailController: emailController,
-                        passwordController: passwordController,
-                        chipLabel: "Clear",
-                      ),
-                      DefaultChipLogIn(
-                        key: const Key("test_chip"),
-                        email: "test@test.com",
-                        pass: "test1234",
-                        emailController: emailController,
-                        passwordController: passwordController,
+                        child: Text(
+                          translate('forgotPassword'),
+                          style: const TextStyle(
+                            color: blue_tint_1,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.pushNamed(context, "/resetPassword");
+                        },
                       ),
                     ],
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(translate('language.selected_message', args: {
-                        'language': translate(
-                            'language.name.${localizationDelegate.currentLocale.languageCode}')
-                      })),
-                      Padding(
-                          padding: EdgeInsets.only(top: 25, bottom: 160),
-                          child: CupertinoButton.filled(
-                            child: Text(translate('button.change_language')),
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 36.0),
-                            onPressed: () => _onActionSheetPress(context),
-                          )),
-                    ],
-                  ),
-                ]),
+                ),
+                DefaultButton(
+                  label: translate('sign-in'),
+                  onTap: () {
+                    final isValidForm = formKey.currentState!.validate();
+                    if (isValidForm) {
+                      AuthService().signInUser(
+                        emailController!.text,
+                        passwordController!.text,
+                        context,
+                      );
+                    }
+                  },
+                ),
+                const SizedBox(height: 8),
+                DefaultButton(
+                  color: oxford_blue_tint_2,
+                  label: "Contact Us",
+                  onTap: () {},
+                ),
+                // Wrap(
+                //   spacing: 8,
+                //   alignment: WrapAlignment.spaceEvenly,
+                //   children: [
+                //     DefaultChipLogIn(
+                //       key: const Key("clear_chip"),
+                //       email: "",
+                //       pass: "",
+                //       emailController: emailController,
+                //       passwordController: passwordController,
+                //       chipLabel: "Clear",
+                //     ),
+                //     DefaultChipLogIn(
+                //       key: const Key("test_chip"),
+                //       email: "test@test.com",
+                //       pass: "test1234",
+                //       emailController: emailController,
+                //       passwordController: passwordController,
+                //     ),
+                //   ],
+                // ),
+              ],
+            ),
+          ),
+          const Spacer(),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                translate(
+                  'language.selected_message',
+                  args: {
+                    'language': translate(
+                      'language.name.${localizationDelegate.currentLocale.languageCode}',
+                    )
+                  },
+                ),
               ),
+              DefaultButton(
+                label: translate('button.change_language'),
+                onTap: () {
+                  _onActionSheetPress(context);
+                },
+              )
             ],
           ),
-        ),
+          SvgPicture.asset(
+            'assets/svg/Pattern.svg',
+            semanticsLabel: 'Bottom pattern',
+            fit: BoxFit.fill,
+          ),
+        ],
       ),
     );
-  }
-
-  Future signIn() async {
-    try {
-      showDialog(
-        context: context,
-        builder: (context) => const Center(
-          child: CircularProgressIndicator(),
-        ),
-        barrierDismissible: false,
-      );
-      AuthService().signInUser(
-        emailController.text,
-        passwordController.text,
-      );
-    } finally {
-      Navigator.pop(context);
-    }
   }
 
   void showDemoActionSheet(
@@ -165,9 +206,9 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ],
         cancelButton: CupertinoActionSheetAction(
-          child: Text(translate('button.cancel')),
           isDefaultAction: true,
           onPressed: () => Navigator.pop(context, null),
+          child: Text(translate('button.cancel')),
         ),
       ),
     );
