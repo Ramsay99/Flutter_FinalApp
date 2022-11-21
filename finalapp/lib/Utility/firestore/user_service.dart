@@ -9,6 +9,6 @@ class UserService {
   Future getUserData() async {
     DocumentSnapshot<Object?> userDocument =
         await users.doc(auth.currentUser!.uid).get();
-    return userDocument.data() as Map;
+    if (userDocument.data() != null) return userDocument.data() as Map;
   }
 }

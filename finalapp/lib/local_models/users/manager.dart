@@ -1,7 +1,7 @@
+import 'package:finalapp/local_models/organization.dart';
 import 'package:flutter/material.dart';
 import 'package:finalapp/local_models/users/local_user.dart';
 import 'package:finalapp/screens/screens_barrel.dart';
-import '../organization.dart';
 
 class Manager extends LocalUser {
   @override

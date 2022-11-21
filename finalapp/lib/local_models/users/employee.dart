@@ -27,7 +27,7 @@ class Employee extends LocalUser {
   @override
   Iterable<Widget> getAvailableScreens() {
     return [
-      //const DeliveriesScreen(),
+      const TaskScreen(),
       const HistoryScreen(),
     ];
   }
@@ -35,7 +35,7 @@ class Employee extends LocalUser {
   @override
   List<BottomNavigationBarItem> getBotNavBarItems() {
     return [
-      //DeliveriesScreen.bottomNavBarItem,
+      TaskScreen.bottomNavBarItem,
       HistoryScreen.bottomNavBarItem,
     ];
   }
