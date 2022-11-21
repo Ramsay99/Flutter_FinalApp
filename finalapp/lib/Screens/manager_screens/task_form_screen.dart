@@ -1,8 +1,10 @@
+import 'package:finalapp/style/style_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:finalapp/widgets/widgets_barrel.dart';
 import 'package:finalapp/utility/utility_barrel.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class TaskFormScreen extends StatefulWidget {
   const TaskFormScreen({Key? key}) : super(key: key);
@@ -52,7 +54,27 @@ class TaskForm extends State<TaskFormScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.white,
+        title: const Text(
+          "Schedule Task",
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 20,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const FaIcon(
+              FontAwesomeIcons.xmark,
+              color: oxford_blue_tint_2,
+            ),
+          ),
+        ],
+      ),
       key: scaffoldKey,
       body: SafeArea(
         child: SingleChildScrollView(

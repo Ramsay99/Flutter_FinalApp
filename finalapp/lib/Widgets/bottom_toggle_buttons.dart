@@ -9,7 +9,7 @@ class BottomToggleButtons extends StatefulWidget {
 }
 
 class _BottomToggleButtonsState extends State<BottomToggleButtons> {
-  List<bool> isSelected = [true, false, false];
+  List<bool> isSelected = [false, false, true];
   @override
   Widget build(BuildContext context) {
     return Container(
