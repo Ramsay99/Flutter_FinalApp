@@ -1,6 +1,5 @@
 import 'package:finalapp/style/style_barrel.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finalapp/widgets/widgets_barrel.dart';
 import 'package:finalapp/utility/utility_barrel.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -122,6 +121,7 @@ class TaskForm extends State<TaskFormScreen> {
                         "123 P ID", //? DROP DOWN WIP
                         datePickerBController!.text,
                         "test city", //? DROP DOWN WIP
+                        ["0.000000","0.000000"]
                       );
                       Navigator.pop(context);
                     },

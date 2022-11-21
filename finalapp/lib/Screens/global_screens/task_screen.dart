@@ -70,87 +70,101 @@ class TaskCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 150,
-      padding: const EdgeInsets.all(15),
-      margin: const EdgeInsets.symmetric(vertical: 7, horizontal: 25),
-      decoration: BoxDecoration(
-        color: light_blue_tint_2,
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              RichText(
-                text: TextSpan(
-                  text: "Address: ",
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 17,
-                    fontWeight: FontWeight.w700,
-                  ),
-                  children: [
-                    TextSpan(
-                      text: address,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 8),
-              RichText(
-                text: TextSpan(
-                  text: "Area: ",
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 17,
-                    fontWeight: FontWeight.w700,
-                  ),
-                  children: [
-                    TextSpan(
-                      text: area,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 8),
-              RichText(
-                text: TextSpan(
-                  text: "Product: ",
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 17,
-                    fontWeight: FontWeight.w700,
-                  ),
-                  children: [
-                    TextSpan(
-                      text: product,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          Text(
+    return GestureDetector(
+      onTap: (() {
+        Navigator.pushNamed(
+          context,
+          "/taskInfo",
+          arguments: [
+            address,
+            area,
+            product,
             date,
-            style: const TextStyle(
-              color: oxford_blue_tint_4,
-              fontSize: 16,
+          ],
+        );
+      }),
+      child: Container(
+        height: 150,
+        padding: const EdgeInsets.all(15),
+        margin: const EdgeInsets.symmetric(vertical: 7, horizontal: 25),
+        decoration: BoxDecoration(
+          color: light_blue_tint_2,
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                RichText(
+                  text: TextSpan(
+                    text: "Address: ",
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: address,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 8),
+                RichText(
+                  text: TextSpan(
+                    text: "Area: ",
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: area,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 8),
+                RichText(
+                  text: TextSpan(
+                    text: "Product: ",
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: product,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
+            Text(
+              date,
+              style: const TextStyle(
+                color: oxford_blue_tint_4,
+                fontSize: 16,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

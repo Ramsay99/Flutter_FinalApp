@@ -29,6 +29,7 @@ class OrganizationService {
     String productID,
     String date,
     String city,
+    List<String> location,
   ) async {
     FirebaseFirestore.instance
         .collection(localUser.organization.name)
@@ -44,6 +45,7 @@ class OrganizationService {
         "productID": productID,
         "date": date,
         "area": city,
+        "location": location
       },
     );
   }

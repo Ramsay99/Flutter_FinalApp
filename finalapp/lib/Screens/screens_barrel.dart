@@ -6,6 +6,7 @@ export 'global_screens/qr_scanner_screen.dart';
 export 'global_screens/chat/chat_screen.dart';
 export 'global_screens/home_screen.dart';
 export 'global_screens/task_screen.dart';
+export 'global_screens/task_info_screen.dart';
 
 /// Exporting all the screens in the manager_screens folder.
 export 'manager_screens/employee_form_screen.dart';
