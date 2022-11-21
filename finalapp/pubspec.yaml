@@ -61,6 +61,9 @@ dependencies:
   google_mlkit_object_detection: ^0.6.0
   image_picker: ^0.8.6
   dropdown_search: ^5.0.3
+  flutter_localizations:
+    sdk: flutter
+  flutter_translate: ^4.0.3
 
 dev_dependencies:
   flutter_test:
@@ -87,6 +90,7 @@ flutter:
   assets:
     - assets/images/
     - assets/ml/
+    - assets/i18n/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

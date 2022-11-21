@@ -5,8 +5,10 @@ import 'package:finalapp/Widgets/default_button.dart';
 import 'package:finalapp/Widgets/default_chip_buttons.dart';
 import 'package:finalapp/Widgets/default_text_field.dart';
 import 'package:finalapp/utility/authentication/auth_service.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -21,6 +23,8 @@ var passwordController = TextEditingController();
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
+    var localizationDelegate = LocalizedApp.of(context).delegate;
+
     return Scaffold(
       body: Container(
         alignment: Alignment.center,
@@ -33,16 +37,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(children: [
                   DefaultFormField(
                     key: const Key("email_textfield"),
-                    textHint: "E-mail",
+                    textHint: translate("textfield.email"),
                     controller: emailController,
                   ),
                   DefaultFormField(
                     key: const Key("pass_textfield"),
-                    textHint: "Password",
+                    textHint: translate("textfield.password"),
                     controller: passwordController,
                   ),
                   GestureDetector(
-                    child: Text("Forgot Password ?"),
+                    child: Text(translate('forgotpassword')),
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -50,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   DefaultButton(
-                    label: "Login",
+                    label: translate('login'),
                     onTap: () {
                       signIn();
                     },
@@ -58,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text("Dont Have an Account,"),
+                      Text(translate('doyouhaveaccount')),
                       TextButton(
                           onPressed: () {
                             Navigator.push(
@@ -67,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   builder: (context) => const SignUpScreen()),
                             );
                           },
-                          child: const Text("Sign Up"))
+                          child: Text(translate('signup')))
                     ],
                   ),
                   Wrap(
@@ -89,6 +93,23 @@ class _LoginScreenState extends State<LoginScreen> {
                         emailController: emailController,
                         passwordController: passwordController,
                       ),
+                    ],
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(translate('language.selected_message', args: {
+                        'language': translate(
+                            'language.name.${localizationDelegate.currentLocale.languageCode}')
+                      })),
+                      Padding(
+                          padding: EdgeInsets.only(top: 25, bottom: 160),
+                          child: CupertinoButton.filled(
+                            child: Text(translate('button.change_language')),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 36.0),
+                            onPressed: () => _onActionSheetPress(context),
+                          )),
                     ],
                   ),
                 ]),
@@ -116,5 +137,39 @@ class _LoginScreenState extends State<LoginScreen> {
     } finally {
       Navigator.pop(context);
     }
+  }
+
+  void showDemoActionSheet(
+      {required BuildContext context, required Widget child}) {
+    showCupertinoModalPopup<String>(
+        context: context,
+        builder: (BuildContext context) => child).then((String? value) {
+      if (value != null) changeLocale(context, value);
+    });
+  }
+
+  void _onActionSheetPress(BuildContext context) {
+    showDemoActionSheet(
+      context: context,
+      child: CupertinoActionSheet(
+        title: Text(translate('language.selection.title')),
+        message: Text(translate('language.selection.message')),
+        actions: <Widget>[
+          CupertinoActionSheetAction(
+            child: Text(translate('language.name.en')),
+            onPressed: () => Navigator.pop(context, 'en_US'),
+          ),
+          CupertinoActionSheetAction(
+            child: Text(translate('language.name.ar')),
+            onPressed: () => Navigator.pop(context, 'ar'),
+          ),
+        ],
+        cancelButton: CupertinoActionSheetAction(
+          child: Text(translate('button.cancel')),
+          isDefaultAction: true,
+          onPressed: () => Navigator.pop(context, null),
+        ),
+      ),
+    );
   }
 }

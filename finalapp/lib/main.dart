@@ -3,6 +3,9 @@ import 'package:flutter/foundation.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:finalapp/screens/screens_barrel.dart';
 import 'package:finalapp/utility/utility_barrel.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'package:flutter_translate/flutter_translate.dart';
 
 // Change this condition between [true|false] to change localCurrentUser type.
 // User localCurrentUser = true
@@ -13,9 +16,9 @@ Future<void> main() async {
   String? id = Uri.base.queryParameters["id"];
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(
-    MyApp(id: id),
-  );
+  var delegate = await LocalizationDelegate.create(
+      fallbackLocale: 'en_US', supportedLocales: ['en_US', 'ar']);
+  runApp(LocalizedApp(delegate, MyApp(id: id)));
 }
 
 class MyApp extends StatelessWidget {
@@ -23,12 +26,24 @@ class MyApp extends StatelessWidget {
   const MyApp({this.id, super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      onGenerateRoute: RouteGenerator.generateRoute,
-      home: defaultTargetPlatform == TargetPlatform.android || id == null
-          ? AuthService().handleAuthState()
-          : WebInfoScreen(id: id),
+    var localizationDelegate = LocalizedApp.of(context).delegate;
+    return LocalizationProvider(
+      state: LocalizationProvider.of(context).state,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        onGenerateRoute: RouteGenerator.generateRoute,
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          localizationDelegate
+        ],
+        supportedLocales: localizationDelegate.supportedLocales,
+        locale: localizationDelegate.currentLocale,
+        theme: ThemeData(primarySwatch: Colors.blue),
+        home: defaultTargetPlatform == TargetPlatform.android || id == null
+            ? AuthService().handleAuthState()
+            : WebInfoScreen(id: id),
+      ),
     );
   }
 }
