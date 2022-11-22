@@ -11,4 +11,10 @@ class UserService {
         await users.doc(auth.currentUser!.uid).get();
     if (userDocument.data() != null) return userDocument.data() as Map;
   }
+
+  Stream getOrgEmployees() {
+    Stream<QuerySnapshot<Object?>> orgEmployees =
+        users.where('org', isEqualTo: localUser.organization.name).snapshots();
+    return orgEmployees;
+  }
 }

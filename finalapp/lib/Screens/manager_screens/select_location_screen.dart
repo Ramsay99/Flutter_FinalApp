@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:map_picker/map_picker.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+//import 'package:pointer_interceptor';
 
 class SelectLocationScreen extends StatefulWidget {
   const SelectLocationScreen({Key? key}) : super(key: key);
@@ -28,6 +29,7 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Stack(
         alignment: Alignment.topCenter,
         children: [
@@ -92,27 +94,14 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
             child: SizedBox(
               height: 50,
               child: TextButton(
-                child: const Text(
-                  "Submit",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.normal,
-                    color: Color(0xFFFFFFFF),
-                    fontSize: 19,
-                    // height: 19/19,
-                  ),
-                ),
                 onPressed: () {
                   setLatLng(cameraPosition.target.latitude,
                       cameraPosition.target.longitude);
                   // print(
                   //     "Location ${cameraPosition.target.latitude} ${cameraPosition.target.longitude}");
-                  print("Address: ${addressController.text}");
                   mapPickerAddress.text = addressController.text;
                   globalLng = cameraPosition.target.longitude;
                   globalLat = cameraPosition.target.latitude;
-                  print("GLO LAT $globalLat");
-                  print("GLO LNG $globalLng");
                   Navigator.pop(context);
                 },
                 style: ButtonStyle(
@@ -122,6 +111,16 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
                     ),
+                  ),
+                ),
+                child: const Text(
+                  "Submit",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontStyle: FontStyle.normal,
+                    color: Color(0xFFFFFFFF),
+                    fontSize: 19,
+                    // height: 19/19,
                   ),
                 ),
               ),

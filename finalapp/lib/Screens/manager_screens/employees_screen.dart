@@ -1,5 +1,10 @@
-import 'package:finalapp/screens/screens_barrel.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:finalapp/style/style_barrel.dart';
+import 'package:finalapp/utility/firestore/user_service.dart';
+import 'package:finalapp/widgets/default_button.dart';
+import 'package:finalapp/widgets/loading_indicator_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
@@ -7,7 +12,7 @@ class EmployeesScreen extends StatefulWidget {
   const EmployeesScreen({super.key});
 
   static GButton bottomNavBarItem = const GButton(
-    icon:  FontAwesomeIcons.circleUser,
+    icon: FontAwesomeIcons.circleUser,
   );
   @override
   State<EmployeesScreen> createState() => _EState();
@@ -21,71 +26,83 @@ class _EState extends State<EmployeesScreen> {
       child: Scaffold(
         body: Column(
           children: [
-            const TabBar(
-                labelColor: Colors.black,
-                labelStyle: TextStyle(color: Colors.black),
-                tabs: [
-                  Tab(
-                    text: "Employees",
-                  ),
-                  Tab(
-                    text: "Label 2",
-                  ),
-                  Tab(
-                    text: "Label 3",
-                  ),
-                ]),
             Expanded(
-              child: TabBarView(
+              child: Column(
                 children: [
-                  // ToDo : Make new folder called tabs and add class for each tab (Cleaner).
-                  Column(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        padding: const EdgeInsets.only(top: 20, bottom: 30),
-                        child: ListTile(
-                          onTap: (() {
-                            Navigator.pushNamed(context, "/employeeForm");
-                          }),
-                          leading: const CircleAvatar(
-                            radius: 30,
-                            backgroundColor: Colors.blueAccent,
-                          ),
-                          title: const Text('Add Driver '),
-                        ),
+                      DefaultButton(
+                        label: "Register",
+                        width: 145,
+                        onTap: () {
+                          Navigator.pushNamed(context, "/employeeForm");
+                        },
                       ),
-                      Expanded(
-                        child: ListView.separated(
-                          itemCount: 10,
+                      const SizedBox(width: 10),
+                      DefaultButton(
+                        label: "Import",
+                        color: oxford_blue_tint_2,
+                        width: 145,
+                        onTap: () {
+                          Navigator.pushNamed(context, "/employeeForm");
+                        },
+                      ),
+                    ],
+                  ),
+                  Expanded(
+                    child: StreamBuilder(
+                      stream: UserService().getOrgEmployees(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState !=
+                            ConnectionState.active) {
+                          return const LoadingIndicatorWidget();
+                        }
+                        return ListView.separated(
+                          itemCount: snapshot.data!.docs.length,
                           itemBuilder: (context, index) {
+                            final DocumentSnapshot documentSnapshot =
+                                snapshot.data!.docs[index];
                             return SizedBox(
                               height: 70,
-                              child: ListTile(
-                                leading: const CircleAvatar(
-                                  radius: 30,
-                                  backgroundColor: Colors.blueAccent,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    "/employeeInfo",
+                                    arguments: documentSnapshot,
+                                  );
+                                },
+                                child: ListTile(
+                                  leading: SvgPicture.asset(
+                                    height: 50,
+                                    width: 50,
+                                    'assets/svg/Avatar.svg',
+                                    semanticsLabel: 'Avatar',
+                                    fit: BoxFit.fill,
+                                  ),
+                                  title: Text(
+                                    documentSnapshot['name'],
+                                  ),
+                                  subtitle: Text(
+                                    documentSnapshot['email'],
+                                  ),
+                                  trailing: Text(
+                                    documentSnapshot['phone'],
+                                  ),
                                 ),
-                                title: Text('Person ${index + 1} '),
                               ),
                             );
                           },
                           separatorBuilder: (BuildContext context, int index) =>
-                              const Divider(
-                            thickness: 1,
-                          ),
-                        ),
-                      ),
-                    ],
+                              const Divider(thickness: 1),
+                        );
+                      },
+                    ),
                   ),
-                  Container(
-                    child: Column(children: [const Text("data")]),
-                  ),
-                  Container(
-                    child: Column(children: [const Text("data")]),
-                  )
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

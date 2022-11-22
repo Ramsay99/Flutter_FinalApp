@@ -11,3 +11,4 @@ export 'firestore/organization_service.dart';
 export 'location_service.dart';
 export 'route_generator.dart';
 export 'utils.dart';
+export 'global_variables.dart';

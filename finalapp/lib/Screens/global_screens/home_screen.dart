@@ -29,8 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
   void dispose() {
     _content.clear();
     _items.clear();
-    super.dispose();
     _selectedIndex = 0;
+    super.dispose();
   }
 
   @override
@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       drawer: const DrawerWidget(),
       appBar: const AppBarWidget(),
-      bottomNavigationBar: _showBottomNav(),
+      bottomNavigationBar: role ? _showBottomNav() : null,
       drawerScrimColor: oxford_blue_tint_3.withAlpha(150),
       body: SafeArea(
         child: Center(

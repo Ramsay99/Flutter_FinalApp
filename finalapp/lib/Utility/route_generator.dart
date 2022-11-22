@@ -22,6 +22,11 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (_) => TaskInfoScreen(document: args),
         );
+      case '/employeeInfo':
+        DocumentSnapshot args = settings.arguments as DocumentSnapshot;
+        return MaterialPageRoute(
+          builder: (_) => EmployeeInfoScreen(document: args),
+        );
       default:
         return _errorRoute();
     }

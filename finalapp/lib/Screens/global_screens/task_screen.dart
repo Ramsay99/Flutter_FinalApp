@@ -21,11 +21,14 @@ class _TaskScreenState extends State<TaskScreen> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        DefaultButton(
-          label: "Schedule",
-          onTap: () {
-            Navigator.pushNamed(context, "/taskForm");
-          },
+        Visibility(
+          visible: role,
+          child: DefaultButton(
+            label: "Schedule",
+            onTap: () {
+              Navigator.pushNamed(context, "/taskForm");
+            },
+          ),
         ),
         Expanded(
           child: StreamBuilder(
@@ -86,9 +89,9 @@ class TaskCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (() {
+      onTap: () {
         Navigator.pushNamed(context, "/taskInfo", arguments: document);
-      }),
+      },
       child: Container(
         height: 150,
         padding: const EdgeInsets.all(15),
