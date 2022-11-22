@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,11 +20,29 @@ class AuthService {
   ///
   /// Returns:
   ///   The return value is a Future object.
-  Future signUpUser(String email, String password) async {
-    return await auth.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
+  Future signUpUser(String email, String password, BuildContext context) async {
+    FirebaseApp app = await Firebase.initializeApp(
+      name: 'Secondary',
+      options: Firebase.app().options,
     );
+    try {
+      showDialog(
+        context: context,
+        builder: (context) => const Center(child: LoadingIndicatorWidget()),
+        barrierDismissible: false,
+      );
+      UserCredential userCredential = await FirebaseAuth.instanceFor(app: app)
+          .createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      await app.delete();
+      return Future.sync(() => userCredential);
+    } on FirebaseAuthException catch (error) {
+      errorSnackBar(context, error.message);
+    } finally {
+      Navigator.pop(context);
+    }
   }
 
   /// It takes an email and password, shows a loading dialog, and then signs the user in
@@ -41,7 +60,7 @@ class AuthService {
         ),
         barrierDismissible: false,
       );
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -88,11 +107,7 @@ class AuthService {
     User user,
     String name,
     String phone,
-    bool shift,
-    bool fulltime,
-    List<Timestamp> date,
     List<String> cities,
-    List<String> areas,
     String org,
   ) async {
     if (await isNewUser(user)) {
@@ -101,11 +116,7 @@ class AuthService {
         {
           "name": name,
           "phone": phone,
-          "shift": shift,
-          "fulltime": fulltime,
-          "date": date,
           "cities": cities,
-          "areas": areas,
           "org": org,
           "uid": user.uid,
           "email": user.email,
@@ -143,7 +154,6 @@ class AuthService {
           return const Center(child: LoadingSplashWidget());
         }
         final user = snapshot.data;
-        //auth.signOut();
         if (user != null) {
           return handelUserRole();
         } else {

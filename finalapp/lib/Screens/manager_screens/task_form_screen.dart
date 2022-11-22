@@ -33,6 +33,7 @@ class TaskForm extends State<TaskFormScreen> {
     notesController = TextEditingController();
     cityController = TextEditingController();
     productController = TextEditingController();
+    mapPickerAddress = TextEditingController();
     cities = [
       "Amman",
       "Salt",
@@ -59,6 +60,7 @@ class TaskForm extends State<TaskFormScreen> {
     notesController?.dispose();
     cityController?.dispose();
     productController?.dispose();
+    mapPickerAddress.dispose();
     super.dispose();
   }
 
@@ -126,7 +128,7 @@ class TaskForm extends State<TaskFormScreen> {
                       controller: phoneNumberController!,
                     ),
                     DropDownWidget(
-                      items: const ["Amman", "Zarqa", "Aqaba", "Irbid"],
+                      items: cities,
                       title: "City",
                       hint: "City",
                       controller: cityController!,

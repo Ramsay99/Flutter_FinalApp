@@ -1,42 +1,55 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:finalapp/style/style_barrel.dart';
 import 'package:finalapp/utility/authentication/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:date_time_picker/date_time_picker.dart';
 import 'dart:io';
 import 'dart:convert';
 import 'package:csv/csv.dart';
 import 'package:finalapp/widgets/widgets_barrel.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class EmployeeFormScreen extends StatefulWidget {
   const EmployeeFormScreen({Key? key}) : super(key: key);
 
   @override
-  EmploeeForm createState() => EmploeeForm();
+  EmployeeForm createState() => EmployeeForm();
 }
 
-class EmploeeForm extends State<EmployeeFormScreen> {
+class EmployeeForm extends State<EmployeeFormScreen> {
   TextEditingController? nameController;
   TextEditingController? emailController;
-  TextEditingController? passController;
-  TextEditingController? phoneNumController;
-  TextEditingController? dOBController;
-  TextEditingController? addressController;
+  TextEditingController? passwordController;
+  TextEditingController? phoneNumberController;
+  TextEditingController? datePickerBController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  late List cities;
+  late List<String> cities;
   late List<bool> citiesValues;
+  late List<String> selectedCities;
 
   @override
   void initState() {
     super.initState();
     nameController = TextEditingController();
     emailController = TextEditingController();
-    passController = TextEditingController();
-    phoneNumController = TextEditingController();
-    dOBController = TextEditingController();
-    addressController = TextEditingController();
-    cities = ["Amman", "Salt", "Aqaba"];
+    passwordController = TextEditingController();
+    phoneNumberController = TextEditingController();
+    datePickerBController = TextEditingController();
+    cities = [
+      "Amman",
+      "Salt",
+      "Aqaba",
+      "Irbid",
+      "Zarqa",
+      "Jarash",
+      "Madaba",
+      "Salt",
+      "Kerak",
+      "Ajlun",
+      "Mafraq",
+      "Tafela"
+    ];
+    selectedCities = [];
     citiesValues = [];
     for (var i = 0; i < cities.length; i++) {
       citiesValues.add(false);
@@ -47,170 +60,173 @@ class EmploeeForm extends State<EmployeeFormScreen> {
   void dispose() {
     nameController?.dispose();
     emailController?.dispose();
-    passController?.dispose();
-    phoneNumController?.dispose();
-    dOBController?.dispose();
-    addressController?.dispose();
+    passwordController?.dispose();
+    phoneNumberController?.dispose();
+    datePickerBController?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.white,
+        title: const Text(
+          "Register Employee",
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 20,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const FaIcon(
+              FontAwesomeIcons.xmark,
+              color: oxford_blue_tint_2,
+            ),
+          ),
+        ],
+      ),
       key: scaffoldKey,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Form(
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    //- #region Import file buttons.
-                    ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.lightGreenAccent[400],
-                          foregroundColor: Colors.green.shade800),
-                      onPressed: () {
-                        print("One Person Started");
-                        importCSV();
-                        print("One Person Ended");
-                      },
-                      icon: Icon(Icons.person_add),
-                      label: Text("One Driver"),
-                    ),
-                    Stack(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: ListView(
+                children: [
+                  Form(
+                    child: Column(
                       children: [
-                        ElevatedButton.icon(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.lightGreenAccent[400],
-                              foregroundColor: Colors.green.shade800),
-                          icon: Icon(Icons.people),
-                          label: Text(
-                            "Many Drivers",
-                          ),
-                          // Disabled Button, can be used as an example to
-                          // buy the premium product to unlock this feature.
-                          onPressed: null,
-                        ),
-                        Icon(
-                          Icons.lock,
-                          color: Colors.amber,
-                          shadows: [Shadow(color: Colors.black)],
-                          size: 25,
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        //   children: [
+                        //     //- #region Import file buttons.
+                        //     ElevatedButton.icon(
+                        //       style: ElevatedButton.styleFrom(
+                        //           backgroundColor: Colors.lightGreenAccent[400],
+                        //           foregroundColor: Colors.green.shade800),
+                        //       onPressed: () {
+                        //         print("One Person Started");
+                        //         importCSV();
+                        //         print("One Person Ended");
+                        //       },
+                        //       icon: Icon(Icons.person_add),
+                        //       label: Text("One Driver"),
+                        //     ),
+                        //     Stack(
+                        //       children: [
+                        //         ElevatedButton.icon(
+                        //           style: ElevatedButton.styleFrom(
+                        //               backgroundColor: Colors.lightGreenAccent[400],
+                        //               foregroundColor: Colors.green.shade800),
+                        //           icon: Icon(Icons.people),
+                        //           label: Text(
+                        //             "Many Drivers",
+                        //           ),
+                        //           // Disabled Button, can be used as an example to
+                        //           // buy the premium product to unlock this feature.
+                        //           onPressed: null,
+                        //         ),
+                        //         Icon(
+                        //           Icons.lock,
+                        //           color: Colors.amber,
+                        //           shadows: [Shadow(color: Colors.black)],
+                        //           size: 25,
+                        //         ),
+                        //       ],
+                        //     ),
+                        //     // #endregion
+                        //   ],
+                        // ),
+                        Column(
+                          children: [
+                            DefaultFormField(
+                              title: "Name",
+                              hint: "Full Name",
+                              controller: nameController!,
+                            ),
+                            DefaultFormField(
+                              title: "E-mail",
+                              hint: "@email.com",
+                              controller: emailController!,
+                            ),
+                            DefaultFormField(
+                              title: "Password",
+                              hint: "Password",
+                              controller: passwordController!,
+                            ),
+                            DefaultFormField(
+                              title: "Phone",
+                              hint: "+962",
+                              controller: phoneNumberController!,
+                            ),
+                            Wrap(children: [_cities()]),
+                          ],
                         ),
                       ],
                     ),
-                    // #endregion
-                  ],
-                ),
-                DefaultFormField(
-                  title: "Name",
-                  hint: "Name",
-                  controller: nameController!,
-                ),
-                DefaultFormField(
-                  title: "E-mail",
-                  hint: "E-mail",
-                  controller: emailController!,
-                ),
-                DefaultFormField(
-                  title: "Password",
-                  hint: "Password",
-                  controller: passController!,
-                ),
-                DefaultFormField(
-                  title: "Phone",
-                  hint: "Phone",
-                  controller: phoneNumController!,
-                ),
-                DefaultFormField(
-                  title: "Address",
-                  hint: "Address",
-                  controller: addressController!,
-                ),
-                _dateOfBirth(),
-                _cities(),
-                DefaultButton(
-                  label: "Sign-up",
-                  onTap: () {
-                    AuthService()
-                        .signUpUser(
-                      emailController!.text,
-                      passController!.text,
-                    )
-                        .then(
-                      (userCredential) {
-                        AuthService().saveUserData(
-                          userCredential.user!,
-                          nameController!.text,
-                          phoneNumController!.text,
-                          true,
-                          true,
-                          [
-                            Timestamp.now(),
-                            Timestamp.now(),
-                          ],
-                          [
-                            "amman",
-                            "irbid",
-                          ],
-                          [
-                            "test",
-                            "test2",
-                          ],
-                          "org1",
-                        );
-                      },
-                    );
-                  },
-                )
-              ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Padding _cities() {
-    return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
-      child: SizedBox(
-        height: 130,
-        child: ListView.builder(
-          shrinkWrap: true,
-          itemCount: cities.length,
-          itemBuilder: (context, index) {
-            return CheckboxListTile(
-              title: Text(cities[index]),
-              value: citiesValues[index],
-              onChanged: (value) {
-                setState(
-                  () {
-                    citiesValues[index] = value!;
+            DefaultButton(
+              label: "Register",
+              onTap: () {
+                AuthService()
+                    .signUpUser(
+                  emailController!.text,
+                  passwordController!.text,
+                  context,
+                )
+                    .then(
+                  (userCredential) {
+                    AuthService().saveUserData(
+                      userCredential.user!,
+                      nameController!.text,
+                      phoneNumberController!.text,
+                      selectedCities,
+                      localUser.organization.name,
+                    );
+                    Navigator.pop(context);
                   },
                 );
               },
-            );
-          },
+            )
+          ],
         ),
       ),
     );
   }
 
-  Padding _dateOfBirth() {
-    return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
-      child: DateTimePicker(
-        controller: dOBController,
-        // initialValue: _initVal.text,
-        firstDate: DateTime.now(),
-        lastDate: DateTime(2100),
-        dateLabelText: 'Date',
-        onSaved: (val) {
-          dOBController!.text = val!;
+  Widget _cities() {
+    return SizedBox(
+      width: 325,
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: cities.length,
+        itemBuilder: (context, index) {
+          return CheckboxListTile(
+            activeColor: blue_tint_1,
+            title: Text(cities[index]),
+            value: citiesValues[index],
+            onChanged: (value) {
+              setState(
+                () {
+                  value == true
+                      ? selectedCities.add(cities[index])
+                      : selectedCities.remove(cities[index]);
+                  citiesValues[index] = value!;
+                },
+              );
+            },
+          );
         },
       ),
     );
@@ -236,10 +252,9 @@ class EmploeeForm extends State<EmployeeFormScreen> {
       () {
         nameController!.text = fields[1][0];
         emailController!.text = fields[1][1];
-        passController!.text = "PassWord Rand/Def";
-        phoneNumController!.text = fields[1][2].toString();
-        dOBController!.text = fields[1][3].toString();
-        addressController!.text = fields[1][4];
+        passwordController!.text = "PassWord Rand/Def";
+        phoneNumberController!.text = fields[1][2].toString();
+        datePickerBController!.text = fields[1][3].toString();
         // checkboxesControler = check where fields[1][].contains checkboxList // sm like that
       },
     );

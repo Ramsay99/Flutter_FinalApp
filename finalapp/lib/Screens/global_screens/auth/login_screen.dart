@@ -52,10 +52,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: 50,
                   ),
                   IconButton(
-                      onPressed: () {
-                        _onActionSheetPress(context);
-                      },
-                      icon: Icon(Icons.language))
+                    onPressed: () {
+                      _onActionSheetPress(context);
+                    },
+                    icon: const Icon(Icons.language),
+                  )
                 ],
               ),
             ),
