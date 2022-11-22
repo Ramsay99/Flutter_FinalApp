@@ -4,7 +4,6 @@ import 'package:finalapp/utility/utility_barrel.dart';
 import 'package:finalapp/widgets/widgets_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class EmployeeInfoScreen extends StatefulWidget {
   final DocumentSnapshot document;
@@ -25,7 +24,7 @@ class _EmployeeInfoScreenState extends State<EmployeeInfoScreen> {
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         title: const Text(
-          "Task Info",
+          "Employee Info",
           style: TextStyle(
             color: Colors.black,
             fontSize: 20,

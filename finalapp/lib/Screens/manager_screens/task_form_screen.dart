@@ -108,13 +108,28 @@ class TaskForm extends State<TaskFormScreen> {
                       hint: "Full Name",
                       controller: nameController!,
                     ),
-                    GestureDetector(
-                      onTap: () => Navigator.pushNamed(context, "/mapPicker"),
-                      child: DefaultFormField(
-                        title: "Address",
-                        hint: "Street",
-                        controller: mapPickerAddress,
-                      ),
+                    Stack(
+                      children: [
+                        DefaultFormField(
+                          title: "Address",
+                          hint: "Street",
+                          controller: mapPickerAddress,
+                        ),
+                        Positioned(
+                          bottom: 12,
+                          left: 255,
+                          child: IconButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, "/mapPicker");
+                            },
+                            icon: const FaIcon(
+                              FontAwesomeIcons.locationDot,
+                              color: oxford_blue_tint_5,
+                              size: 23,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     DefaultFormField(
                       title: "Notes",
@@ -124,7 +139,7 @@ class TaskForm extends State<TaskFormScreen> {
                     ),
                     DefaultFormField(
                       title: "Phone",
-                      hint: "Phone",
+                      hint: "+962",
                       controller: phoneNumberController!,
                     ),
                     DropDownWidget(

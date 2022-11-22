@@ -127,23 +127,26 @@ class _TaskInfoScreenState extends State<TaskInfoScreen> {
                     ),
                   ],
                 ),
-                DefaultButton(
-                  label: "Delete",
-                  color: red_tint_1,
-                  onTap: () {
-                    ErrorAlertWidget(
-                      context,
-                      "Delete Task?",
-                      "Are you sure you would like to cancel this schedule?",
-                      "Delete",
-                      () {
-                        taskCollection.doc(widget.document.id).delete();
-                        Navigator.of(context)
-                          ..pop()
-                          ..pop();
-                      },
-                    );
-                  },
+                Visibility(
+                  visible: role,
+                  child: DefaultButton(
+                    label: "Delete",
+                    color: red_tint_1,
+                    onTap: () {
+                      ErrorAlertWidget(
+                        context,
+                        "Delete Task?",
+                        "Are you sure you would like to cancel this schedule?",
+                        "Delete",
+                        () {
+                          taskCollection.doc(widget.document.id).delete();
+                          Navigator.of(context)
+                            ..pop()
+                            ..pop();
+                        },
+                      );
+                    },
+                  ),
                 )
               ],
             )

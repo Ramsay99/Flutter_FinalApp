@@ -10,6 +10,7 @@ import 'package:finalapp/local_models/local_model_barrel.dart';
 /// Creating a reference to the FirebaseAuth instance.
 final auth = FirebaseAuth.instance;
 late LocalUser localUser;
+late bool role;
 
 class AuthService {
   /// It takes in an email and password, and returns a future that will resolve to a FirebaseUser object
@@ -134,6 +135,7 @@ class AuthService {
           return const Center(child: LoadingSplashWidget());
         }
         localUser = getLocalUser(snapshot.data);
+        role = localUser.runtimeType == Manager ? true : false;
         return const HomeScreen();
         // return snapshot.data!['role'] == 1
         //     ? const EmployHomeScreen()

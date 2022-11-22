@@ -18,6 +18,7 @@ export 'manager_screens/settings_screen.dart';
 export 'manager_screens/task_form_screen.dart';
 export 'manager_screens/select_location_screen.dart';
 export 'manager_screens/employee_info_screen.dart';
+export 'manager_screens/import_file_screen.dart';
 
 /// Exporting all the screens for the dashboard folder.
 export 'manager_screens/dashboard/pie_vis.dart';

@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       drawer: const DrawerWidget(),
       appBar: const AppBarWidget(),
-      bottomNavigationBar: _showBottomNav(),
+      bottomNavigationBar: role ? _showBottomNav() : null,
       drawerScrimColor: oxford_blue_tint_3.withAlpha(150),
       body: SafeArea(
         child: Center(
