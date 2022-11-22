@@ -1,3 +1,4 @@
+import 'package:finalapp/Utility/global_variables.dart';
 import 'package:finalapp/style/style_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:finalapp/widgets/widgets_barrel.dart';
@@ -16,7 +17,7 @@ class TaskForm extends State<TaskFormScreen> {
   TextEditingController? emailController;
   TextEditingController? phoneNumberController;
   TextEditingController? datePickerBController;
-  TextEditingController? addressController;
+  //TextEditingController? addressController;
   TextEditingController? notesController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   late List cities;
@@ -29,7 +30,7 @@ class TaskForm extends State<TaskFormScreen> {
     emailController = TextEditingController();
     phoneNumberController = TextEditingController();
     datePickerBController = TextEditingController();
-    addressController = TextEditingController();
+    // addressController = mapPickerAddress;
     notesController = TextEditingController();
     cities = ["Amman", "Salt", "Aqaba"];
     citiesValues = [];
@@ -40,11 +41,12 @@ class TaskForm extends State<TaskFormScreen> {
 
   @override
   void dispose() {
+    //mapPickerAddress?.dispose();
     nameController?.dispose();
     emailController?.dispose();
     phoneNumberController?.dispose();
     datePickerBController?.dispose();
-    addressController?.dispose();
+    // addressController?.dispose();
     notesController?.dispose();
     super.dispose();
   }
@@ -92,10 +94,13 @@ class TaskForm extends State<TaskFormScreen> {
                     hint: "Full Name",
                     controller: nameController!,
                   ),
-                  DefaultFormField(
-                    title: "Address",
-                    hint: "Street",
-                    controller: addressController!,
+                  GestureDetector(
+                    onTap: () => Navigator.pushNamed(context, "/mapPicker"),
+                    child: DefaultFormField(
+                      title: "Address",
+                      hint: "Street",
+                      controller: mapPickerAddress,
+                    ),
                   ),
                   DefaultFormField(
                     title: "Notes",
@@ -113,16 +118,16 @@ class TaskForm extends State<TaskFormScreen> {
                     label: "Add Task",
                     onTap: () {
                       OrganizationService().savaTaskData(
-                        nameController!.text,
-                        addressController!.text,
-                        notesController!.text,
-                        phoneNumberController!.text,
-                        "123 E ID", //? DROP DOWN WIP
-                        "123 P ID", //? DROP DOWN WIP
-                        datePickerBController!.text,
-                        "test city", //? DROP DOWN WIP
-                        ["0.000000","0.000000"]
-                      );
+                          nameController!.text,
+                          mapPickerAddress.text,
+                          //addressController!.text,
+                          notesController!.text,
+                          phoneNumberController!.text,
+                          "123 E ID", //? DROP DOWN WIP
+                          "123 P ID", //? DROP DOWN WIP
+                          datePickerBController!.text,
+                          "test city", //? DROP DOWN WIP
+                          ["0.000000", "0.000000"]);
                       Navigator.pop(context);
                     },
                   )
