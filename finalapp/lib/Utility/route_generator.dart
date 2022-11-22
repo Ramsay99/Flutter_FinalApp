@@ -19,6 +19,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const SettingsScreen());
       case '/resetPassword':
         return MaterialPageRoute(builder: (_) => const ForgotPasswordScreen());
+      case '/reportBug':
+        return MaterialPageRoute(builder: (_) => const ReportBug());
       case '/taskInfo':
         DocumentSnapshot args = settings.arguments as DocumentSnapshot;
         return MaterialPageRoute(

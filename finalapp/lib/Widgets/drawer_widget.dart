@@ -80,12 +80,14 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           const Divider(thickness: 1),
           DrawerTile(
             icon: FontAwesomeIcons.bug,
-            text: "Report an issue",
-            onTap: () {},
+            text: translate("report"),
+            onTap: () async {
+              Navigator.pushNamed(context, "/reportBug");
+            },
           ),
           DrawerTile(
             icon: FontAwesomeIcons.circleInfo,
-            text: "About",
+            text: translate("about"),
             onTap: () {},
           ),
         ],
