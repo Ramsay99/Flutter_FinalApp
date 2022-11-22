@@ -15,6 +15,15 @@ class OrganizationService {
     return orgDocument.data() as Map;
   }
 
+  Stream getOrgProducts() {
+    Stream<QuerySnapshot<Object?>> orgProducts = FirebaseFirestore.instance
+        .collection(localUser.organization.name)
+        .doc('data')
+        .collection('products')
+        .snapshots();
+    return orgProducts;
+  }
+
   Stream taskStream() {
     Stream<QuerySnapshot<Object?>> taskSnapshot = taskCollection.snapshots();
     return taskSnapshot;
@@ -25,7 +34,6 @@ class OrganizationService {
     String address,
     String note,
     String phone,
-    String employeeID,
     String productID,
     String date,
     String city,
@@ -41,7 +49,6 @@ class OrganizationService {
         "address": address,
         "note": note,
         "phone": phone,
-        "employeeID": employeeID,
         "productID": productID,
         "date": date,
         "area": city,

@@ -1,7 +1,6 @@
 export 'default_text_field.dart';
 export 'default_button.dart';
 export 'default_chip_buttons.dart';
-export 'default_drawer.dart';
 export 'bottom_toggle_buttons.dart';
 export 'loading_splash_widget.dart';
 export 'error_snackbar_widget.dart';
@@ -12,3 +11,4 @@ export 'date_picker_widget.dart';
 export 'default_text_box.dart';
 export 'delete_alert_widget.dart';
 export 'drawer_widget.dart';
+export 'default_dropdown_menu.dart';

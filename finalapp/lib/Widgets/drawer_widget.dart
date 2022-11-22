@@ -37,27 +37,25 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           Expanded(
             child: ListView(
               children: [
-                SizedBox(
-                  width: 200,
-                  height: 100,
-                  child: DrawerHeader(
-                    child: FutureBuilder(
-                      future: _organizationData,
-                      builder: (BuildContext context, AsyncSnapshot snapshot) {
-                        if (snapshot.connectionState != ConnectionState.done) {
-                          return const Center(child: LoadingIndicatorWidget());
-                        }
-                        return Center(
-                          child: Image(
-                            image: NetworkImage(
-                              snapshot.data['logo'],
-                            ),
-                            fit: BoxFit.contain,
+                FutureBuilder(
+                  future: _organizationData,
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (snapshot.connectionState != ConnectionState.done) {
+                      return const Center(child: LoadingIndicatorWidget());
+                    }
+                    return Center(
+                      child: SizedBox(
+                        width: 120,
+                        height: 100,
+                        child: Image(
+                          image: NetworkImage(
+                            snapshot.data['logo'],
                           ),
-                        );
-                      },
-                    ),
-                  ),
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    );
+                  },
                 ),
                 const Divider(thickness: 1),
                 const SizedBox(height: 20),
@@ -81,6 +79,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               ],
             ),
           ),
+          const Divider(thickness: 1),
           DrawerTile(
             icon: FontAwesomeIcons.bug,
             text: "Report an issue",
@@ -115,7 +114,7 @@ class DrawerTile extends StatelessWidget {
       child: ListTile(
         leading: FaIcon(
           icon,
-          color: blue_tint_1,
+          color: light_blue_tint_1,
           size: 20,
         ),
         title: Text(
