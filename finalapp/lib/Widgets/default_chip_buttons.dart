@@ -1,12 +1,13 @@
+import 'package:finalapp/style/style_barrel.dart';
 import 'package:flutter/material.dart';
 
-class DefaultChipLogIn extends StatefulWidget {
+class DefaultChipButtons extends StatefulWidget {
   final String email, pass;
   final TextEditingController emailController;
   final TextEditingController passwordController;
   String chipLabel;
 
-  DefaultChipLogIn({
+  DefaultChipButtons({
     super.key,
     required this.email,
     required this.pass,
@@ -14,22 +15,22 @@ class DefaultChipLogIn extends StatefulWidget {
     required this.passwordController,
     this.chipLabel = "",
   }) {
-    chipLabel = chipLabel.isEmpty ? _SubstrEmail_DotCom(email) : chipLabel;
+    chipLabel = chipLabel.isEmpty ? _subStringEmail(email) : chipLabel;
   }
 
   @override
-  State<DefaultChipLogIn> createState() => _DefaultChipLogInState();
+  State<DefaultChipButtons> createState() => _DefaultChipButtonsState();
 }
 
-class _DefaultChipLogInState extends State<DefaultChipLogIn> {
+class _DefaultChipButtonsState extends State<DefaultChipButtons> {
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5),
       child: InkWell(
         child: Chip(
-          backgroundColor: Colors.grey.shade600,
-          labelPadding: const EdgeInsets.only(left: 2, right: 2),
+          backgroundColor: light_blue_tint_1,
+          labelPadding: const EdgeInsets.only(left: 5, right: 5),
           label: Text(
             widget.chipLabel,
             style: const TextStyle(fontSize: 16, color: Colors.white),
@@ -44,7 +45,7 @@ class _DefaultChipLogInState extends State<DefaultChipLogIn> {
   }
 }
 
-String _SubstrEmail_DotCom(String email) {
+String _subStringEmail(String email) {
   email = email.toString().substring(0, email.toString().length - 4);
   return email;
 }

@@ -14,8 +14,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController? emailController;
-  TextEditingController? passwordController;
+  late TextEditingController emailController;
+  late TextEditingController passwordController;
 
   @override
   void initState() {
@@ -26,16 +26,21 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
-    emailController?.dispose();
-    passwordController?.dispose();
+    emailController.dispose();
+    passwordController.dispose();
     super.dispose();
   }
 
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    var localizationDelegate = LocalizedApp.of(context).delegate;
+    final LocalizationDelegate localizationDelegate = LocalizedApp.of(context).delegate;
     return Scaffold(
+      bottomNavigationBar: SvgPicture.asset(
+        'assets/svg/Pattern.svg',
+        semanticsLabel: 'Bottom pattern',
+        fit: BoxFit.fill,
+      ),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -55,133 +60,116 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () {
                       _onActionSheetPress(context);
                     },
-                    icon: const Icon(Icons.language),
+                    icon: const Icon(
+                      Icons.language,
+                      color: oxford_blue_tint_4,
+                    ),
                   )
                 ],
               ),
             ),
             const Spacer(),
-            Form(
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              key: formKey,
-              child: Column(
-                children: [
-                  DefaultFormField(
-                    title: translate("textfield.email"),
-                    hint: "@email.com",
-                    controller: emailController!,
-                    validator: (value) {
-                      if (value!.isNotEmpty) {
-                        return null;
-                      } else {
-                        return "Please enter E-mail.";
-                      }
-                    },
-                  ),
-                  PasswordFormField(
-                    title: translate("textfield.password"),
-                    hint: "Password",
-                    controller: passwordController!,
-                    validator: (value) {
-                      if (value!.isNotEmpty) {
-                        return null;
-                      } else {
-                        return "Please enter password.";
-                      }
-                    },
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 40, 0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                          child: Text(
-                            translate('forgotpassword'),
-                            style: const TextStyle(
-                              color: blue_tint_1,
-                              fontSize: 13,
-                              fontWeight: FontWeight.w600,
-                              decoration: TextDecoration.underline,
+            SingleChildScrollView(
+              child: Form(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                key: formKey,
+                child: Column(
+                  children: [
+                    DefaultFormField(
+                      title: translate("textfield.email"),
+                      hint: "@email.com",
+                      controller: emailController,
+                      validator: (value) {
+                        if (value!.isNotEmpty) {
+                          return null;
+                        } else {
+                          return "Please enter E-mail.";
+                        }
+                      },
+                    ),
+                    PasswordFormField(
+                      title: translate("textfield.password"),
+                      hint: "Password",
+                      controller: passwordController,
+                      validator: (value) {
+                        if (value!.isNotEmpty) {
+                          return null;
+                        } else {
+                          return "Please enter password.";
+                        }
+                      },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 40, 0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          TextButton(
+                            child: Text(
+                              translate('forgotPassword'),
+                              style: const TextStyle(
+                                color: blue_tint_1,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w600,
+                                decoration: TextDecoration.underline,
+                              ),
                             ),
+                            onPressed: () {
+                              Navigator.pushNamed(context, "/resetPassword");
+                            },
                           ),
-                          onPressed: () {
-                            Navigator.pushNamed(context, "/resetPassword");
-                          },
+                        ],
+                      ),
+                    ),
+                    DefaultButton(
+                      label: translate('button.sign-in'),
+                      onTap: () {
+                        final isValidForm = formKey.currentState!.validate();
+                        if (isValidForm) {
+                          AuthService().signInUser(
+                            emailController.text,
+                            passwordController.text,
+                            context,
+                          );
+                        }
+                      },
+                    ),
+                    DefaultButton(
+                      color: oxford_blue_tint_2,
+                      label: translate("button.contact-us"),
+                      onTap: () {},
+                    ),
+                    Wrap(
+                      spacing: 8,
+                      alignment: WrapAlignment.spaceEvenly,
+                      children: [
+                        DefaultChipButtons(
+                          key: const Key("clear_chip"),
+                          email: "",
+                          pass: "",
+                          emailController: emailController,
+                          passwordController: passwordController,
+                          chipLabel: "Clear",
+                        ),
+                        DefaultChipButtons(
+                          email: "test@test.com",
+                          pass: "test1234",
+                          emailController: emailController,
+                          passwordController: passwordController,
+                        ),
+                        DefaultChipButtons(
+                          email: "employee@test.com",
+                          pass: "test1234",
+                          emailController: emailController,
+                          passwordController: passwordController,
                         ),
                       ],
                     ),
-                  ),
-                  DefaultButton(
-                    label: translate('button.sign-in'),
-                    onTap: () {
-                      final isValidForm = formKey.currentState!.validate();
-                      if (isValidForm) {
-                        AuthService().signInUser(
-                          emailController!.text,
-                          passwordController!.text,
-                          context,
-                        );
-                      }
-                    },
-                  ),
-                  const SizedBox(height: 8),
-                  DefaultButton(
-                    color: oxford_blue_tint_2,
-                    label: translate("button.contact-us"),
-                    onTap: () {},
-                  ),
-                  // Wrap(
-                  //   spacing: 8,
-                  //   alignment: WrapAlignment.spaceEvenly,
-                  //   children: [
-                  //     DefaultChipLogIn(
-                  //       key: const Key("clear_chip"),
-                  //       email: "",
-                  //       pass: "",
-                  //       emailController: emailController,
-                  //       passwordController: passwordController,
-                  //       chipLabel: "Clear",
-                  //     ),
-                  //     DefaultChipLogIn(
-                  //       key: const Key("test_chip"),
-                  //       email: "test@test.com",
-                  //       pass: "test1234",
-                  //       emailController: emailController,
-                  //       passwordController: passwordController,
-                  //     ),
-                  //   ],
-                  // ),
-                ],
+                  ],
+                ),
               ),
             ),
             const Spacer(),
-            // Column(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     Text(
-            //       translate(
-            //         'language.selected_message',
-            //         args: {
-            //           'language': translate(
-            //             'language.name.${localizationDelegate.currentLocale.languageCode}',
-            //           )
-            //         },
-            //       ),
-            //     ),
-            //     DefaultButton(
-            //       label: translate('button.change_language'),
-            //       onTap: () {
-            //         _onActionSheetPress(context);
-            //       },
-            //     )
-            //   ],
-            // ),
-            SvgPicture.asset(
-              'assets/svg/Pattern.svg',
-              semanticsLabel: 'Bottom pattern',
-              fit: BoxFit.fill,
-            ),
           ],
         ),
       ),

@@ -29,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void dispose() {
     _content.clear();
     _items.clear();
+    _selectedIndex = 0;
     super.dispose();
   }
 
