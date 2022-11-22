@@ -1,8 +1,7 @@
 {
-    "textfield":{
-        "email":"البريد الإلكتروني",
-        "password":"كلمة المرور"
-
+    "textfield": {
+        "email": "البريد الإلكتروني",
+        "password": "كلمة المرور"
     },
      "button": 
 	{
@@ -20,7 +19,7 @@
     ,"language.selected_message":"تغيير اللغة",
 
       "language": 
-	{"language":"اللغة",
+	{
 		"name": 
 		{
 			"en": "إنجليزي",
@@ -41,11 +40,6 @@
     ,
     "tabbar":{
         "emp":"الموظفين"
-    },
-     "drawer":{
-
-        "settings":"إعدادات"
-        ,"sign_out":"خروج"
     }
     ,"theme":" مظهر"
 }

@@ -1,11 +1,16 @@
 import 'dart:ui';
 import 'package:finalapp/style/style_barrel.dart';
-import 'package:finalapp/utility/utility_barrel.dart';
 import 'package:finalapp/widgets/widgets_barrel.dart';
 import 'package:flutter/material.dart';
 
 // ignore: non_constant_identifier_names
-Future<void> DeleteAlertWidget(context, String docID) async {
+Future<void> ErrorAlertWidget(
+  BuildContext context,
+  String title,
+  String text,
+  String label,
+  final Function()? onTap,
+) async {
   await showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -30,17 +35,17 @@ Future<void> DeleteAlertWidget(context, String docID) async {
                 Column(
                   children: [
                     Row(
-                      children: const [
-                        Icon(
+                      children: [
+                        const Icon(
                           Icons.error_outline_rounded,
                           color: red_tint_1,
                         ),
                         Flexible(
                           child: Padding(
-                            padding: EdgeInsets.only(left: 10),
+                            padding: const EdgeInsets.only(left: 10),
                             child: Text(
-                              "Delete Task?",
-                              style: TextStyle(
+                              title,
+                              style: const TextStyle(
                                 color: red_tint_1,
                                 fontSize: 20,
                               ),
@@ -54,9 +59,9 @@ Future<void> DeleteAlertWidget(context, String docID) async {
                       height: 25,
                       thickness: 1,
                     ),
-                    const Text(
-                      "Are you sure you would like to cancel this schedule?",
-                      style: TextStyle(
+                    Text(
+                      text,
+                      style: const TextStyle(
                         color: red_tint_1,
                         fontSize: 20,
                       ),
@@ -75,15 +80,10 @@ Future<void> DeleteAlertWidget(context, String docID) async {
                       },
                     ),
                     DefaultButton(
-                      label: "Delete",
+                      label: label,
                       color: red_tint_1,
                       width: 125,
-                      onTap: () {
-                        taskCollection.doc(docID).delete();
-                        Navigator.of(context)
-                          ..pop()
-                          ..pop();
-                      },
+                      onTap: onTap,
                     ),
                   ],
                 )

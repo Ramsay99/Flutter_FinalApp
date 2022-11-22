@@ -61,11 +61,6 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 const Divider(thickness: 1),
                 const SizedBox(height: 20),
                 DrawerTile(
-                  icon: FontAwesomeIcons.solidUser,
-                  text: "Profile",
-                  onTap: () {},
-                ),
-                DrawerTile(
                   icon: FontAwesomeIcons.gear,
                   text: translate("drawer.settings"),
                   onTap: () {

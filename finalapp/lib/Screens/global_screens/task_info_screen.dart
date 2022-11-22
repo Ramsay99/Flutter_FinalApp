@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:finalapp/utility/utility_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:finalapp/style/style_barrel.dart';
 import 'package:finalapp/widgets/widgets_barrel.dart';
@@ -19,6 +20,7 @@ class TaskInfoScreen extends StatefulWidget {
 class _TaskInfoScreenState extends State<TaskInfoScreen> {
   @override
   Widget build(BuildContext context) {
+    print(widget.document.data());
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -65,18 +67,18 @@ class _TaskInfoScreenState extends State<TaskInfoScreen> {
                     ),
                     DefaultTextBox(
                       text: widget.document['area'],
-                      title: "Area",
+                      title: "City",
                     ),
                     DefaultTextBox(
                       text: widget.document['productID'],
                       title: "Product",
                     ),
                     DefaultTextBox(
-                      text: "test", //! ADD DOC
-                      title: "Customer name",
+                      text: widget.document['name'],
+                      title: "Customer Name",
                     ),
                     DefaultTextBox(
-                      text: "test", //! ADD d
+                      text: widget.document['note'],
                       title: "Note",
                     ),
                   ],
@@ -94,7 +96,7 @@ class _TaskInfoScreenState extends State<TaskInfoScreen> {
                       width: 145,
                       onTap: () async {
                         final Uri phoneUri =
-                            Uri(scheme: "tel", path: "85131313"); //! ADD DOC
+                            Uri(scheme: "tel", path: widget.document['phone']);
                         try {
                           if (await canLaunchUrlString(phoneUri.toString())) {
                             await launchUrlString(phoneUri.toString());
@@ -112,7 +114,7 @@ class _TaskInfoScreenState extends State<TaskInfoScreen> {
                       onTap: () async {
                         //${widget.document['location'][0]}
                         final String locationUri =
-                            "https://www.google.com/maps/search/?api=1&query=0.00000,0.00000}"; //! ADD DOC
+                            "https://www.google.com/maps/search/?api=1&query=${widget.document['location'][0]},${widget.document['location'][1]}";
                         try {
                           if (await canLaunchUrlString(
                               locationUri.toString())) {
@@ -125,12 +127,26 @@ class _TaskInfoScreenState extends State<TaskInfoScreen> {
                     ),
                   ],
                 ),
-                DefaultButton(
-                  label: "Delete",
-                  color: red_tint_1,
-                  onTap: () {
-                    DeleteAlertWidget(context, widget.document.id);
-                  },
+                Visibility(
+                  visible: role,
+                  child: DefaultButton(
+                    label: "Delete",
+                    color: red_tint_1,
+                    onTap: () {
+                      ErrorAlertWidget(
+                        context,
+                        "Delete Task?",
+                        "Are you sure you would like to cancel this schedule?",
+                        "Delete",
+                        () {
+                          taskCollection.doc(widget.document.id).delete();
+                          Navigator.of(context)
+                            ..pop()
+                            ..pop();
+                        },
+                      );
+                    },
+                  ),
                 )
               ],
             )

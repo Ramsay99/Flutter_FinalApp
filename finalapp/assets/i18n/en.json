@@ -6,14 +6,13 @@
     "button": {
         "cancel": "Cancel",
         "change_language": "Change Language",
-        "signup": "Sign Up",
+        "sign-up": "Sign Up",
         "sign-in": "Sign-In",
         "contact-us":"Contact Us"
     },
-    "forgotpassword": "Forgot Your Password ?",
+    "forgotPassword": "Forgot password?",
     "login": "Login",
-    "doyouhaveaccount": "Do you have account ?",
-    "signup": "Sign Up",
+    "sign-up": "Sign Up",
     "language": {
          "language":"Language",
         "name": {
@@ -28,9 +27,9 @@
     },
     "app_bar": {
         "home": "Home",
-        "signout": "Sign-Out"
+        "sign-out": "Sign-Out"
     },
-    "tabbar": {
+    "tab_bar": {
         "emp": "Employees"
     }
     ,
