@@ -30,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _content.clear();
     _items.clear();
     super.dispose();
+    _selectedIndex = 0;
   }
 
   @override
