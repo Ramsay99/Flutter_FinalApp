@@ -15,6 +15,7 @@
     "doyouhaveaccount": "Do you have account ?",
     "signup": "Sign Up",
     "language": {
+         "language":"Language",
         "name": {
             "en": "English",
             "ar": "Arabic"
@@ -32,4 +33,12 @@
     "tabbar": {
         "emp": "Employees"
     }
+    ,
+    "drawer":{
+
+        "settings":"Settings"
+         ,"sign_out":"Sign Out"
+    }
+   ,"theme":"Theme"
+
 }

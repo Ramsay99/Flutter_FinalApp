@@ -4,6 +4,7 @@ import 'package:finalapp/style/style_barrel.dart';
 import 'package:finalapp/widgets/widgets_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:finalapp/utility/utility_barrel.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class DrawerWidget extends StatefulWidget {
@@ -66,12 +67,14 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 ),
                 DrawerTile(
                   icon: FontAwesomeIcons.gear,
-                  text: "Settings",
-                  onTap: () {},
+                  text: translate("drawer.settings"),
+                  onTap: () {
+                    Navigator.pushNamed(context, "/settings");
+                  },
                 ),
                 DrawerTile(
                   icon: FontAwesomeIcons.rightFromBracket,
-                  text: "Sign Out",
+                  text: translate("drawer.sign_out"),
                   onTap: () {
                     AuthService().signOutUser();
                   },

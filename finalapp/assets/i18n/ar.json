@@ -20,7 +20,7 @@
     ,"language.selected_message":"تغيير اللغة",
 
       "language": 
-	{
+	{"language":"اللغة",
 		"name": 
 		{
 			"en": "إنجليزي",
@@ -41,5 +41,11 @@
     ,
     "tabbar":{
         "emp":"الموظفين"
+    },
+     "drawer":{
+
+        "settings":"إعدادات"
+        ,"sign_out":"خروج"
     }
+    ,"theme":" مظهر"
 }

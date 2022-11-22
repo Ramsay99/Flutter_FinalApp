@@ -15,6 +15,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const EmployeeFormScreen());
       case '/mapPicker':
         return MaterialPageRoute(builder: (_) => const SelectLocationScreen());
+      case '/settings':
+        return MaterialPageRoute(builder: (_) => const SettingsScreen());
       case '/resetPassword':
         return MaterialPageRoute(builder: (_) => const ForgotPasswordScreen());
       case '/taskInfo':
