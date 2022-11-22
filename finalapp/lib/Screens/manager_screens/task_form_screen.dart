@@ -1,3 +1,4 @@
+import 'package:finalapp/Utility/global_variables.dart';
 import 'package:finalapp/style/style_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:finalapp/widgets/widgets_barrel.dart';
@@ -16,7 +17,6 @@ class TaskForm extends State<TaskFormScreen> {
   TextEditingController? emailController;
   TextEditingController? phoneNumberController;
   TextEditingController? datePickerBController;
-  TextEditingController? addressController;
   TextEditingController? notesController;
   TextEditingController? cityController;
   TextEditingController? productController;
@@ -31,7 +31,6 @@ class TaskForm extends State<TaskFormScreen> {
     emailController = TextEditingController();
     phoneNumberController = TextEditingController();
     datePickerBController = TextEditingController();
-    addressController = TextEditingController();
     notesController = TextEditingController();
     cityController = TextEditingController();
     productController = TextEditingController();
@@ -54,11 +53,12 @@ class TaskForm extends State<TaskFormScreen> {
 
   @override
   void dispose() {
+    //mapPickerAddress?.dispose();
     nameController?.dispose();
     emailController?.dispose();
     phoneNumberController?.dispose();
     datePickerBController?.dispose();
-    addressController?.dispose();
+
     notesController?.dispose();
     cityController?.dispose();
     productController?.dispose();
@@ -109,10 +109,13 @@ class TaskForm extends State<TaskFormScreen> {
                       hint: "Full Name",
                       controller: nameController!,
                     ),
-                    DefaultFormField(
-                      title: "Address",
-                      hint: "Street",
-                      controller: addressController!,
+                    GestureDetector(
+                      onTap: () => Navigator.pushNamed(context, "/mapPicker"),
+                      child: DefaultFormField(
+                        title: "Address",
+                        hint: "Street",
+                        controller: mapPickerAddress,
+                      ),
                     ),
                     DefaultFormField(
                       title: "Notes",
@@ -155,7 +158,7 @@ class TaskForm extends State<TaskFormScreen> {
                       onTap: () {
                         OrganizationService().savaTaskData(
                           nameController!.text,
-                          addressController!.text,
+                          mapPickerAddress.text,
                           notesController!.text,
                           phoneNumberController!.text,
                           productController!.text,

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:finalapp/Utility/global_variables.dart';
 import 'package:finalapp/Utility/location_service.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/material.dart';
@@ -18,11 +19,11 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
   MapPickerController mapPickerController = MapPickerController();
 
   CameraPosition cameraPosition = const CameraPosition(
-    target: LatLng(41.311158, 69.279737),
+    target: LatLng(31.9539, 35.9106),
     zoom: 14.4746,
   );
 
-  var textController = TextEditingController();
+  var addressController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +53,7 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
               onCameraMoveStarted: () {
                 // notify map is moving
                 mapPickerController.mapMoving!();
-                textController.text = "checking ...";
+                addressController.text = "checking ...";
               },
               onCameraMove: (cameraPosition) {
                 this.cameraPosition = cameraPosition;
@@ -66,7 +67,7 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
                   cameraPosition.target.longitude,
                 );
                 // update the ui with the address
-                textController.text =
+                addressController.text =
                     '${placemarks.first.name}, ${placemarks.first.administrativeArea}, ${placemarks.first.country}';
               },
             ),
@@ -81,7 +82,7 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
               readOnly: true,
               decoration: const InputDecoration(
                   contentPadding: EdgeInsets.zero, border: InputBorder.none),
-              controller: textController,
+              controller: addressController,
             ),
           ),
           Positioned(
@@ -106,11 +107,17 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
                       cameraPosition.target.longitude);
                   // print(
                   //     "Location ${cameraPosition.target.latitude} ${cameraPosition.target.longitude}");
-                  print("Address: ${textController.text}");
+                  print("Address: ${addressController.text}");
+                  mapPickerAddress.text = addressController.text;
+                  globalLng = cameraPosition.target.longitude;
+                  globalLat = cameraPosition.target.latitude;
+                  print("GLO LAT $globalLat");
+                  print("GLO LNG $globalLng");
+                  Navigator.pop(context);
                 },
                 style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(const Color(0xFFA3080C)),
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                      const Color.fromARGB(255, 48, 58, 76)),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),

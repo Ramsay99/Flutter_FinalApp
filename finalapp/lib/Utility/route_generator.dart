@@ -13,6 +13,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const QrScannerScreen());
       case '/employeeForm':
         return MaterialPageRoute(builder: (_) => const EmployeeFormScreen());
+      case '/mapPicker':
+        return MaterialPageRoute(builder: (_) => const SelectLocationScreen());
       case '/resetPassword':
         return MaterialPageRoute(builder: (_) => const ForgotPasswordScreen());
       case '/taskInfo':
