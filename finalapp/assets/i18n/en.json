@@ -7,7 +7,8 @@
         "cancel": "Cancel",
         "change_language": "Change Language",
         "signup": "Sign Up",
-        "sign-in": "Login"
+        "sign-in": "Sign-In",
+        "contact-us":"Contact Us"
     },
     "forgotpassword": "Forgot Your Password ?",
     "login": "Login",

@@ -17,7 +17,6 @@ class TaskForm extends State<TaskFormScreen> {
   TextEditingController? emailController;
   TextEditingController? phoneNumberController;
   TextEditingController? datePickerBController;
-  //TextEditingController? addressController;
   TextEditingController? notesController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   late List cities;
@@ -30,7 +29,6 @@ class TaskForm extends State<TaskFormScreen> {
     emailController = TextEditingController();
     phoneNumberController = TextEditingController();
     datePickerBController = TextEditingController();
-    // addressController = mapPickerAddress;
     notesController = TextEditingController();
     cities = ["Amman", "Salt", "Aqaba"];
     citiesValues = [];
@@ -46,7 +44,7 @@ class TaskForm extends State<TaskFormScreen> {
     emailController?.dispose();
     phoneNumberController?.dispose();
     datePickerBController?.dispose();
-    // addressController?.dispose();
+
     notesController?.dispose();
     super.dispose();
   }
@@ -120,7 +118,6 @@ class TaskForm extends State<TaskFormScreen> {
                       OrganizationService().savaTaskData(
                           nameController!.text,
                           mapPickerAddress.text,
-                          //addressController!.text,
                           notesController!.text,
                           phoneNumberController!.text,
                           "123 E ID", //? DROP DOWN WIP
