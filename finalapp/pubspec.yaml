@@ -68,6 +68,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_translate: ^4.0.3
+  google_maps_flutter_web: ^0.4.0+3
 
 dev_dependencies:
   flutter_test:

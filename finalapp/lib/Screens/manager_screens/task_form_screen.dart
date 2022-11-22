@@ -1,4 +1,3 @@
-import 'package:finalapp/Utility/global_variables.dart';
 import 'package:finalapp/style/style_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:finalapp/widgets/widgets_barrel.dart';
@@ -53,12 +52,10 @@ class TaskForm extends State<TaskFormScreen> {
 
   @override
   void dispose() {
-    //mapPickerAddress?.dispose();
     nameController?.dispose();
     emailController?.dispose();
     phoneNumberController?.dispose();
     datePickerBController?.dispose();
-
     notesController?.dispose();
     cityController?.dispose();
     productController?.dispose();
@@ -139,7 +136,7 @@ class TaskForm extends State<TaskFormScreen> {
                       builder: (context, snapshot) {
                         if (snapshot.connectionState !=
                             ConnectionState.active) {
-                          return const Center(child: LoadingSplashWidget());
+                          return const Center(child: LoadingIndicatorWidget());
                         } else {
                           for (int i = 0; i < snapshot.data.docs.length; i++) {
                             products.add(snapshot.data!.docs[i]['model']);
@@ -164,7 +161,7 @@ class TaskForm extends State<TaskFormScreen> {
                           productController!.text,
                           datePickerBController!.text,
                           cityController!.text,
-                          ["0.000000", "0.000000"],
+                          [globalLat, globalLng],
                         );
                         Navigator.pop(context);
                       },
