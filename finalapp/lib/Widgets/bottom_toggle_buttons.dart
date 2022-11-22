@@ -9,7 +9,7 @@ class BottomToggleButtons extends StatefulWidget {
 }
 
 class _BottomToggleButtonsState extends State<BottomToggleButtons> {
-  List<bool> isSelected = [false, false, true];
+  List<bool> isSelected = [true, false, false];
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -46,9 +46,9 @@ class _BottomToggleButtonsState extends State<BottomToggleButtons> {
           );
         },
         children: const <Widget>[
-          Text("History"),
-          Text("Future"),
           Text("Today"),
+          Text("Future"),
+          Text("History"),
         ],
       ),
     );

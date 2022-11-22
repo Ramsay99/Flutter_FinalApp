@@ -1,6 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finalapp/utility/authentication/auth_service.dart';
-import 'package:flutter/material.dart';
+
+final taskCollection = FirebaseFirestore.instance
+    .collection(localUser.organization.name)
+    .doc('data')
+    .collection('tasks');
 
 class OrganizationService {
   Future getOrgData() async {
@@ -12,11 +16,7 @@ class OrganizationService {
   }
 
   Stream taskStream() {
-    Stream<QuerySnapshot<Object?>> taskSnapshot = FirebaseFirestore.instance
-        .collection(localUser.organization.name)
-        .doc('data')
-        .collection('tasks')
-        .snapshots();
+    Stream<QuerySnapshot<Object?>> taskSnapshot = taskCollection.snapshots();
     return taskSnapshot;
   }
 

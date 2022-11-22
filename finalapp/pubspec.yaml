@@ -96,6 +96,7 @@ flutter:
     - assets/ml/
     - assets/google_fonts/
     - assets/svg/
+    - assets/svg/robot/
     - assets/i18n/
 
   # An image asset can refer to one or more resolution-specific "variants", see
