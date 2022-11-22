@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:finalapp/style/style_barrel.dart';
@@ -30,22 +31,42 @@ class _TaskScreenState extends State<TaskScreen> {
           child: StreamBuilder(
             stream: OrganizationService().taskStream(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (snapshot.hasData) {
+              if (snapshot.hasData && snapshot.data.docs.length != 0) {
                 return ListView.builder(
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) {
                     final DocumentSnapshot documentSnapshot =
                         snapshot.data!.docs[index];
                     return TaskCard(
-                      address: documentSnapshot['address'],
-                      area: documentSnapshot['area'],
-                      product: documentSnapshot['productID'],
-                      date: documentSnapshot['date'],
+                      document: documentSnapshot,
                     );
                   },
                 );
               } else {
-                return const LoadingIndicatorWidget();
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 100,
+                        height: 100,
+                        child: SvgPicture.asset(
+                          'assets/svg/robot/robot_smile.svg',
+                          semanticsLabel: 'Robot smiling',
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      const Text(
+                        "No new tasks found",
+                        style: TextStyle(
+                          color: oxford_blue_tint_1,
+                          fontSize: 17,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
               }
             },
           ),
@@ -56,15 +77,9 @@ class _TaskScreenState extends State<TaskScreen> {
 }
 
 class TaskCard extends StatelessWidget {
-  final String address;
-  final String area;
-  final String product;
-  final String date;
+  final DocumentSnapshot document;
   const TaskCard({
-    required this.address,
-    required this.area,
-    required this.product,
-    required this.date,
+    required this.document,
     Key? key,
   }) : super(key: key);
 
@@ -72,16 +87,7 @@ class TaskCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (() {
-        Navigator.pushNamed(
-          context,
-          "/taskInfo",
-          arguments: [
-            address,
-            area,
-            product,
-            date,
-          ],
-        );
+        Navigator.pushNamed(context, "/taskInfo", arguments: document);
       }),
       child: Container(
         height: 150,
@@ -108,7 +114,7 @@ class TaskCard extends StatelessWidget {
                     ),
                     children: [
                       TextSpan(
-                        text: address,
+                        text: document['address'],
                         style: const TextStyle(
                           fontWeight: FontWeight.normal,
                         ),
@@ -127,7 +133,7 @@ class TaskCard extends StatelessWidget {
                     ),
                     children: [
                       TextSpan(
-                        text: area,
+                        text: document['area'],
                         style: const TextStyle(
                           fontWeight: FontWeight.normal,
                         ),
@@ -146,7 +152,7 @@ class TaskCard extends StatelessWidget {
                     ),
                     children: [
                       TextSpan(
-                        text: product,
+                        text: document['productID'],
                         style: const TextStyle(
                           fontWeight: FontWeight.normal,
                         ),
@@ -157,7 +163,7 @@ class TaskCard extends StatelessWidget {
               ],
             ),
             Text(
-              date,
+              document['date'],
               style: const TextStyle(
                 color: oxford_blue_tint_4,
                 fontSize: 16,

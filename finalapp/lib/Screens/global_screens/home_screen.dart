@@ -35,8 +35,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: _showBottomNav(),
+      drawer: const DrawerWidget(),
       appBar: const AppBarWidget(),
+      bottomNavigationBar: _showBottomNav(),
+      drawerScrimColor: oxford_blue_tint_3.withAlpha(150),
       body: SafeArea(
         child: Center(
           child: IndexedStack(

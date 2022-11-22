@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:finalapp/Utility/location_service.dart';
-import 'package:finalapp/Widgets/default_drawer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
@@ -73,7 +72,6 @@ class _DeliveryMapState extends State<DeliveryMap> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      drawer: const Drawer(child: DefaultDrawer()),
       body: Column(children: [
         Row(
           children: [

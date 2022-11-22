@@ -18,9 +18,11 @@ class TaskForm extends State<TaskFormScreen> {
   TextEditingController? phoneNumberController;
   TextEditingController? datePickerBController;
   TextEditingController? notesController;
+  TextEditingController? cityController;
+  TextEditingController? productController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  late List cities;
-  late List<bool> citiesValues;
+  late List<String> cities;
+  late List<String> products;
 
   @override
   void initState() {
@@ -30,11 +32,23 @@ class TaskForm extends State<TaskFormScreen> {
     phoneNumberController = TextEditingController();
     datePickerBController = TextEditingController();
     notesController = TextEditingController();
-    cities = ["Amman", "Salt", "Aqaba"];
-    citiesValues = [];
-    for (var i = 0; i < cities.length; i++) {
-      citiesValues.add(false);
-    }
+    cityController = TextEditingController();
+    productController = TextEditingController();
+    cities = [
+      "Amman",
+      "Salt",
+      "Aqaba",
+      "Irbid",
+      "Zarqa",
+      "Jarash",
+      "Madaba",
+      "Salt",
+      "Kerak",
+      "Ajlun",
+      "Mafraq",
+      "Tafela"
+    ];
+    products = [];
   }
 
   @override
@@ -46,6 +60,8 @@ class TaskForm extends State<TaskFormScreen> {
     datePickerBController?.dispose();
 
     notesController?.dispose();
+    cityController?.dispose();
+    productController?.dispose();
     super.dispose();
   }
 
@@ -80,55 +96,81 @@ class TaskForm extends State<TaskFormScreen> {
         child: SingleChildScrollView(
           child: Form(
             child: Center(
-              child: Column(
-                children: [
-                  DatePickerWidget(
-                    hint: DateTime.now().toString(),
-                    title: "Select Date",
-                    controller: datePickerBController!,
-                  ),
-                  DefaultFormField(
-                    title: "Customer Name",
-                    hint: "Full Name",
-                    controller: nameController!,
-                  ),
-                  GestureDetector(
-                    onTap: () => Navigator.pushNamed(context, "/mapPicker"),
-                    child: DefaultFormField(
-                      title: "Address",
-                      hint: "Street",
-                      controller: mapPickerAddress,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    DatePickerWidget(
+                      hint: DateTime.now().toString(),
+                      title: "Select Date",
+                      controller: datePickerBController!,
                     ),
-                  ),
-                  DefaultFormField(
-                    title: "Notes",
-                    hint: "Notes",
-                    controller: notesController!,
-                    lines: 8,
-                  ),
-                  DefaultFormField(
-                    title: "Phone",
-                    hint: "Phone",
-                    controller: phoneNumberController!,
-                  ),
-                  //! ADD DROP DOWN MENUS FOR PRODUCT / DRIVER / AREA. !
-                  DefaultButton(
-                    label: "Add Task",
-                    onTap: () {
-                      OrganizationService().savaTaskData(
+                    DefaultFormField(
+                      title: "Customer Name",
+                      hint: "Full Name",
+                      controller: nameController!,
+                    ),
+                    GestureDetector(
+                      onTap: () => Navigator.pushNamed(context, "/mapPicker"),
+                      child: DefaultFormField(
+                        title: "Address",
+                        hint: "Street",
+                        controller: mapPickerAddress,
+                      ),
+                    ),
+                    DefaultFormField(
+                      title: "Notes",
+                      hint: "Notes",
+                      controller: notesController!,
+                      lines: 8,
+                    ),
+                    DefaultFormField(
+                      title: "Phone",
+                      hint: "Phone",
+                      controller: phoneNumberController!,
+                    ),
+                    DropDownWidget(
+                      items: const ["Amman", "Zarqa", "Aqaba", "Irbid"],
+                      title: "City",
+                      hint: "City",
+                      controller: cityController!,
+                    ),
+                    StreamBuilder(
+                      stream: OrganizationService().getOrgProducts(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState !=
+                            ConnectionState.active) {
+                          return const Center(child: LoadingSplashWidget());
+                        } else {
+                          for (int i = 0; i < snapshot.data.docs.length; i++) {
+                            products.add(snapshot.data!.docs[i]['model']);
+                          }
+                          return DropDownWidget(
+                            items: products,
+                            title: "Product",
+                            hint: "Product",
+                            controller: productController!,
+                          );
+                        }
+                      },
+                    ),
+                    DefaultButton(
+                      label: "Add Task",
+                      onTap: () {
+                        OrganizationService().savaTaskData(
                           nameController!.text,
                           mapPickerAddress.text,
                           notesController!.text,
                           phoneNumberController!.text,
-                          "123 E ID", //? DROP DOWN WIP
-                          "123 P ID", //? DROP DOWN WIP
+                          productController!.text,
                           datePickerBController!.text,
-                          "test city", //? DROP DOWN WIP
-                          ["0.000000", "0.000000"]);
-                      Navigator.pop(context);
-                    },
-                  )
-                ],
+                          cityController!.text,
+                          ["0.000000", "0.000000"],
+                        );
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

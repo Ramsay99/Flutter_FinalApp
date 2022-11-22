@@ -23,18 +23,18 @@ class Manager extends LocalUser {
   @override
   Iterable<Widget> getAvailableScreens() {
     return [
-      const DashboardScreen(),
-      const EmployeesScreen(),
       const TaskScreen(),
+      const EmployeesScreen(),
+      const DashboardScreen(),
     ];
   }
 
   @override
   List<GButton> getBotNavBarItems() {
     return [
-      DashboardScreen.bottomNavBarItem,
-      EmployeesScreen.bottomNavBarItem,
       TaskScreen.bottomNavBarItem,
+      EmployeesScreen.bottomNavBarItem,
+      DashboardScreen.bottomNavBarItem,
     ];
   }
 }

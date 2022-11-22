@@ -1,7 +1,6 @@
 import 'package:finalapp/style/style_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:finalapp/utility/utility_barrel.dart';
-import 'package:finalapp/widgets/widgets_barrel.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
@@ -15,34 +14,21 @@ class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _AppBarWidgetState extends State<AppBarWidget> {
-  late Future _organizationData;
-
-  @override
-  void initState() {
-    _organizationData = OrganizationService().getOrgData();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
-      title: SizedBox(
-        width: 100,
-        height: 70,
-        child: FutureBuilder(
-          future: _organizationData,
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.connectionState != ConnectionState.done) {
-              return const Center(child: LoadingIndicatorWidget());
-            }
-            return Image(
-              image: NetworkImage(
-                snapshot.data['logo'],
-              ),
-              fit: BoxFit.fitWidth,
-            );
+      leading: Padding(
+        padding: const EdgeInsets.all(10),
+        child: IconButton(
+          icon: const FaIcon(
+            FontAwesomeIcons.barsStaggered,
+            color: oxford_blue_tint_2,
+            size: 23,
+          ),
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
           },
         ),
       ),
@@ -56,7 +42,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
             icon: const FaIcon(
               FontAwesomeIcons.qrcode,
               color: oxford_blue_tint_2,
-              size: 33,
+              size: 25,
             ),
           ),
         ),
