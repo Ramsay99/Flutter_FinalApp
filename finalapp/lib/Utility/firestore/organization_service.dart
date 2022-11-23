@@ -29,6 +29,16 @@ class OrganizationService {
     return taskSnapshot;
   }
 
+  Future getTaskData(String taskID, orgID) async {
+    DocumentSnapshot<Object?> taskDocument = await FirebaseFirestore.instance
+        .collection(orgID)
+        .doc('data')
+        .collection('tasks')
+        .doc(taskID)
+        .get();
+    if (taskDocument.data() != null) return taskDocument.data() as Map;
+  }
+
   savaTaskData(
     String name,
     String address,
