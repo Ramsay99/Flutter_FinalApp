@@ -45,25 +45,30 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SafeArea(
         child: ListView(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Column(
               children: [
-                SvgPicture.asset(
-                  'assets/svg/Logo.svg',
-                  semanticsLabel: 'Logo',
-                  height: 50,
-                  width: 50,
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      'assets/svg/Logo.svg',
+                      semanticsLabel: 'Logo',
+                      height: 50,
+                      width: 50,
+                    ),
+                    const Padding(padding: EdgeInsets.only(right: 260)),
+                    IconButton(
+                      onPressed: () {
+                        _onActionSheetPress(context);
+                      },
+                      icon: const Icon(
+                        Icons.language,
+                        color: oxford_blue_tint_4,
+                      ),
+                    )
+                  ],
                 ),
-                const Padding(padding: EdgeInsets.only(right: 200)),
-                IconButton(
-                  onPressed: () {
-                    _onActionSheetPress(context);
-                  },
-                  icon: const Icon(
-                    Icons.language,
-                    color: oxford_blue_tint_4,
-                  ),
-                )
               ],
             ),
             SingleChildScrollView(
@@ -72,6 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 key: formKey,
                 child: Column(
                   children: [
+                    const SizedBox(height: 180),
                     DefaultFormField(
                       title: translate("textfield.email"),
                       hint: "@email.com",
@@ -102,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         alignment: Alignment.centerRight,
                         child: TextButton(
                           child: Text(
-                            translate('forgotpassword'),
+                            translate('forgotPassword'),
                             style: const TextStyle(
                               color: blue_tint_1,
                               fontSize: 13,
