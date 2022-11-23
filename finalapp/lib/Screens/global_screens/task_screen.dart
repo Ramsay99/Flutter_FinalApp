@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -47,7 +46,7 @@ class _TaskScreenState extends State<TaskScreen> {
                         final document = snapshot.data!.docs[i];
                         if (document['status'] != 2) {
                           if (!role) {
-                            if (localUser.cities.contains(document['area'])) {
+                            if (document['status'] != 1 && localUser.cities.contains(document['area'])) {
                               filteredDocumentSnapshot.add(document);
                             }
                           } else {
@@ -110,46 +109,49 @@ class _TaskScreenState extends State<TaskScreen> {
             ],
           ),
         ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Container(
-            height: 35,
-            width: MediaQuery.of(context).size.width,
-            alignment: Alignment.center,
-            padding: const EdgeInsets.all(4),
-            margin: const EdgeInsets.only(top: 25, left: 25, right: 25),
-            decoration: BoxDecoration(
-              border: Border.all(color: light_blue_tint_1, width: 1),
-              borderRadius: BorderRadius.circular(5),
-              color: oxford_blue_tint_2,
-            ),
-            child: ToggleButtons(
-              renderBorder: false,
-              isSelected: isSelected,
-              fillColor: blue_tint_2,
-              color: Colors.white,
-              selectedColor: Colors.white,
-              borderRadius: BorderRadius.circular(5),
-              textStyle:
-                  const TextStyle(fontSize: 15, fontWeight: FontWeight.w200),
-              constraints: const BoxConstraints(minWidth: 104, minHeight: 28),
-              onPressed: (int newIndex) {
-                setState(
-                  () {
-                    for (int index = 0; index < isSelected.length; index++) {
-                      if (index == newIndex) {
-                        isSelected[index] = true;
-                      } else {
-                        isSelected[index] = false;
+        Visibility(
+          visible: role,
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: 35,
+              width: MediaQuery.of(context).size.width,
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(4),
+              margin: const EdgeInsets.only(top: 25, left: 25, right: 25),
+              decoration: BoxDecoration(
+                border: Border.all(color: light_blue_tint_1, width: 1),
+                borderRadius: BorderRadius.circular(5),
+                color: oxford_blue_tint_2,
+              ),
+              child: ToggleButtons(
+                renderBorder: false,
+                isSelected: isSelected,
+                fillColor: blue_tint_2,
+                color: Colors.white,
+                selectedColor: Colors.white,
+                borderRadius: BorderRadius.circular(5),
+                textStyle:
+                    const TextStyle(fontSize: 15, fontWeight: FontWeight.w200),
+                constraints: const BoxConstraints(minWidth: 104, minHeight: 28),
+                onPressed: (int newIndex) {
+                  setState(
+                    () {
+                      for (int index = 0; index < isSelected.length; index++) {
+                        if (index == newIndex) {
+                          isSelected[index] = true;
+                        } else {
+                          isSelected[index] = false;
+                        }
                       }
-                    }
-                  },
-                );
-              },
-              children: const <Widget>[
-                Text("Tasks"),
-                Text("History"),
-              ],
+                    },
+                  );
+                },
+                children: const <Widget>[
+                  Text("Tasks"),
+                  Text("History"),
+                ],
+              ),
             ),
           ),
         ),
@@ -158,102 +160,3 @@ class _TaskScreenState extends State<TaskScreen> {
   }
 }
 
-class TaskCard extends StatelessWidget {
-  final DocumentSnapshot document;
-  const TaskCard({
-    required this.document,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, "/taskInfo", arguments: document);
-      },
-      child: Container(
-        height: 150,
-        padding: const EdgeInsets.all(15),
-        margin: const EdgeInsets.symmetric(vertical: 7, horizontal: 25),
-        decoration: BoxDecoration(
-          color: light_blue_tint_2,
-          borderRadius: BorderRadius.circular(5),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                RichText(
-                  text: TextSpan(
-                    text: "Address: ",
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 17,
-                      fontWeight: FontWeight.w700,
-                    ),
-                    children: [
-                      TextSpan(
-                        text: document['address'],
-                        style: const TextStyle(
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 8),
-                RichText(
-                  text: TextSpan(
-                    text: "Area: ",
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 17,
-                      fontWeight: FontWeight.w700,
-                    ),
-                    children: [
-                      TextSpan(
-                        text: document['area'],
-                        style: const TextStyle(
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 8),
-                RichText(
-                  text: TextSpan(
-                    text: "Product: ",
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 17,
-                      fontWeight: FontWeight.w700,
-                    ),
-                    children: [
-                      TextSpan(
-                        text: document['productID'],
-                        style: const TextStyle(
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            Text(
-              document['date'],
-              style: const TextStyle(
-                color: oxford_blue_tint_4,
-                fontSize: 16,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}

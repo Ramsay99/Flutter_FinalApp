@@ -1,3 +1,4 @@
+import 'package:finalapp/screens/employ_screens/active_tasks_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:finalapp/local_models/local_model_barrel.dart';
 import 'package:finalapp/screens/screens_barrel.dart';
@@ -14,32 +15,28 @@ class Employee extends LocalUser {
   List cities;
   @override
   late Organization organization;
-  bool fullShift = false;
-  static List<Employee> allEmployees = [];
-
+  // bool fullShift = false;
+  // static List<Employee> allEmployees = [];
   Employee(
     this.name,
     this.email,
     this.phoneNumber,
     this.cities,
-    this.organization, {
-    bool fullShift = false,
-  }) {
-    allEmployees.add(this);
-  }
+    this.organization,
+  );
   @override
   Iterable<Widget> getAvailableScreens() {
     return [
       const TaskScreen(),
-      const HistoryScreen(),
+      const ActiveTaskScreen(),
     ];
   }
 
   @override
   List<GButton> getBotNavBarItems() {
     return [
-      //DeliveriesScreen.bottomNavBarItem,
-      //HistoryScreen.bottomNavBarItem,
+      TaskScreen.bottomNavBarItem,
+      ActiveTaskScreen.bottomNavBarItem,
     ];
   }
 }
