@@ -80,19 +80,19 @@ class _LoginScreenState extends State<LoginScreen> {
                         if (value!.isNotEmpty) {
                           return null;
                         } else {
-                          return "Please enter E-mail.";
+                          return translate("textfieldvalidator.email");
                         }
                       },
                     ),
                     PasswordFormField(
                       title: translate("textfield.password"),
-                      hint: "Password",
+                      hint: translate("textfieldhint.password"),
                       controller: passwordController,
                       validator: (value) {
                         if (value!.isNotEmpty) {
                           return null;
                         } else {
-                          return "Please enter password.";
+                          return translate("textfieldvalidator.password");
                         }
                       },
                     ),
@@ -102,7 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         alignment: Alignment.centerRight,
                         child: TextButton(
                           child: Text(
-                            translate('forgotPassword'),
+                            translate('forgotpassword'),
                             style: const TextStyle(
                               color: blue_tint_1,
                               fontSize: 13,
