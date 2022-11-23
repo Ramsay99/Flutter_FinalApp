@@ -34,7 +34,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    final LocalizationDelegate localizationDelegate = LocalizedApp.of(context).delegate;
+    final LocalizationDelegate localizationDelegate =
+        LocalizedApp.of(context).delegate;
     return Scaffold(
       bottomNavigationBar: SvgPicture.asset(
         'assets/svg/Pattern.svg',
@@ -42,33 +43,29 @@ class _LoginScreenState extends State<LoginScreen> {
         fit: BoxFit.fill,
       ),
       body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: ListView(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SvgPicture.asset(
-                    'assets/svg/Logo.svg',
-                    semanticsLabel: 'Logo',
-                    height: 50,
-                    width: 50,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(
+                  'assets/svg/Logo.svg',
+                  semanticsLabel: 'Logo',
+                  height: 50,
+                  width: 50,
+                ),
+                const Padding(padding: EdgeInsets.only(right: 200)),
+                IconButton(
+                  onPressed: () {
+                    _onActionSheetPress(context);
+                  },
+                  icon: const Icon(
+                    Icons.language,
+                    color: oxford_blue_tint_4,
                   ),
-                  IconButton(
-                    onPressed: () {
-                      _onActionSheetPress(context);
-                    },
-                    icon: const Icon(
-                      Icons.language,
-                      color: oxford_blue_tint_4,
-                    ),
-                  )
-                ],
-              ),
+                )
+              ],
             ),
-            const Spacer(),
             SingleChildScrollView(
               child: Form(
                 autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -99,26 +96,24 @@ class _LoginScreenState extends State<LoginScreen> {
                         }
                       },
                     ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 0, 40, 0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          TextButton(
-                            child: Text(
-                              translate('forgotPassword'),
-                              style: const TextStyle(
-                                color: blue_tint_1,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w600,
-                                decoration: TextDecoration.underline,
-                              ),
+                    SizedBox(
+                      width: 300,
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: TextButton(
+                          child: Text(
+                            translate('forgotPassword'),
+                            style: const TextStyle(
+                              color: blue_tint_1,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w600,
+                              decoration: TextDecoration.underline,
                             ),
-                            onPressed: () {
-                              Navigator.pushNamed(context, "/resetPassword");
-                            },
                           ),
-                        ],
+                          onPressed: () {
+                            Navigator.pushNamed(context, "/resetPassword");
+                          },
+                        ),
                       ),
                     ),
                     DefaultButton(
@@ -169,7 +164,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-            const Spacer(),
           ],
         ),
       ),
