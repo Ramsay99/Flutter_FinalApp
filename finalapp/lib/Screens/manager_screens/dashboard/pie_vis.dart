@@ -2,26 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:graphx/graphx.dart';
 
 class PieChartWidget extends StatelessWidget {
-  const PieChartWidget({super.key});
+  Map<dynamic, dynamic> firestoreData;
+  PieChartWidget({
+    required this.firestoreData,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    Map<dynamic, dynamic> dataMap_Test = {
+    Map<dynamic, dynamic> dataMapTestValues = {
       "LG": 100,
       "Samsung": 50,
       "Apple": 30,
       "Potato": 20
     };
-    String dataMapText_Test = "";
-    for (var i = 0; i < dataMap_Test.length; i++) {
-      dataMapText_Test +=
-          "${dataMap_Test.keys.elementAt(i)}:${dataMap_Test.values.elementAt(i)}\n";
+    String dataMapTextTestValues = "";
+    for (var i = 0; i < firestoreData.length; i++) {
+      dataMapTextTestValues +=
+          "${firestoreData.keys.elementAt(i)}:${firestoreData.values.elementAt(i)}\n";
     }
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Text("Products are: \n $dataMapText_Test"),
+          Text("Products are: \n $dataMapTextTestValues"),
           Container(
             color: Colors.grey.withOpacity(.06),
             width: 300,
@@ -29,7 +33,7 @@ class PieChartWidget extends StatelessWidget {
             child: SceneBuilderWidget(
               builder: () => SceneController(
                 front: PieChartScene(
-                  dataMap_Test.values.toList(),
+                  firestoreData.values.toList(),
                 ),
               ),
             ),
@@ -73,7 +77,6 @@ class PieChartScene extends GSprite {
       var percent = data[i] / total;
       var myAngle = percent * totalRad;
       var pieceLine = GSprite();
-
       var piece = GSprite();
       piece.graphics
           .beginGradientFill(
@@ -95,24 +98,27 @@ class PieChartScene extends GSprite {
       container.addChild(piece);
       piece.userData = pieceLine;
       piece.mouseChildren = false;
-      piece.onMouseOver.add((e) {
-        GDisplayObject? line;
-        if (currentPiece != null) {
+      piece.onMouseOver.add(
+        (e) {
+          GDisplayObject? line;
+          if (currentPiece != null) {
+            line = currentPiece!.userData as GDisplayObject?;
+            GTween.killTweensOf(currentPiece);
+            GTween.killTweensOf(line);
+            currentPiece!
+                .tween(duration: .35, scale: 1, ease: GEase.easeInBack);
+            line!.tween(duration: .35, scale: 1, ease: GEase.easeInBack);
+          }
+          //var p = e.target;
+          currentPiece = piece;
           line = currentPiece!.userData as GDisplayObject?;
-          GTween.killTweensOf(currentPiece);
+          //e.target.scale = 1.4;
           GTween.killTweensOf(line);
-          currentPiece!.tween(duration: .35, scale: 1, ease: GEase.easeInBack);
-          line!.tween(duration: .35, scale: 1, ease: GEase.easeInBack);
-        }
-//        var p = e.target;
-        currentPiece = piece;
-        line = currentPiece!.userData as GDisplayObject?;
-//        e.target.scale = 1.4;
-        GTween.killTweensOf(line);
-        GTween.killTweensOf(piece);
-        piece.tween(duration: .35, scale: .9, ease: GEase.easeOutExpo);
-        line!.tween(duration: .35, scale: .9, ease: GEase.easeOutExpo);
-      });
+          GTween.killTweensOf(piece);
+          piece.tween(duration: .35, scale: .9, ease: GEase.easeOutExpo);
+          line!.tween(duration: .35, scale: .9, ease: GEase.easeOutExpo);
+        },
+      );
 
       var percentText = (percent * 100.0).toStringAsPrecision(2);
       var valueText = GText(
@@ -127,18 +133,14 @@ class PieChartScene extends GSprite {
       valueText.validate();
       valueText.alignPivot();
 //      valueText.pivotX -= 10;
-
       var halfAng = myAngle / 2;
-
       var px = Math.cos(halfAng) * textSeparation;
       var py = Math.sin(halfAng) * textSeparation;
       valueText.x = px;
       valueText.y = py;
-
       var rot = Math.atan2(py, px);
       valueText.rotation = rot + Math.PI / 2;
       piece.addChild(valueText);
-
       pieceLine.graphics
           .lineStyle(0, Colors.white.withOpacity(.25))
           .moveTo(0, 0)
@@ -148,7 +150,6 @@ class PieChartScene extends GSprite {
           .endFill();
       pieceLine.rotation = currentAngle;
       lineContainer.addChild(pieceLine);
-
       currentAngle += myAngle;
     }
   }
