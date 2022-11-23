@@ -1,44 +1,49 @@
 {
-    "textfield": {
-        "email": "E-mail",
-        "password": "Password"
-    },
-    "button": {
-        "cancel": "Cancel",
-        "change_language": "Change Language",
-        "sign-up": "Sign Up",
-        "sign-in": "Sign-In",
-        "contact-us":"Contact Us"
-    },
-    "forgotPassword": "Forgot password?",
-    "login": "Login",
+  "textfield": {
+    "email": "E-mail",
+    "password": "Password"
+  },
+  "textfieldhint": {
+    "password": "Password"
+  },
+  "textfieldvalidator": {
+    "email": "Please enter E-mail",
+    "password": "Please enter Password"
+  },
+  "button": {
+    "cancel": "Cancel",
+    "change_language": "Change Language",
     "sign-up": "Sign Up",
-    "language": {
-         "language":"Language",
-        "name": {
-            "en": "English",
-            "ar": "Arabic"
-        },
-        "selected_message": "Currently selected language is {language}",
-        "selection": {
-            "message": "Please select a language from the list",
-            "title": "Language Selection"
-        }
+    "sign-in": "Sign-In",
+    "contact-us": "Contact Us"
+  },
+  "forgotPassword": "Forgot password?",
+  "login": "Login",
+  "sign-up": "Sign Up",
+  "language": {
+    "language": "Language",
+    "name": {
+      "en": "English",
+      "ar": "Arabic"
     },
-    "app_bar": {
-        "home": "Home",
-        "sign-out": "Sign-Out"
-    },
-    "tab_bar": {
-        "emp": "Employees"
+    "selected_message": "Currently selected language is {language}",
+    "selection": {
+      "message": "Please select a language from the list",
+      "title": "Language Selection"
     }
-    ,
-    "drawer":{
-
-        "settings":"Settings"
-         ,"sign_out":"Sign Out"
-    }
-   ,"theme":"Theme"
-,"report":"Report an issue"
-,"about":"About"
+  },
+  "app_bar": {
+    "home": "Home",
+    "sign-out": "Sign-Out"
+  },
+  "tab_bar": {
+    "emp": "Employees"
+  },
+  "drawer": {
+    "settings": "Settings",
+    "sign_out": "Sign Out"
+  },
+  "theme": "Theme",
+  "report": "Report an issue",
+  "about": "About"
 }
