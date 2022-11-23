@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
     return LocalizationProvider(
       state: LocalizationProvider.of(context).state,
       child: MaterialApp(
+        scaffoldMessengerKey: Utils.messengerKey,
         theme: ThemeData(fontFamily: 'Inter'),
         debugShowCheckedModeBanner: false,
         onGenerateRoute: RouteGenerator.generateRoute,
