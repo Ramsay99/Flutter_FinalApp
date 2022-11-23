@@ -17,7 +17,7 @@ class _BottomToggleButtonsState extends State<BottomToggleButtons> {
       width: MediaQuery.of(context).size.width,
       alignment: Alignment.center,
       padding: const EdgeInsets.all(4),
-      margin: const EdgeInsets.only(top: 25, left: 35, right: 35),
+      margin: const EdgeInsets.only(top: 25, left: 25, right: 25),
       decoration: BoxDecoration(
         border: Border.all(color: light_blue_tint_1, width: 1),
         borderRadius: BorderRadius.circular(5),

@@ -46,13 +46,13 @@ class _MapChartWidgetState extends State<MapChartWidget> {
     int testColIncrementaly = 0;
     int mapCol() {
       testColIncrementaly += (256 / 12).round();
-      print(testColIncrementaly);
       return testColIncrementaly;
     }
 
-    return Center(
+    return Align(
+      alignment: Alignment.topCenter,
       child: SizedBox(
-        height: MediaQuery.of(context).size.height / 1.25,
+        height: MediaQuery.of(context).size.height / 1.4,
         child: _Map(mapCol),
       ),
     );
