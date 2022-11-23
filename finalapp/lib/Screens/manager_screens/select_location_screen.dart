@@ -35,7 +35,6 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
         children: [
           PointerInterceptor(
             child: MapPicker(
-              
               // pass icon widget
               iconWidget: SvgPicture.asset(
                 "assets/images/location_icon.svg",

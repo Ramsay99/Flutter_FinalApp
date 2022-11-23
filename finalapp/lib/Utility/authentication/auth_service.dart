@@ -171,6 +171,7 @@ class AuthService {
         data['name'],
         data['email'],
         data['phone'],
+        data['cities'],
         Organization(
           data['org'],
           Location(1, 0),
@@ -181,6 +182,7 @@ class AuthService {
         data['name'],
         data['email'],
         data['phone'],
+        data['cities'],
         Organization(
           data['org'],
           Location(1, 0),

@@ -11,6 +11,8 @@ class Employee extends LocalUser {
   @override
   String phoneNumber;
   @override
+  List cities;
+  @override
   late Organization organization;
   bool fullShift = false;
   static List<Employee> allEmployees = [];
@@ -19,6 +21,7 @@ class Employee extends LocalUser {
     this.name,
     this.email,
     this.phoneNumber,
+    this.cities,
     this.organization, {
     bool fullShift = false,
   }) {

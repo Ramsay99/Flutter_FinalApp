@@ -154,16 +154,40 @@ class _TaskInfoScreenState extends State<TaskInfoScreen> {
                   children: [
                     Visibility(
                       maintainState: true,
+                      visible: !role && widget.document['status'] == 1
+                          ? true
+                          : false,
+                      child: DefaultButton(
+                        label: "Delivered",
+                        onTap: () {
+                          OrganizationService().updateTaskData(
+                            {
+                              "name": localUser.name,
+                              "phone": localUser.phoneNumber,
+                            },
+                            2,
+                            widget.document.id,
+                          );
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ),
+                    Visibility(
+                      maintainState: true,
                       visible: !role && widget.document['status'] == 0
                           ? true
                           : false,
                       child: DefaultButton(
                         label: "Claim",
                         onTap: () {
-                          OrganizationService().updateTaskData({
-                            "name": localUser.name,
-                            "phone": localUser.phoneNumber,
-                          }, 1, widget.document.id);
+                          OrganizationService().updateTaskData(
+                            {
+                              "name": localUser.name,
+                              "phone": localUser.phoneNumber,
+                            },
+                            1,
+                            widget.document.id,
+                          );
                           Navigator.pop(context);
                         },
                       ),

@@ -12,3 +12,4 @@ export 'default_text_box.dart';
 export 'error_alert_widget.dart';
 export 'drawer_widget.dart';
 export 'default_dropdown_menu.dart';
+export 'robot_widget.dart';

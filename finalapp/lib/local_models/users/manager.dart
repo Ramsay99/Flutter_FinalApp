@@ -12,11 +12,14 @@ class Manager extends LocalUser {
   @override
   String phoneNumber;
   @override
+  List cities;
+  @override
   late Organization organization;
   Manager(
     this.name,
     this.email,
     this.phoneNumber,
+    this.cities,
     this.organization,
   );
 
