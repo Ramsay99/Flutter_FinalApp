@@ -1,8 +1,10 @@
-import 'package:finalapp/style/style_barrel.dart';
 import 'package:flutter/material.dart';
-import 'package:finalapp/widgets/widgets_barrel.dart';
-import 'package:finalapp/utility/utility_barrel.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../../Utility/global_variables.dart';
+import '../../Utility/utility_barrel.dart';
+import '../../Widgets/widgets_barrel.dart';
+import '../../style/style_barrel.dart';
 
 class TaskFormScreen extends StatefulWidget {
   const TaskFormScreen({Key? key}) : super(key: key);
@@ -33,7 +35,6 @@ class TaskForm extends State<TaskFormScreen> {
     notesController = TextEditingController();
     cityController = TextEditingController();
     productController = TextEditingController();
-    mapPickerAddress = TextEditingController();
     cities = [
       "Amman",
       "Salt",
@@ -61,7 +62,6 @@ class TaskForm extends State<TaskFormScreen> {
     notesController?.dispose();
     cityController?.dispose();
     productController?.dispose();
-    mapPickerAddress.dispose();
     super.dispose();
   }
 
@@ -179,7 +179,7 @@ class TaskForm extends State<TaskFormScreen> {
                           productController!.text,
                           datePickerBController!.text,
                           cityController!.text,
-                          {"name":"","phone":""},
+                          {"name": "", "phone": ""},
                           0,
                           [globalLat, globalLng],
                         );
