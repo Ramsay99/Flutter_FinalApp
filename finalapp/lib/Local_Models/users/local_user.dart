@@ -6,6 +6,7 @@ abstract class LocalUser {
   abstract String name;
   abstract String email;
   abstract String phoneNumber;
+  abstract List cities;
   abstract Organization organization;
   List<GButton> getBotNavBarItems();
   Iterable<Widget> getAvailableScreens();
