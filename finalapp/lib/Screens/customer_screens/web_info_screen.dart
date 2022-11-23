@@ -2,7 +2,6 @@ import 'package:finalapp/style/style_barrel.dart';
 import 'package:finalapp/utility/utility_barrel.dart';
 import 'package:finalapp/widgets/widgets_barrel.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class WebInfoScreen extends StatefulWidget {
