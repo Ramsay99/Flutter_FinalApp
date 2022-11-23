@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class MapChartWidget extends StatefulWidget {
-  const MapChartWidget({super.key});
+  Map<dynamic, dynamic> firestoreData;
+  MapChartWidget({
+    required this.firestoreData,
+    super.key,
+  });
 
   @override
   State<MapChartWidget> createState() => _MapChartWidgetState();
@@ -46,7 +50,6 @@ class _MapChartWidgetState extends State<MapChartWidget> {
     int testColIncrementaly = 0;
     int mapCol() {
       testColIncrementaly += (256 / 12).round();
-      print(testColIncrementaly);
       return testColIncrementaly;
     }
 
@@ -62,23 +65,24 @@ class _MapChartWidgetState extends State<MapChartWidget> {
     return Stack(
       children: [
         _jordanMapImage!,
-        _defaultCity(_ajlunMapImage, mapCol()),
-        _defaultCity(_irbidMapImage, mapCol()),
-        _defaultCity(_jarashMapImage, mapCol()),
-        _defaultCity(_mafraqMapImage, mapCol()),
-        _defaultCity(_saltMapImage, mapCol()),
-        _defaultCity(_zarqaMapImage, mapCol()),
-        _defaultCity(_madabaMapImage, mapCol()),
-        _defaultCity(_ammanMapImage, mapCol()),
-        _defaultCity(_karakMapImage, mapCol()),
-        _defaultCity(_tafelaMapImage, mapCol()),
-        _defaultCity(_maanMapImage, mapCol()),
-        _defaultCity(_aqabaMapImage, mapCol()),
+        _defaultCity(_ajlunMapImage, widget.firestoreData['Ajlun']),
+        _defaultCity(_irbidMapImage, widget.firestoreData['Irbid']),
+        _defaultCity(_jarashMapImage, widget.firestoreData['Jarash']),
+        _defaultCity(_mafraqMapImage, widget.firestoreData['Mafraq']),
+        _defaultCity(_saltMapImage, widget.firestoreData['Salt']),
+        _defaultCity(_zarqaMapImage, widget.firestoreData['Zarqa']),
+        _defaultCity(_madabaMapImage, widget.firestoreData['Madaba']),
+        _defaultCity(_ammanMapImage, 5),
+        _defaultCity(_karakMapImage, widget.firestoreData['Kerak']),
+        _defaultCity(_tafelaMapImage, widget.firestoreData['Tafela']),
+        _defaultCity(_maanMapImage, widget.firestoreData['Maan']),
+        _defaultCity(_aqabaMapImage, 2),
       ],
     );
   }
 
   Widget _defaultCity(String cityImgPath, int density) {
+    density *= 50;
     int mapAlpha = density;
     if (density < 30) {
       mapAlpha = 30;

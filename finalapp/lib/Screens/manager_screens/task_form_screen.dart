@@ -46,7 +46,8 @@ class TaskForm extends State<TaskFormScreen> {
       "Kerak",
       "Ajlun",
       "Mafraq",
-      "Tafela"
+      "Tafela",
+      "Maan"
     ];
     products = [];
   }

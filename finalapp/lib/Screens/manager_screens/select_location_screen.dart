@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:map_picker/map_picker.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-//import 'package:pointer_interceptor';
+import 'package:pointer_interceptor/pointer_interceptor.dart';
 
 class SelectLocationScreen extends StatefulWidget {
   const SelectLocationScreen({Key? key}) : super(key: key);
@@ -33,45 +33,48 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
       body: Stack(
         alignment: Alignment.topCenter,
         children: [
-          MapPicker(
-            // pass icon widget
-            iconWidget: SvgPicture.asset(
-              "assets/images/location_icon.svg",
-              height: 60,
-            ),
-            //add map picker controller
-            mapPickerController: mapPickerController,
-            child: GoogleMap(
-              myLocationEnabled: true,
-              zoomControlsEnabled: false,
-              // hide location button
-              myLocationButtonEnabled: false,
-              mapType: MapType.normal,
-              //  camera position
-              initialCameraPosition: cameraPosition,
-              onMapCreated: (GoogleMapController controller) {
-                _controller.complete(controller);
-              },
-              onCameraMoveStarted: () {
-                // notify map is moving
-                mapPickerController.mapMoving!();
-                addressController.text = "checking ...";
-              },
-              onCameraMove: (cameraPosition) {
-                this.cameraPosition = cameraPosition;
-              },
-              onCameraIdle: () async {
-                // notify map stopped moving
-                mapPickerController.mapFinishedMoving!();
-                //get address name from camera position
-                List<Placemark> placemarks = await placemarkFromCoordinates(
-                  cameraPosition.target.latitude,
-                  cameraPosition.target.longitude,
-                );
-                // update the ui with the address
-                addressController.text =
-                    '${placemarks.first.name}, ${placemarks.first.administrativeArea}, ${placemarks.first.country}';
-              },
+          PointerInterceptor(
+            child: MapPicker(
+              
+              // pass icon widget
+              iconWidget: SvgPicture.asset(
+                "assets/images/location_icon.svg",
+                height: 60,
+              ),
+              //add map picker controller
+              mapPickerController: mapPickerController,
+              child: GoogleMap(
+                myLocationEnabled: true,
+                zoomControlsEnabled: false,
+                // hide location button
+                myLocationButtonEnabled: false,
+                mapType: MapType.normal,
+                //  camera position
+                initialCameraPosition: cameraPosition,
+                onMapCreated: (GoogleMapController controller) {
+                  _controller.complete(controller);
+                },
+                onCameraMoveStarted: () {
+                  // notify map is moving
+                  mapPickerController.mapMoving!();
+                  addressController.text = "checking ...";
+                },
+                onCameraMove: (cameraPosition) {
+                  this.cameraPosition = cameraPosition;
+                },
+                onCameraIdle: () async {
+                  // notify map stopped moving
+                  mapPickerController.mapFinishedMoving!();
+                  //get address name from camera position
+                  List<Placemark> placemarks = await placemarkFromCoordinates(
+                    cameraPosition.target.latitude,
+                    cameraPosition.target.longitude,
+                  );
+                  // update the ui with the address
+                  addressController.text =
+                      '${placemarks.first.name}, ${placemarks.first.administrativeArea}, ${placemarks.first.country}';
+                },
+              ),
             ),
           ),
           Positioned(
@@ -95,8 +98,10 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
               height: 50,
               child: TextButton(
                 onPressed: () {
-                  setLatLng(cameraPosition.target.latitude,
-                      cameraPosition.target.longitude);
+                  setLatLng(
+                    cameraPosition.target.latitude,
+                    cameraPosition.target.longitude,
+                  );
                   // print(
                   //     "Location ${cameraPosition.target.latitude} ${cameraPosition.target.longitude}");
                   mapPickerAddress.text = addressController.text;
