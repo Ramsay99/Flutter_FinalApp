@@ -9,7 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
 class ObjDetectionWithImg extends StatefulWidget {
-  ObjDetectionWithImg({Key? key}) : super(key: key);
+  const ObjDetectionWithImg({Key? key}) : super(key: key);
   @override
   _ObjDetectionWithImgState createState() => _ObjDetectionWithImgState();
 }
@@ -105,66 +105,80 @@ class _ObjDetectionWithImgState extends State<ObjDetectionWithImg> {
     // TODO: implement build
     return MaterialApp(
       home: Scaffold(
-          body: Column(
-        children: [
-          const SizedBox(
-            width: 100,
-          ),
-          Container(
-            margin: const EdgeInsets.only(top: 100),
-            child: Stack(children: <Widget>[
-              Center(
-                child: ElevatedButton(
-                  onPressed: _imgFromGallery,
-                  onLongPress: _imgFromCamera,
-                  style: ElevatedButton.styleFrom(
-                      primary: Colors.transparent,
-                      shadowColor: Colors.transparent),
-                  child: Container(
-                    width: 350,
-                    height: 350,
-                    margin: const EdgeInsets.only(
-                      top: 45,
-                    ),
-                    child: image != null
-                        ? Center(
-                            child: FittedBox(
-                              child: SizedBox(
-                                width: image.width.toDouble(),
-                                height: image.width.toDouble(),
-                                child: CustomPaint(
-                                  painter: ObjectPainter(
-                                      objectList: objects, imageFile: image),
-                                ),
-                              ),
-                            ),
-                          )
-                        : Container(
-                            color: Colors.pinkAccent,
-                            width: 350,
-                            height: 350,
-                            child: const Icon(
-                              Icons.camera_alt,
-                              color: Colors.black,
-                              size: 53,
-                            ),
-                          ),
-                  ),
-                ),
+          appBar: AppBar(
+            title: const Text("ML-Test"),
+            leading: IconButton(
+              icon: const Icon(
+                Icons.arrow_back,
               ),
-            ]),
-          ),
-          Container(
-            margin: const EdgeInsets.only(top: 20),
-            child: Text(
-              result,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                  fontFamily: 'finger_paint', fontSize: 36, color: Colors.red),
+              onPressed: () {
+                Navigator.pop(context);
+              },
             ),
           ),
-        ],
-      )),
+          body: Column(
+            children: [
+              const SizedBox(
+                width: 100,
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 100),
+                child: Stack(children: <Widget>[
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: _imgFromGallery,
+                      onLongPress: _imgFromCamera,
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.transparent,
+                          shadowColor: Colors.transparent),
+                      child: Container(
+                        width: 350,
+                        height: 350,
+                        margin: const EdgeInsets.only(
+                          top: 45,
+                        ),
+                        child: image != null
+                            ? Center(
+                                child: FittedBox(
+                                  child: SizedBox(
+                                    width: image.width.toDouble(),
+                                    height: image.width.toDouble(),
+                                    child: CustomPaint(
+                                      painter: ObjectPainter(
+                                          objectList: objects,
+                                          imageFile: image),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : Container(
+                                color: Colors.pinkAccent,
+                                width: 350,
+                                height: 350,
+                                child: const Icon(
+                                  Icons.camera_alt,
+                                  color: Colors.black,
+                                  size: 53,
+                                ),
+                              ),
+                      ),
+                    ),
+                  ),
+                ]),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 20),
+                child: Text(
+                  result,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      fontFamily: 'finger_paint',
+                      fontSize: 36,
+                      color: Colors.red),
+                ),
+              ),
+            ],
+          )),
     );
   }
 }

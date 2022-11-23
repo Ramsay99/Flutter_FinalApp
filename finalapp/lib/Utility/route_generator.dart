@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:finalapp/style/style_barrel.dart';
+import 'package:finalapp/widgets/widgets_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:finalapp/screens/screens_barrel.dart';
 
@@ -21,8 +23,12 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => ContactUs());
       case '/resetPassword':
         return MaterialPageRoute(builder: (_) => const ForgotPasswordScreen());
+      case '/importFile':
+        return MaterialPageRoute(builder: (_) => const ImportScreen());
       case '/reportBug':
         return MaterialPageRoute(builder: (_) => const ReportBug());
+      case '/objectImage':
+        return MaterialPageRoute(builder: (_) => const ObjDetectionWithImg());
       case '/taskInfo':
         DocumentSnapshot args = settings.arguments as DocumentSnapshot;
         return MaterialPageRoute(
@@ -43,10 +49,11 @@ class RouteGenerator {
       builder: (_) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text("Error"),
+            elevation: 0,
+            backgroundColor: red_tint_1,
           ),
           body: const Center(
-            child: Text("Error"),
+            child: ErrorRobot(),
           ),
         );
       },

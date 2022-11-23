@@ -43,15 +43,16 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
           Positioned(bottom: 10, child: showLink()),
           Positioned(top: 10, child: controllerButtons()),
           Positioned(
-              top: 10,
-              left: 20,
-              child: IconButton(
-                icon: Icon(
-                  Icons.arrow_back_ios,
-                  color: Colors.white,
-                ),
-                onPressed: () => Navigator.pop(context),
-              ))
+            top: 10,
+            left: 20,
+            child: IconButton(
+              icon: const Icon(
+                Icons.arrow_back_ios,
+                color: Colors.white,
+              ),
+              onPressed: () => Navigator.pop(context),
+            ),
+          )
         ],
       ),
     ));
@@ -61,11 +62,12 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
         key: qrKey,
         onQRViewCreated: onQRViewCreated,
         overlay: QrScannerOverlayShape(
-            borderWidth: 10,
-            borderLength: 20,
-            borderRadius: 10,
-            borderColor: Colors.blue,
-            cutOutSize: MediaQuery.of(context).size.width * 0.8),
+          borderWidth: 10,
+          borderLength: 20,
+          borderRadius: 10,
+          borderColor: Colors.blue,
+          cutOutSize: MediaQuery.of(context).size.width * 0.8,
+        ),
       );
   Future<void> _launchUrl() async {
     if (!await launchUrl(_url)) {
@@ -76,21 +78,23 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
   Uri _url = Uri.parse('https://flutter.dev');
   void onQRViewCreated(QRViewController controller) {
     setState(() => this.controller = controller);
-
-    controller.scannedDataStream.listen((Barcode) => setState(() {
+    controller.scannedDataStream.listen(
+      (Barcode) => setState(
+        () {
           this.barcode = Barcode;
-          print(barcode);
           _url = Uri.parse(barcode!.code!);
           _launchUrl();
-        }));
+        },
+      ),
+    );
   }
 
   Widget showLink() => Container(
         decoration: BoxDecoration(
             color: Colors.white30, borderRadius: BorderRadius.circular(10)),
-        padding: EdgeInsets.all(20),
-        child: Text(
-          "Scan a code ",
+        padding: const EdgeInsets.all(20),
+        child: const Text(
+          "Scan Code",
           style: TextStyle(color: Colors.white),
           maxLines: 3,
         ),
@@ -132,7 +136,7 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
                 future: controller?.getCameraInfo(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.data != null) {
-                    return Icon(
+                    return const Icon(
                       Icons.switch_camera,
                       color: Colors.white,
                     );

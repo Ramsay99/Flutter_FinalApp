@@ -26,25 +26,27 @@ class _ActiveTaskScreenState extends State<ActiveTaskScreen> {
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               List filteredDocumentSnapshot = [];
               if (snapshot.hasData && snapshot.data.docs.length != 0) {
-                if (filteredDocumentSnapshot.isEmpty) {} //! Add robot
                 for (int i = 0; i < snapshot.data.docs.length; i++) {
                   final document = snapshot.data!.docs[i];
                   if (document['status'] == 1 &&
-                      document['employee']['phone'] ==
-                          localUser.phoneNumber) {
+                      document['employee']['phone'] == localUser.phoneNumber) {
                     filteredDocumentSnapshot.add(document);
                   }
                 }
-                return ListView.builder(
-                  itemCount: filteredDocumentSnapshot.length,
-                  itemBuilder: (context, index) {
-                    return TaskCard(
-                      document: filteredDocumentSnapshot[index],
-                    );
-                  },
-                );
+                if (filteredDocumentSnapshot.isEmpty) {
+                  return const HappyRobot();
+                } else {
+                  return ListView.builder(
+                    itemCount: filteredDocumentSnapshot.length,
+                    itemBuilder: (context, index) {
+                      return TaskCard(
+                        document: filteredDocumentSnapshot[index],
+                      );
+                    },
+                  );
+                }
               } else {
-                return const SmileRobot();
+                return const LoadingRobot();
               }
             },
           ),

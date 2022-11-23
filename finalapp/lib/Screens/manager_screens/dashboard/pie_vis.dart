@@ -1,3 +1,4 @@
+import 'package:finalapp/widgets/default_text_box.dart';
 import 'package:flutter/material.dart';
 import 'package:graphx/graphx.dart';
 
@@ -23,9 +24,15 @@ class PieChartWidget extends StatelessWidget {
     }
     return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Text("Products are: \n $dataMapTextTestValues"),
+          const Text(
+            "Most sold products",
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 20,
+            ),
+          ),
+          const SizedBox(height: 50),
           Container(
             color: Colors.grey.withOpacity(.06),
             width: 300,
@@ -38,6 +45,11 @@ class PieChartWidget extends StatelessWidget {
               ),
             ),
           ),
+          const SizedBox(height: 50),
+          DefaultTextBox(
+            text: dataMapTextTestValues,
+            title: "Products",
+          )
         ],
       ),
     );

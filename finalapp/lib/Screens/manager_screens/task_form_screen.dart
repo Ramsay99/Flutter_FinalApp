@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import '../../Utility/global_variables.dart';
-import '../../Utility/utility_barrel.dart';
-import '../../Widgets/widgets_barrel.dart';
-import '../../style/style_barrel.dart';
+import 'package:finalapp/utility/utility_barrel.dart';
+import 'package:finalapp/widgets/widgets_barrel.dart';
+import 'package:finalapp/style/style_barrel.dart';
 
 class TaskFormScreen extends StatefulWidget {
   const TaskFormScreen({Key? key}) : super(key: key);
