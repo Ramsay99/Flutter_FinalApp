@@ -70,6 +70,9 @@ dependencies:
   flutter_translate: ^4.0.3
   google_maps_flutter_web: ^0.4.0+3
   pointer_interceptor: ^0.9.3+3
+  flutter_mobx: ^2.0.6+5
+  cupertino_list_tile: ^0.2.1
+  flutter_chat_bubble: ^2.0.0
 
 dev_dependencies:
   flutter_test:
