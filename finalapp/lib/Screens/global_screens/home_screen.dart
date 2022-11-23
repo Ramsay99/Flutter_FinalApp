@@ -53,11 +53,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _showBottomNav() {
     return Container(
-      height: 135,
+      height: 70,
       color: oxford_blue_tint_2,
       child: Column(
         children: [
-          const BottomToggleButtons(),
+          // const BottomToggleButtons(),
           GNav(
             tabs: [..._items],
             onTabChange: _onTap,

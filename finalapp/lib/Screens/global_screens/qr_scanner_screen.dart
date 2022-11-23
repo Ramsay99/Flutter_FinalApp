@@ -13,7 +13,7 @@ class QrScannerScreen extends StatefulWidget {
 class _QrScannerScreenState extends State<QrScannerScreen> {
   final qrKey = GlobalKey(debugLabel: "QR");
   QRViewController? controller;
-
+  // Uri _url = Uri.parse('https://flutter.dev');
   Barcode? barcode;
   @override
   void dispose() {
@@ -35,15 +35,26 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
-        body: Stack(
-          alignment: Alignment.center,
-          children: [
-            buildQrView(context),
-            Positioned(bottom: 10, child: showLink()),
-            Positioned(top: 10, child: controllerButtons())
-          ],
-        ));
+        body: SafeArea(
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          buildQrView(context),
+          Positioned(bottom: 10, child: showLink()),
+          Positioned(top: 10, child: controllerButtons()),
+          Positioned(
+              top: 10,
+              left: 20,
+              child: IconButton(
+                icon: Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.white,
+                ),
+                onPressed: () => Navigator.pop(context),
+              ))
+        ],
+      ),
+    ));
   }
 
   Widget buildQrView(BuildContext context) => QRView(
@@ -56,12 +67,22 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
             borderColor: Colors.blue,
             cutOutSize: MediaQuery.of(context).size.width * 0.8),
       );
+  Future<void> _launchUrl() async {
+    if (!await launchUrl(_url)) {
+      throw 'Could not launch $_url';
+    }
+  }
 
+  Uri _url = Uri.parse('https://flutter.dev');
   void onQRViewCreated(QRViewController controller) {
     setState(() => this.controller = controller);
 
-    controller.scannedDataStream
-        .listen((Barcode) => setState(() => this.barcode = Barcode));
+    controller.scannedDataStream.listen((Barcode) => setState(() {
+          this.barcode = Barcode;
+          print(barcode);
+          _url = Uri.parse(barcode!.code!);
+          _launchUrl();
+        }));
   }
 
   Widget showLink() => Container(
@@ -69,7 +90,7 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
             color: Colors.white30, borderRadius: BorderRadius.circular(10)),
         padding: EdgeInsets.all(20),
         child: Text(
-          barcode != null ? "Result : ${barcode!.code}" : "Scan a code ",
+          "Scan a code ",
           style: TextStyle(color: Colors.white),
           maxLines: 3,
         ),

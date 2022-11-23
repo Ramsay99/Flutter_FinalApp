@@ -72,11 +72,11 @@ class _MapChartWidgetState extends State<MapChartWidget> {
         _defaultCity(_saltMapImage, widget.firestoreData['Salt']),
         _defaultCity(_zarqaMapImage, widget.firestoreData['Zarqa']),
         _defaultCity(_madabaMapImage, widget.firestoreData['Madaba']),
-        _defaultCity(_ammanMapImage, 5),
+        _defaultCity(_ammanMapImage, widget.firestoreData['Amman']),
         _defaultCity(_karakMapImage, widget.firestoreData['Kerak']),
         _defaultCity(_tafelaMapImage, widget.firestoreData['Tafela']),
         _defaultCity(_maanMapImage, widget.firestoreData['Maan']),
-        _defaultCity(_aqabaMapImage, 2),
+        _defaultCity(_aqabaMapImage, widget.firestoreData['Aqaba']),
       ],
     );
   }
