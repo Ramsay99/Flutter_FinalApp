@@ -20,7 +20,19 @@ class TaskInfoScreen extends StatefulWidget {
 class _TaskInfoScreenState extends State<TaskInfoScreen> {
   @override
   Widget build(BuildContext context) {
-    print(widget.document.data());
+    String? status;
+    switch (widget.document['status']) {
+      case 0:
+        status = "Processing";
+        break;
+      case 1:
+        status = "Out for delivery";
+        break;
+      case 2:
+        status = "Delivered";
+        break;
+    }
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -81,6 +93,17 @@ class _TaskInfoScreenState extends State<TaskInfoScreen> {
                       text: widget.document['note'],
                       title: "Note",
                     ),
+                    DefaultTextBox(
+                      text: status!,
+                      title: "Status",
+                    ),
+                    Visibility(
+                      visible: widget.document['status'] >= 1 ? true : false,
+                      child: DefaultTextBox(
+                        text: widget.document['employee']['name'],
+                        title: "Driver",
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -127,26 +150,46 @@ class _TaskInfoScreenState extends State<TaskInfoScreen> {
                     ),
                   ],
                 ),
-                Visibility(
-                  visible: role,
-                  child: DefaultButton(
-                    label: "Delete",
-                    color: red_tint_1,
-                    onTap: () {
-                      ErrorAlertWidget(
-                        context,
-                        "Delete Task?",
-                        "Are you sure you would like to cancel this schedule?",
-                        "Delete",
-                        () {
-                          taskCollection.doc(widget.document.id).delete();
-                          Navigator.of(context)
-                            ..pop()
-                            ..pop();
+                Stack(
+                  children: [
+                    Visibility(
+                      maintainState: true,
+                      visible: !role && widget.document['status'] == 0
+                          ? true
+                          : false,
+                      child: DefaultButton(
+                        label: "Claim",
+                        onTap: () {
+                          OrganizationService().updateTaskData({
+                            "name": localUser.name,
+                            "phone": localUser.phoneNumber,
+                          }, 1, widget.document.id);
+                          Navigator.pop(context);
                         },
-                      );
-                    },
-                  ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: role,
+                      child: DefaultButton(
+                        label: "Delete",
+                        color: red_tint_1,
+                        onTap: () {
+                          ErrorAlertWidget(
+                            context,
+                            "Delete Task?",
+                            "Are you sure you would like to cancel this schedule?",
+                            "Delete",
+                            () {
+                              taskCollection.doc(widget.document.id).delete();
+                              Navigator.of(context)
+                                ..pop()
+                                ..pop();
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 )
               ],
             )

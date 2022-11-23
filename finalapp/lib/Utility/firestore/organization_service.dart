@@ -37,6 +37,8 @@ class OrganizationService {
     String productID,
     String date,
     String city,
+    Map employee,
+    int status,
     List<double> location,
   ) async {
     FirebaseFirestore.instance
@@ -52,7 +54,27 @@ class OrganizationService {
         "productID": productID,
         "date": date,
         "area": city,
-        "location": location
+        "location": location,
+        "status": status,
+        "employee": employee,
+      },
+    );
+  }
+
+  updateTaskData(
+    Map employee,
+    int status,
+    String taskID,
+  ) async {
+    FirebaseFirestore.instance
+        .collection(localUser.organization.name)
+        .doc('data')
+        .collection('tasks')
+        .doc(taskID)
+        .update(
+      {
+        "status": status,
+        "employee": employee,
       },
     );
   }

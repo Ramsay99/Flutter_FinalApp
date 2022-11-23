@@ -179,6 +179,8 @@ class TaskForm extends State<TaskFormScreen> {
                           productController!.text,
                           datePickerBController!.text,
                           cityController!.text,
+                          {"name":"","phone":""},
+                          0,
                           [globalLat, globalLng],
                         );
                         Navigator.pop(context);

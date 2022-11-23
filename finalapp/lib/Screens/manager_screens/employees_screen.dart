@@ -53,54 +53,52 @@ class _EState extends State<EmployeesScreen> {
               visible: isSelected[0],
               child: Padding(
                 padding: const EdgeInsets.only(top: 60),
-                child: Expanded(
-                  child: StreamBuilder(
-                    stream: UserService().getOrgEmployees(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState != ConnectionState.active) {
-                        return const LoadingIndicatorWidget();
-                      }
-                      return ListView.separated(
-                        itemCount: snapshot.data!.docs.length,
-                        itemBuilder: (context, index) {
-                          final DocumentSnapshot documentSnapshot =
-                              snapshot.data!.docs[index];
-                          return SizedBox(
-                            height: 70,
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.pushNamed(
-                                  context,
-                                  "/employeeInfo",
-                                  arguments: documentSnapshot,
-                                );
-                              },
-                              child: ListTile(
-                                leading: SvgPicture.asset(
-                                  height: 50,
-                                  width: 50,
-                                  'assets/svg/Avatar.svg',
-                                  semanticsLabel: 'Avatar',
-                                  fit: BoxFit.fill,
-                                ),
-                                title: Text(
-                                  documentSnapshot['name'],
-                                ),
-                                subtitle: Text(
-                                  documentSnapshot['email'],
-                                ),
-                                trailing: Text(
-                                  documentSnapshot['phone'],
-                                ),
+                child: StreamBuilder(
+                  stream: UserService().getOrgEmployees(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState != ConnectionState.active) {
+                      return const LoadingIndicatorWidget();
+                    }
+                    return ListView.separated(
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (context, index) {
+                        final DocumentSnapshot documentSnapshot =
+                            snapshot.data!.docs[index];
+                        return SizedBox(
+                          height: 70,
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                "/employeeInfo",
+                                arguments: documentSnapshot,
+                              );
+                            },
+                            child: ListTile(
+                              leading: SvgPicture.asset(
+                                height: 50,
+                                width: 50,
+                                'assets/svg/Avatar.svg',
+                                semanticsLabel: 'Avatar',
+                                fit: BoxFit.fill,
+                              ),
+                              title: Text(
+                                documentSnapshot['name'],
+                              ),
+                              subtitle: Text(
+                                documentSnapshot['email'],
+                              ),
+                              trailing: Text(
+                                documentSnapshot['phone'],
                               ),
                             ),
-                          );
-                        },
-                        separatorBuilder: (BuildContext context, int index) =>
-                            const Divider(thickness: 1),
-                      );
-                    },
-                  ),
+                          ),
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) =>
+                          const Divider(thickness: 1),
+                    );
+                  },
                 ),
               )),
           Visibility(
