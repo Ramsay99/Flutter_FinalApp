@@ -139,7 +139,8 @@ class _DashboardState extends State<DashboardScreen> {
           width: MediaQuery.of(context).size.width,
           alignment: Alignment.center,
           padding: const EdgeInsets.all(4),
-          margin: const EdgeInsets.only(top: 10, bottom: 10, left: 25, right: 25),
+          margin:
+              const EdgeInsets.only(top: 10, bottom: 10, left: 25, right: 25),
           decoration: BoxDecoration(
             border: Border.all(color: light_blue_tint_1, width: 1),
             borderRadius: BorderRadius.circular(5),
@@ -152,7 +153,8 @@ class _DashboardState extends State<DashboardScreen> {
             color: Colors.white,
             selectedColor: Colors.white,
             borderRadius: BorderRadius.circular(5),
-            textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w200),
+            textStyle:
+                const TextStyle(fontSize: 15, fontWeight: FontWeight.w200),
             constraints: const BoxConstraints(minWidth: 111, minHeight: 28),
             onPressed: (int newIndex) {
               setState(
