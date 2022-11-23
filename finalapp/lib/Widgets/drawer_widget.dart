@@ -88,7 +88,9 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           DrawerTile(
             icon: FontAwesomeIcons.circleInfo,
             text: translate("about"),
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, "/objectImage");
+            },
           ),
         ],
       ),

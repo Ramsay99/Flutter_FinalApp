@@ -94,7 +94,7 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
             color: Colors.white30, borderRadius: BorderRadius.circular(10)),
         padding: const EdgeInsets.all(20),
         child: const Text(
-          "Scan a code ",
+          "Scan Code",
           style: TextStyle(color: Colors.white),
           maxLines: 3,
         ),

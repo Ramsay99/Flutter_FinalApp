@@ -23,49 +23,57 @@ class SettingsScreen extends StatelessWidget {
         padding: const EdgeInsets.all(12),
 
         // ignore: prefer_const_literals_to_create_immutables
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(
-            translate("drawer.settings"),
-            style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
-          ),
-          Divider(
-            thickness: 1.5,
-          ),
-          const SizedBox(
-            height: 50,
-          ),
-          Row(
-            children: [
-              IconButton(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              translate("drawer.settings"),
+              style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+            ),
+            Divider(
+              thickness: 1.5,
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+            Row(
+              children: [
+                IconButton(
                   onPressed: () {
                     _onActionSheetPress(context);
                   },
-                  icon: Icon(Icons.language)),
-              TextButton(
+                  icon: Icon(Icons.language),
+                ),
+                TextButton(
                   onPressed: () {
                     _onActionSheetPress(context);
                   },
                   child: Text(
                     translate("language.language"),
-                    style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
-                  )),
-            ],
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Row(
-            children: [
-              IconButton(onPressed: () {}, icon: Icon(Icons.color_lens_sharp)),
-              TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    translate("theme"),
-                    style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
-                  )),
-            ],
-          ),
-        ]),
+                    style: TextStyle(
+                      fontSize: 19,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            // const SizedBox(
+            //   height: 10,
+            // ),
+            // Row(
+            //   children: [
+            //     IconButton(onPressed: () {}, icon: Icon(Icons.color_lens_sharp)),
+            //     TextButton(
+            //         onPressed: () {},
+            //         child: Text(
+            //           translate("theme"),
+            //           style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+            //         )),
+            //   ],
+            // ),
+          ],
+        ),
       ),
     );
   }

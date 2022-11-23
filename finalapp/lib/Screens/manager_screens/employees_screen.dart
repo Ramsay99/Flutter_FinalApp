@@ -41,7 +41,7 @@ class _EState extends State<EmployeesScreen> {
                 color: oxford_blue_tint_2,
                 width: 145,
                 onTap: () {
-                  Navigator.pushNamed(context, "/employeeForm");
+                  Navigator.pushNamed(context, "/importFile");
                 },
               ),
             ],

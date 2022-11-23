@@ -2,10 +2,6 @@
 import 'package:finalapp/style/style_barrel.dart';
 import 'package:finalapp/utility/authentication/auth_service.dart';
 import 'package:flutter/material.dart';
-import 'package:file_picker/file_picker.dart';
-import 'dart:io';
-import 'dart:convert';
-import 'package:csv/csv.dart';
 import 'package:finalapp/widgets/widgets_barrel.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -229,34 +225,6 @@ class EmployeeForm extends State<EmployeeFormScreen> {
           );
         },
       ),
-    );
-  }
-
-  // Bug: While importing an Excel file, it displays todays data.
-  //      However, the expected date value should be as it set in the Excel file.
-  // Why this Bug exist: [Ramzi]: because CSV file only uses one DateTime EmploeeForm,
-  // meanwhile this '_dateOfBirth' TextField EmploeeForm is different
-  // How it can be solved: [Ramzi]: using a EmploeeFormter here to convert the EmploeeForm taken
-  // from CSV file to this TextField
-  // When to work on: [Ramzi]: after Designing; to chose the best DateTime EmploeeForm.
-  importCSV() async {
-    final result = await FilePicker.platform.pickFiles(allowMultiple: false);
-    if (result == null) return;
-    String filePath = result.files.first.path!;
-    final input = File(filePath).openRead();
-    final fields = await input
-        .transform(utf8.decoder)
-        .transform(const CsvToListConverter())
-        .toList();
-    setState(
-      () {
-        nameController!.text = fields[1][0];
-        emailController!.text = fields[1][1];
-        passwordController!.text = "PassWord Rand/Def";
-        phoneNumberController!.text = fields[1][2].toString();
-        datePickerBController!.text = fields[1][3].toString();
-        // checkboxesControler = check where fields[1][].contains checkboxList // sm like that
-      },
     );
   }
 }

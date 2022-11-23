@@ -54,9 +54,21 @@ class _MapChartWidgetState extends State<MapChartWidget> {
     }
 
     return Center(
-      child: SizedBox(
-        height: MediaQuery.of(context).size.height / 1.25,
-        child: _Map(mapCol),
+      child: Column(
+        children: [
+          const Text(
+            "Choropleth map of purchase delivery locations",
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 17,
+            ),
+          ),
+          const SizedBox(height: 50),
+          SizedBox(
+            height: 400,
+            child: _Map(mapCol),
+          )
+        ],
       ),
     );
   }
