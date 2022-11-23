@@ -104,7 +104,7 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
                   );
                   // print(
                   //     "Location ${cameraPosition.target.latitude} ${cameraPosition.target.longitude}");
-                  mapPickerAddress.text = addressController.text;
+                  mapPickerAddress = addressController;
                   globalLng = cameraPosition.target.longitude;
                   globalLat = cameraPosition.target.latitude;
                   Navigator.pop(context);

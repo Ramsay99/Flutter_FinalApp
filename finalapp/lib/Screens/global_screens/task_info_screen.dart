@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:finalapp/Screens/global_screens/chat/people.dart';
 import 'package:finalapp/utility/utility_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:finalapp/style/style_barrel.dart';
@@ -110,6 +111,17 @@ class _TaskInfoScreenState extends State<TaskInfoScreen> {
             ),
             Column(
               children: [
+                DefaultButton(
+                  label: "Message",
+                  color: oxford_blue_tint_2,
+                  width: 145,
+                  onTap: () async {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const People()),
+                    );
+                  },
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
