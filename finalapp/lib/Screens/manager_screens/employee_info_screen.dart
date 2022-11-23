@@ -78,27 +78,26 @@ class _EmployeeInfoScreenState extends State<EmployeeInfoScreen> {
                   ),
                 ),
               ),
-              Column(
-                children: [
-                  DefaultButton(
-                    label: "Delete Account",
-                    color: red_tint_1,
-                    onTap: () {
-                      ErrorAlertWidget(
-                        context,
-                        "Delete Account?",
-                        "Are you sure you would like to delete this account?",
-                        "Delete",
-                        () {
-                          users.doc(widget.document['uid']).delete();
-                          Navigator.of(context)
-                            ..pop()
-                            ..pop();
-                        },
-                      );
-                    },
-                  )
-                ],
+              Visibility(
+                visible: widget.document['role'] == 0,
+                child: DefaultButton(
+                  label: "Delete Account",
+                  color: red_tint_1,
+                  onTap: () {
+                    ErrorAlertWidget(
+                      context,
+                      "Delete Account?",
+                      "Are you sure you would like to delete this account?",
+                      "Delete",
+                      () {
+                        users.doc(widget.document['uid']).delete();
+                        Navigator.of(context)
+                          ..pop()
+                          ..pop();
+                      },
+                    );
+                  },
+                ),
               )
             ],
           ),
