@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:finalapp/style/style_barrel.dart';
@@ -29,7 +30,7 @@ class _TaskScreenState extends State<TaskScreen> {
               Visibility(
                 visible: role,
                 child: DefaultButton(
-                  label: "Schedule",
+                  label: translate("schedule"),
                   onTap: () {
                     Navigator.pushNamed(context, "/taskForm");
                   },
@@ -121,7 +122,8 @@ class _TaskScreenState extends State<TaskScreen> {
                 width: MediaQuery.of(context).size.width,
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(4),
-                margin: const EdgeInsets.only(top: 10, bottom: 10, left: 25, right: 25),
+                margin: const EdgeInsets.only(
+                    top: 10, bottom: 10, left: 25, right: 25),
                 decoration: BoxDecoration(
                   border: Border.all(color: light_blue_tint_1, width: 1),
                   borderRadius: BorderRadius.circular(5),
@@ -155,9 +157,9 @@ class _TaskScreenState extends State<TaskScreen> {
                       },
                     );
                   },
-                  children: const <Widget>[
-                    Text("Tasks"),
-                    Text("History"),
+                  children: <Widget>[
+                    Text(translate("tasks")),
+                    Text(translate("history")),
                   ],
                 ),
               ),

@@ -108,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         alignment: Alignment.centerRight,
                         child: TextButton(
                           child: Text(
-                            translate('forgotPassword'),
+                            translate('forgotpassword'),
                             style: const TextStyle(
                               color: blue_tint_1,
                               fontSize: 13,
@@ -138,7 +138,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     DefaultButton(
                       color: oxford_blue_tint_2,
                       label: translate("button.contact-us"),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(context, "/contactUs");
+                      },
                     ),
                     Wrap(
                       spacing: 8,

@@ -9,6 +9,7 @@ export 'global_screens/home_screen.dart';
 export 'global_screens/task_screen.dart';
 export 'global_screens/task_info_screen.dart';
 export 'global_screens/report_bug_screen.dart';
+export 'global_screens/contact_us.dart';
 // export 'package:finalapp/Screens/global_screens/settings_screen.dart';
 
 /// Exporting all the screens in the manager_screens folder.

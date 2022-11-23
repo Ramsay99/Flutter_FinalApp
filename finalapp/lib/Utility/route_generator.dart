@@ -17,6 +17,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const SelectLocationScreen());
       case '/settings':
         return MaterialPageRoute(builder: (_) => const SettingsScreen());
+      case '/contactUs':
+        return MaterialPageRoute(builder: (_) => ContactUs());
       case '/resetPassword':
         return MaterialPageRoute(builder: (_) => const ForgotPasswordScreen());
       case '/reportBug':

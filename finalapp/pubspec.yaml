@@ -73,6 +73,8 @@ dependencies:
   flutter_mobx: ^2.0.6+5
   cupertino_list_tile: ^0.2.1
   flutter_chat_bubble: ^2.0.0
+  iconsax: ^0.0.8
+  ionicons: ^0.2.1
 
 dev_dependencies:
   flutter_test:

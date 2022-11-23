@@ -17,7 +17,7 @@
     "sign-in": "Sign-In",
     "contact-us": "Contact Us"
   },
-  "forgotPassword": "Forgot password?",
+  "forgotpassword": "Forgot password?",
   "login": "Login",
   "sign-up": "Sign Up",
   "language": {
@@ -46,4 +46,10 @@
   "theme": "Theme",
   "report": "Report an issue",
   "about": "About"
+  ,"address":"Address"
+   ,"area":"Area"
+   ,"product":"Product"
+   ,"schedule":"Schedule"
+     ,"history":"History"
+   ,"tasks":"Tasks"
 }
