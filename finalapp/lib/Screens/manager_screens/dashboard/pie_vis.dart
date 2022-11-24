@@ -11,46 +11,49 @@ class PieChartWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<dynamic, dynamic> dataMapTestValues = {
-      "LG": 100,
-      "Samsung": 50,
-      "Apple": 30,
-      "Potato": 20
-    };
+    // Map<dynamic, dynamic> dataMapTestValues = {
+    //   "LG": 100,
+    //   "Samsung": 50,
+    //   "Apple": 30,
+    //   "Potato": 20
+    // };
     String dataMapTextTestValues = "";
     for (var i = 0; i < firestoreData.length; i++) {
       dataMapTextTestValues +=
           "${firestoreData.keys.elementAt(i)}:${firestoreData.values.elementAt(i)}\n";
     }
     return Center(
-      child: Column(
-        children: [
-          const Text(
-            "Most sold products",
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 20,
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            const Text(
+              "Most sold products",
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 20,
+              ),
             ),
-          ),
-          const SizedBox(height: 50),
-          Container(
-            color: Colors.grey.withOpacity(.06),
-            width: 300,
-            height: 300,
-            child: SceneBuilderWidget(
-              builder: () => SceneController(
-                front: PieChartScene(
-                  firestoreData.values.toList(),
+            const SizedBox(height: 30),
+            SizedBox(
+              width: 300,
+              height: 300,
+              child: SceneBuilderWidget(
+                builder: () => SceneController(
+                  front: PieChartScene(
+                    firestoreData.values.toList(),
+                  ),
                 ),
               ),
             ),
-          ),
-          const SizedBox(height: 50),
-          DefaultTextBox(
-            text: dataMapTextTestValues,
-            title: "Products",
-          )
-        ],
+            const SizedBox(height: 30),
+            DefaultTextBox(
+              text: dataMapTextTestValues,
+              title: "Products",
+            ),
+            const SizedBox(height: 70),
+          ],
+        ),
       ),
     );
   }
